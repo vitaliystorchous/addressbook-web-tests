@@ -4,8 +4,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.stqa.pft.addressbook.model.LoginData;
 
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
@@ -18,6 +20,7 @@ public class ApplicationManager {
     String password = "qweriuyt";
     public String pageName = "Test page";
     Dimension dimension = new Dimension(1920, 1024);
+    private PageEditorHelper pageEditorHelper;
 
     public void init() {
         wd = new ChromeDriver();
@@ -27,6 +30,7 @@ public class ApplicationManager {
         menuEditorHelper = new MenuEditorHelper(wd);
         navigationHelper = new NavigationHelper(wd);
         sessionHelper = new SessionHelper(wd);
+        pageEditorHelper = new PageEditorHelper(wd);
         sessionHelper.login(new LoginData(login, password));
     }
 
@@ -39,17 +43,18 @@ public class ApplicationManager {
         wd.findElement(By.cssSelector(".site-menu-action-header li:nth-child(3)")).click();
         wd.findElement(By.cssSelector(".page-type-modal-input")).sendKeys(pageName);
         wd.findElement(By.cssSelector(".btn-primarycolor")).click();
+
     }
 
     public void stop() {
         wd.quit();
     }
 
-    public MenuEditorHelper getMenuEditorHelper() {
-        return menuEditorHelper;
-    }
+    public MenuEditorHelper getMenuEditorHelper() { return menuEditorHelper; }
 
     public NavigationHelper getNavigationHelper() {
         return navigationHelper;
     }
+
+    public PageEditorHelper getPageEditorHelper() { return pageEditorHelper; }
 }

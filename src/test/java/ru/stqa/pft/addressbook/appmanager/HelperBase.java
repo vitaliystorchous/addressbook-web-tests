@@ -3,6 +3,7 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class HelperBase {
@@ -27,5 +28,17 @@ public class HelperBase {
         } catch (NoAlertPresentException e) {
             return false;
         }
+    }
+
+    protected void switchFrame(WebElement frameElement) {
+        wd.switchTo().frame(frameElement);
+    }
+
+    protected void switchToBaseFrame() {
+        wd.switchTo().defaultContent();
+    }
+
+    protected WebElement getElement(By locator) {
+        return wd.findElement(locator);
     }
 }

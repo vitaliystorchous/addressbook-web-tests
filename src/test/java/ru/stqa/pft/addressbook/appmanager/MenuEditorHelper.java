@@ -23,4 +23,8 @@ public class MenuEditorHelper extends HelperBase {
         type(By.id("page-title"), "qwer Test page");
         click(By.cssSelector(".btn-primarycolor"));
     }
+
+    public void openSelectedPageInPageEditor(String pageName) {
+        click(By.xpath("//span[contains(.,\"" + pageName + "\")]/../..//a[@class=\"pages-editor-item__edit-button text-12\"]"));
+    }
 }
