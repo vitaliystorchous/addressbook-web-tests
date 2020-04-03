@@ -9,16 +9,18 @@ public class MenuEditorHelper extends HelperBase {
         super(wd);
     }
 
-    public void deleteSelectedPage() {
+    private void clickMoreOptions(String pageName) {
+        click(By.xpath("//span[contains(.,\"" + pageName +"\")]/../..//button"));
+    }
+
+    public void deleteSelectedPage(String pageName) {
+        clickMoreOptions(pageName);
         click(By.cssSelector(".site-menu-editor-item-actions__action-link--delete-permanently"));
         click(By.cssSelector(".btn-red"));
     }
 
-    public void clickMoreOptions(String pageName) {
-        click(By.xpath("//span[contains(.,\"" + pageName +"\")]/../..//button"));
-    }
-
-    public void renameSelectedPage() {
+    public void renameSelectedPage(String pageName) {
+        clickMoreOptions(pageName);
         click(By.xpath("//span[contains(.,'Rename')]"));
         type(By.id("page-title"), "qwer Test page");
         click(By.cssSelector(".btn-primarycolor"));
@@ -26,5 +28,15 @@ public class MenuEditorHelper extends HelperBase {
 
     public void openSelectedPageInPageEditor(String pageName) {
         click(By.xpath("//span[contains(.,\"" + pageName + "\")]/../..//a[@class=\"pages-editor-item__edit-button text-12\"]"));
+    }
+
+    public void setSelectedPageAsHomepage(String pageName) {
+        clickMoreOptions(pageName);
+        click(By.xpath("//span[contains(.,'Set as Homepage')]"));
+    }
+
+    public void addSelectedPageToMenu(String pageName) {
+        clickMoreOptions(pageName);
+        click(By.xpath("//span[contains(.,'Add to Menu')]"));
     }
 }

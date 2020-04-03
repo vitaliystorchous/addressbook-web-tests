@@ -8,7 +8,7 @@ public class CreateCustomPage extends TestBase {
     @Test
     public void theTest() {
         app.getNavigationHelper().goToPagesPage();
-        app.createCustomPage(app.pageName);
+        app.createCustomPage(app.customPageName);
         app.goBackToPagesFromPageEditor();
     }
 

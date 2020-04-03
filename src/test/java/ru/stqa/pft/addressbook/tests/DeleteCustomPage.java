@@ -7,8 +7,7 @@ public class DeleteCustomPage extends TestBase {
     @Test
     public void theTest() {
         app.getNavigationHelper().goToPagesPage();
-        app.getMenuEditorHelper().clickMoreOptions(app.pageName);
-        app.getMenuEditorHelper().deleteSelectedPage();
+        app.getMenuEditorHelper().deleteSelectedPage(app.customPageName);
     }
 
 }

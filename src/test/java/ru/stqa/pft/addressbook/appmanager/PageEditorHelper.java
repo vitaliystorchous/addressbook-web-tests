@@ -1,6 +1,7 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -16,4 +17,18 @@ public class PageEditorHelper extends HelperBase {
         click(By.cssSelector(".btn_save"));
     }
 
+    public void editTextOfFirstTextSection() {
+        switchFrame(getElement(By.id("editorFrame")));
+        click(By.id("title_1"));
+        editElementsContent(getElement(By.id("title_1")), "test");
+        switchToBaseFrame();
+        click(By.cssSelector(".btn_save"));
+    }
+
+    public void deleteFirstTextSection() {
+        switchFrame(getElement(By.id("editorFrame")));
+        click(By.cssSelector(".delete_module"));
+        switchToBaseFrame();
+        click(By.cssSelector(".btn_save"));
+    }
 }
