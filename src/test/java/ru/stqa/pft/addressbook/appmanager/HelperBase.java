@@ -34,6 +34,24 @@ public class HelperBase {
         }
     }
 
+    public boolean isElementPresent(By locator) {
+        try {
+            wd.findElement(locator);
+            return true;
+        } catch (NoSuchElementException ex) {
+            return false;
+        }
+    }
+
+    public boolean isElementPresent(String byText) {
+        try {
+            wd.findElement(By.xpath("//*[contains(., '" + byText + "')]"));
+            return true;
+        } catch (NoSuchElementException ex) {
+            return false;
+        }
+    }
+
     protected void switchFrame(WebElement frameElement) {
         wd.switchTo().frame(frameElement);
     }

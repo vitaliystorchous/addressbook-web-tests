@@ -1,5 +1,6 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 
@@ -10,6 +11,7 @@ public class CreateCustomPage extends TestBase {
         app.getNavigationHelper().goToPagesPage();
         app.getMenuEditorHelper().createCustomPage(app.customPageName);
         app.goBackToPagesFromPageEditor();
+        Assert.assertTrue(app.getMenuEditorHelper().isElementPresent(app.customPageName));
     }
 
 }

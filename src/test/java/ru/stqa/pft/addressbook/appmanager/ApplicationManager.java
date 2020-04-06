@@ -21,7 +21,7 @@ public class ApplicationManager {
     private MenuEditorHelper menuEditorHelper;
     String login = "rufjtigk+80@gmail.com";
     String password = "qweriuyt";
-    public String customPageName = "Test custom page";
+    public String customPageName = "Test custom page (*Selenium*)";
     Dimension dimension = new Dimension(1920, 1024);
     private PageEditorHelper pageEditorHelper;
     private String browser;

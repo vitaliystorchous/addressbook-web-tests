@@ -8,5 +8,6 @@ public class RenameCustomPage extends TestBase {
     public void testRenameCustomPage() {
         app.getNavigationHelper().goToPagesPage();
         app.getMenuEditorHelper().renameSelectedPage(app.customPageName);
+
     }
 }
