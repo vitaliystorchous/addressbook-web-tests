@@ -22,7 +22,7 @@ public class MenuEditorHelper extends HelperBase {
     public void renameSelectedPage(String pageName) {
         clickMoreOptions(pageName);
         click(By.xpath("//span[contains(.,'Rename')]"));
-        type(By.id("page-title"), "qwer Test page");
+        type(By.id("page-title"), "Renamed test custom page");
         click(By.cssSelector(".btn-primarycolor"));
     }
 
@@ -38,5 +38,12 @@ public class MenuEditorHelper extends HelperBase {
     public void addSelectedPageToMenu(String pageName) {
         clickMoreOptions(pageName);
         click(By.xpath("//span[contains(.,'Add to Menu')]"));
+    }
+
+    public void createCustomPage(String pageName) {
+        click(By.xpath("//button[@class=\"btn\"]"));
+        click(By.cssSelector(".site-menu-action-header li:nth-child(3)"));
+        type(By.cssSelector(".page-type-modal-input"), pageName);
+        click(By.cssSelector(".btn-primarycolor"));
     }
 }
