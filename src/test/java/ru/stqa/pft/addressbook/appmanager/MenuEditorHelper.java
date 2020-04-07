@@ -19,10 +19,10 @@ public class MenuEditorHelper extends HelperBase {
         click(By.cssSelector(".btn-red"));
     }
 
-    public void renameSelectedPage(String pageName) {
+    public void renameSelectedPage(String pageName, String newName) {
         clickMoreOptions(pageName);
         click(By.xpath("//span[contains(.,'Rename')]"));
-        type(By.id("page-title"), "Renamed test custom page");
+        type(By.id("page-title"), newName);
         click(By.cssSelector(".btn-primarycolor"));
     }
 
@@ -45,5 +45,6 @@ public class MenuEditorHelper extends HelperBase {
         click(By.cssSelector(".site-menu-action-header li:nth-child(3)"));
         type(By.cssSelector(".page-type-modal-input"), pageName);
         click(By.cssSelector(".btn-primarycolor"));
+        isElementPresent(By.cssSelector(".page-editor-header--custom-page"));
     }
 }

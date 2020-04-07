@@ -10,7 +10,7 @@ public class CreateCustomPage extends TestBase {
     public void theTest() {
         app.getNavigationHelper().goToPagesPage();
         app.getMenuEditorHelper().createCustomPage(app.customPageName);
-        app.goBackToPagesFromPageEditor();
+        app.getNavigationHelper().goToPagesPage();
         Assert.assertTrue(app.getMenuEditorHelper().isElementPresent(app.customPageName));
     }
 

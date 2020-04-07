@@ -9,6 +9,10 @@ public class PageEditorHelper extends HelperBase {
 
     public PageEditorHelper(WebDriver wd) { super(wd); }
 
+    public void goBackToPagesFromPageEditor() {
+        wd.findElement(By.cssSelector(".whitespace-no-wrap")).click();
+    }
+
     public void addFirstTextSection() {
         switchFrame(getElement(By.id("editorFrame")));
         click(By.cssSelector(".js-btn-add-section"));
