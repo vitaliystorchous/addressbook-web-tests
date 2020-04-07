@@ -19,7 +19,7 @@ public class ApplicationManager {
     private WebDriver wd;
     private NavigationHelper navigationHelper;
     private MenuEditorHelper menuEditorHelper;
-    String login = "rufjtigk+80@gmail.com";
+    String login = "rufjtigk+81@gmail.com";
     String password = "qweriuyt";
     public String customPageName = "Test custom page (*Selenium*)";
     Dimension dimension = new Dimension(1920, 1024);
@@ -40,7 +40,7 @@ public class ApplicationManager {
         }
 
         wd.manage().window().setSize(dimension);
-        wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        wd.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         wd.get("https://www.format.com/");
         menuEditorHelper = new MenuEditorHelper(wd);
         navigationHelper = new NavigationHelper(wd);
