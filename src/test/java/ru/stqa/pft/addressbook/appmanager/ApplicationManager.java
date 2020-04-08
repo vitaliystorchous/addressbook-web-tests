@@ -50,7 +50,7 @@ public class ApplicationManager {
         }
 
         wd.manage().window().setSize(dimension);
-        wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+        wd.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         wd.get("https://www.format.com/");
         menuEditorHelper = new MenuEditorHelper(wd);
         navigationHelper = new NavigationHelper(wd);

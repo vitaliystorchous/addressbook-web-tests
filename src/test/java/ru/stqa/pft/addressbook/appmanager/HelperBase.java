@@ -11,7 +11,12 @@ public class HelperBase {
     }
 
     protected void click(By locator) {
-        wd.findElement(locator).click();
+        try {
+            wd.findElement(locator).click();
+            return;
+        } catch (NoSuchElementException ex) {
+            return;
+        }
     }
 
     protected void type(By locator, String text) {
