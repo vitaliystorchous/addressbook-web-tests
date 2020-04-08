@@ -4,13 +4,16 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.stqa.pft.addressbook.model.LoginData;
 
+import java.io.File;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
@@ -38,6 +41,12 @@ public class ApplicationManager {
             wd = new FirefoxDriver();
         } else if (browser.equals(BrowserType.IE)) {
             wd = new InternetExplorerDriver();
+        } else if (browser.equals(BrowserType.EDGE)) {
+            File file = new File("C:/Tools/msedgedriver.exe");
+            System.setProperty("webdriver.edge.driver", file.getAbsolutePath());
+            wd = new EdgeDriver();
+        } else if (browser.equals(BrowserType.OPERA_BLINK)) {
+            wd = new OperaDriver();
         }
 
         wd.manage().window().setSize(dimension);
