@@ -59,6 +59,8 @@ public class ApplicationManager {
         sessionHelper.login(new LoginData(login, password));
     }
 
+
+
     public void stop() {
         wd.quit();
     }

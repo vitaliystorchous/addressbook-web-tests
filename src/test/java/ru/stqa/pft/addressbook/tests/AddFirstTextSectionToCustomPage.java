@@ -7,6 +7,7 @@ public class AddFirstTextSectionToCustomPage extends TestBase {
     @Test
     public void theTest() {
         app.getNavigationHelper().goToPagesPage();
+        app.getMenuEditorHelper().checkCustomPagePresence(app.customPageName);
         app.getMenuEditorHelper().openSelectedPageInPageEditor(app.customPageName);
         app.getPageEditorHelper().addFirstTextSection();
     }

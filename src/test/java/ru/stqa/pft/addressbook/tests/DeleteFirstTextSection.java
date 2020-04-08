@@ -7,7 +7,10 @@ public class DeleteFirstTextSection extends TestBase {
     @Test
     public void theTest() {
         app.getNavigationHelper().goToPagesPage();
+        app.getMenuEditorHelper().checkCustomPagePresence(app.customPageName);
         app.getMenuEditorHelper().openSelectedPageInPageEditor(app.customPageName);
         app.getPageEditorHelper().deleteFirstTextSection();
     }
+
+
 }

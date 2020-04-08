@@ -10,10 +10,7 @@ public class RenameCustomPage extends TestBase {
     @Test
     public void testRenameCustomPage() {
         app.getNavigationHelper().goToPagesPage();
-        if(! app.getMenuEditorHelper().isElementPresent(app.customPageName)) {
-            app.getMenuEditorHelper().createCustomPage(app.customPageName);
-            app.getNavigationHelper().goToPagesPage();
-        }
+        app.getMenuEditorHelper().checkCustomPagePresence(app.customPageName);
         app.getMenuEditorHelper().renameSelectedPage(app.customPageName, newPageName);
         // нужно добавить проверку, этот вариант не работает правильно - Assert.assertTrue(app.getMenuEditorHelper().isElementPresent(newPageName));
         // он находит не тот элемент который нам нужен

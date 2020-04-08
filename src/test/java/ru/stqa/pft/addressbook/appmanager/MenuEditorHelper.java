@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 
 public class MenuEditorHelper extends HelperBase {
 
+    NavigationHelper navigationHelper = new NavigationHelper(wd);
+
     public MenuEditorHelper(WebDriver wd) {
         super(wd);
     }
@@ -46,5 +48,12 @@ public class MenuEditorHelper extends HelperBase {
         type(By.cssSelector(".page-type-modal-input"), pageName);
         click(By.cssSelector(".btn-primarycolor"));
         isElementPresent(By.cssSelector(".page-editor-header--custom-page"));
+    }
+
+    public void checkCustomPagePresence(String customPageName) {
+        if(! isElementPresent(customPageName)) {
+            createCustomPage(customPageName);
+            navigationHelper.goToPagesPage();
+        }
     }
 }
