@@ -1,17 +1,17 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class DeleteCustomPage extends TestBase {
+public class DeleteSelectedPage extends TestBase {
 
     @Test
     public void theTest() {
         app.getNavigationHelper().goToPagesPage();
-        app.getMenuEditorHelper().checkCustomPagePresence(app.customPageName);
         int before = app.getMenuEditorHelper().getPagesCount();
-        app.getMenuEditorHelper().deleteSelectedPage(app.customPageName);
+        // в методе deleteSelectedPage() по индексу нужно сделать проверку что это не блог и не магазин
+        // (что под этим индексом находится страница и ее можно удалить)
+        app.getMenuEditorHelper().deleteSelectedPage(before - 1);
         int after = app.getMenuEditorHelper().getPagesCount();
         Assert.assertEquals(after, before - 1);
         //Assert.assertTrue(app.getMenuEditorHelper().isElementPresent(By.cssSelector(".format-ui-toast-header")));

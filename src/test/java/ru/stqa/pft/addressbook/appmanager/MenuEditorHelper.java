@@ -15,8 +15,18 @@ public class MenuEditorHelper extends HelperBase {
         click(By.xpath("//span[contains(.,\"" + pageName +"\")]/../..//button"));
     }
 
+    private void clickMoreOptions(int index) {
+        wd.findElements(By.cssSelector(".site-menu-item-actions-cta--meatball-svg")).get(index).click();
+    }
+
     public void deleteSelectedPage(String pageName) {
         clickMoreOptions(pageName);
+        click(By.cssSelector(".site-menu-editor-item-actions__action-link--delete-permanently"));
+        click(By.cssSelector(".btn-red"));
+    }
+
+    public void deleteSelectedPage(int index) {
+        clickMoreOptions(index);
         click(By.cssSelector(".site-menu-editor-item-actions__action-link--delete-permanently"));
         click(By.cssSelector(".btn-red"));
     }
@@ -55,5 +65,9 @@ public class MenuEditorHelper extends HelperBase {
             createCustomPage(customPageName);
             navigationHelper.goToPagesPage();
         }
+    }
+
+    public int getPagesCount() {
+        return wd.findElements(By.cssSelector(".site-menu-editor-item")).size();
     }
 }

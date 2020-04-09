@@ -9,9 +9,12 @@ public class CreateCustomPage extends TestBase {
     @Test
     public void theTest() {
         app.getNavigationHelper().goToPagesPage();
+        int before = app.getMenuEditorHelper().getPagesCount();
         app.getMenuEditorHelper().createCustomPage(app.customPageName);
         app.getNavigationHelper().goToPagesPage();
-        Assert.assertTrue(app.getMenuEditorHelper().isElementPresent(app.customPageName));
+        int after = app.getMenuEditorHelper().getPagesCount();
+        Assert.assertEquals(after, before + 1);
+        //Assert.assertTrue(app.getMenuEditorHelper().isElementPresent(app.customPageName));
     }
 
 }
