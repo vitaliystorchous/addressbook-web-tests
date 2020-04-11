@@ -9,10 +9,8 @@ public class MenuEditorItem {
         SUBMENU,
         COLLECTION,
         BLOG,
-        BLOG_POST,
         PROOFING_PROJECT,
-        STORE,
-        STORE_PRODUCT
+        STORE
     }
 
     Type type;
@@ -22,13 +20,12 @@ public class MenuEditorItem {
     //нужно создать еще подклас, наследник данного класа, который будет содержать дополнительные атрибуты для элемента External link
 
 
-    //нужно закончить этот класс для прохождения 42 урока
     public MenuEditorItem(Type type, String name) {
         this.type = type;
         this.name = name;
         this.homepage = false;
         switch (type) {
-            case GALLERY: case CUSTOM_PAGE: case COLLECTION: case BLOG: case BLOG_POST: case PROOFING_PROJECT: case STORE: case STORE_PRODUCT:
+            case GALLERY: case CUSTOM_PAGE: case COLLECTION: case BLOG: case PROOFING_PROJECT: case STORE:
                 this.inMenu = false;
                 break;
 
@@ -46,10 +43,18 @@ public class MenuEditorItem {
         return  this.name;
     }
 
+    public void setHomepage(boolean value) {
+        this.homepage = value;
+    }
+
     public boolean isHomepage() {
         return this.homepage;
     }
-    
+
+    public void setInMenu(boolean value) {
+        this.inMenu = value;
+    }
+
     public boolean isInMenu() {
         return this.inMenu;
     }
