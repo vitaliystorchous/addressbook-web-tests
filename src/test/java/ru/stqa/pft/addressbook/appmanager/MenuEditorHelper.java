@@ -67,7 +67,7 @@ public class MenuEditorHelper extends HelperBase {
             case GALLERY: click(By.cssSelector(".site-menu-action-header li:nth-child(1)")); break;
             case COLLECTION: click(By.cssSelector(".site-menu-action-header li:nth-child(2)")); break;
             case CUSTOM_PAGE: click(By.cssSelector(".site-menu-action-header li:nth-child(3)")); break;
-            case BLOG: click(By.cssSelector(".site-menu-action-header li:nth-child(4)")); break;
+            case BLOG: case BLOG_POST: click(By.cssSelector(".site-menu-action-header li:nth-child(4)")); break;
             case EXTERNAL_LINK: click(By.cssSelector(".site-menu-action-header li:nth-child(5)")); break;
             case PROOFING_PROJECT: click(By.cssSelector(".site-menu-action-header li:nth-child(6)")); break;
             case SUBMENU: click(By.cssSelector(".site-menu-action-header li:nth-child(7)")); break;
@@ -75,8 +75,14 @@ public class MenuEditorHelper extends HelperBase {
         }
 
         switch (item.getType()) {
-            case GALLERY: case CUSTOM_PAGE: case COLLECTION: case BLOG: case PROOFING_PROJECT: case STORE: {
+            case GALLERY: case CUSTOM_PAGE: case COLLECTION: case BLOG_POST: case PROOFING_PROJECT: case STORE: {
                 type(By.cssSelector(".page-type-modal-input"), item.getName());
+                click(By.cssSelector(".btn-primarycolor"));
+                break;
+            }
+
+            case BLOG: {
+                type(By.cssSelector("input[name='page[name]']"), item.getName());
                 click(By.cssSelector(".btn-primarycolor"));
                 break;
             }
@@ -99,12 +105,11 @@ public class MenuEditorHelper extends HelperBase {
             case GALLERY: case COLLECTION: case CUSTOM_PAGE: case PROOFING_PROJECT:
                 isElementPresent(By.cssSelector(".page-editor-header"));
                 break;
-            case STORE: case BLOG:
+            case STORE: case BLOG: case BLOG_POST:
                 isElementPresent(By.cssSelector(".format-ui.page-header.page-index-header"));
                 break;
             case EXTERNAL_LINK: case SUBMENU:
                 break;
-
         }
     }
 
@@ -163,5 +168,13 @@ public class MenuEditorHelper extends HelperBase {
             }
         }
         return type;
+    }
+
+    public boolean isBlogPresent(List<MenuEditorItem> items) {
+        for(MenuEditorItem item : items) {
+            if(item.getType() != Type.BLOG) { continue; }
+            else { return true; }
+        }
+        return false;
     }
 }

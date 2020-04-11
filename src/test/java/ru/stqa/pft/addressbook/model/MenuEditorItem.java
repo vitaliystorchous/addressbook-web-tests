@@ -9,6 +9,7 @@ public class MenuEditorItem {
         SUBMENU,
         COLLECTION,
         BLOG,
+        BLOG_POST,
         PROOFING_PROJECT,
         STORE
     }

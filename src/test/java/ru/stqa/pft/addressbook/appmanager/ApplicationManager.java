@@ -23,9 +23,13 @@ public class ApplicationManager {
     private WebDriver wd;
     private NavigationHelper navigationHelper;
     private MenuEditorHelper menuEditorHelper;
-    String login = "rufjtigk+81@gmail.com";
+    String login = "rufjtigk+84@gmail.com";
     String password = "qweriuyt";
     public String customPageName = "Test custom page (*Selenium*)";
+    public String galleryName = "Test gallery (*Selenium*)";
+    public String collectionName = "Test collection (*Selenium*)";
+    public String blogName = "Test blog (*Selenium*)";
+    public String blogPostName = "Test blog post (*Selenium*)";
     Dimension dimension = new Dimension(1920, 1024);
     private PageEditorHelper pageEditorHelper;
     private String browser;

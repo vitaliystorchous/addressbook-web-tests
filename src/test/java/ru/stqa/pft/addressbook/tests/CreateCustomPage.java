@@ -19,7 +19,6 @@ public class CreateCustomPage extends TestBase {
         app.getNavigationHelper().goToPagesPage();
         List<MenuEditorItem> after = app.getMenuEditorHelper().getMenuItemsList();
         Assert.assertEquals(after.size(), before.size() + 1);
-        //Assert.assertTrue(app.getMenuEditorHelper().isElementPresent(app.customPageName));
     }
 
 }
