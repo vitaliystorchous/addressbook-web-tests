@@ -75,13 +75,13 @@ public class MenuEditorHelper extends HelperBase {
         }
 
         switch (item.getType()) {
-            case GALLERY: case CUSTOM_PAGE: case COLLECTION: case BLOG_POST: case PROOFING_PROJECT: case STORE: {
+            case GALLERY: case CUSTOM_PAGE: case COLLECTION: case BLOG_POST: case PROOFING_PROJECT: {
                 type(By.cssSelector(".page-type-modal-input"), item.getName());
                 click(By.cssSelector(".btn-primarycolor"));
                 break;
             }
 
-            case BLOG: {
+            case BLOG: case STORE: {
                 type(By.cssSelector("input[name='page[name]']"), item.getName());
                 click(By.cssSelector(".btn-primarycolor"));
                 break;
@@ -141,6 +141,24 @@ public class MenuEditorHelper extends HelperBase {
         return items;
     }
 
+    public boolean isBlogPresent(List<MenuEditorItem> items) {
+        for(MenuEditorItem item : items) {
+            if(item.getType() == Type.BLOG) { return true; }
+        }
+        return false;
+    }
+
+    public boolean isStorePresent(List<MenuEditorItem> items) {
+        for(MenuEditorItem item : items) {
+            if(item.getType() == Type.STORE) { return true; }
+        }
+        return false;
+    }
+
+    
+    
+    //inner service methods
+
     @NotNull
     private String getElementName(WebElement element) {
         String elementName = element.getText();
@@ -168,13 +186,5 @@ public class MenuEditorHelper extends HelperBase {
             }
         }
         return type;
-    }
-
-    public boolean isBlogPresent(List<MenuEditorItem> items) {
-        for(MenuEditorItem item : items) {
-            if(item.getType() != Type.BLOG) { continue; }
-            else { return true; }
-        }
-        return false;
     }
 }

@@ -23,6 +23,7 @@ public class ApplicationManager {
     private WebDriver wd;
     private NavigationHelper navigationHelper;
     private MenuEditorHelper menuEditorHelper;
+    private StoreHelper storeHelper;
     String login = "rufjtigk+83@gmail.com";
     String password = "qweriuyt";
     public String customPageName = "Test custom page (*Selenium*)";
@@ -33,6 +34,7 @@ public class ApplicationManager {
     public String externalLinkName = "Test external link (*Selenium*)";
     public String proofingProjectName = "Test proofing project (*Selenium*)";
     public String submenuName = "Test submenu (*Selenium*)";
+    public String storeName = "Test store (*Selenium*)";
     Dimension dimension = new Dimension(1920, 1024);
     private PageEditorHelper pageEditorHelper;
     private String browser;
@@ -61,8 +63,9 @@ public class ApplicationManager {
         wd.get("https://www.format.com/");
         menuEditorHelper = new MenuEditorHelper(wd);
         navigationHelper = new NavigationHelper(wd);
-        sessionHelper = new SessionHelper(wd);
         pageEditorHelper = new PageEditorHelper(wd);
+        storeHelper = new StoreHelper(wd);
+        sessionHelper = new SessionHelper(wd);
         sessionHelper.login(new LoginData(login, password));
     }
 
@@ -87,4 +90,6 @@ public class ApplicationManager {
     }
 
     public PageEditorHelper getPageEditorHelper() { return pageEditorHelper; }
+
+    public StoreHelper getStoreHelper() { return storeHelper; }
 }
