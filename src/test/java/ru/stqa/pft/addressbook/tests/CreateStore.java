@@ -15,6 +15,7 @@ public class CreateStore extends TestBase {
         List<MenuEditorItem> before = app.getMenuEditorHelper().getMenuItemsList();
         if(! app.getMenuEditorHelper().isStorePresent(before)) {
             app.getMenuEditorHelper().createMenuEditorItem(new MenuEditorItem(Type.STORE, app.storeName));
+            app.getStoreHelper().waitStoreOpened();
             app.getStoreHelper().closeModal();
             app.getNavigationHelper().goToPagesPage();
             List<MenuEditorItem> after = app.getMenuEditorHelper().getMenuItemsList();

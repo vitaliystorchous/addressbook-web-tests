@@ -1,6 +1,5 @@
 package ru.stqa.pft.addressbook.appmanager;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -9,7 +8,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.remote.BrowserType;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.stqa.pft.addressbook.model.LoginData;
 
@@ -21,10 +19,12 @@ public class ApplicationManager {
 
     private SessionHelper sessionHelper;
     private WebDriver wd;
+    private WebDriverWait wait;
     private NavigationHelper navigationHelper;
     private MenuEditorHelper menuEditorHelper;
     private StoreHelper storeHelper;
-    String login = "rufjtigk+86@gmail.com";
+    private BlogEditorHelper blogEditorHelper;
+    String login = "rufjtigk+87@gmail.com";
     String password = "qweriuyt";
     public String customPageName = "Test custom page (*Selenium*)";
     public String galleryName = "Test gallery (*Selenium*)";
@@ -59,13 +59,15 @@ public class ApplicationManager {
             wd = new OperaDriver();
         }
 
+        wait = new WebDriverWait(wd, Duration.ofSeconds(10));
         wd.manage().window().setSize(dimension);
-        wd.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+        wd.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         wd.get("https://www.format.com/");
         menuEditorHelper = new MenuEditorHelper(wd);
         navigationHelper = new NavigationHelper(wd);
         pageEditorHelper = new PageEditorHelper(wd);
         storeHelper = new StoreHelper(wd);
+        blogEditorHelper = new BlogEditorHelper(wd);
         sessionHelper = new SessionHelper(wd);
         sessionHelper.login(new LoginData(login, password));
     }
@@ -93,4 +95,8 @@ public class ApplicationManager {
     public PageEditorHelper getPageEditorHelper() { return pageEditorHelper; }
 
     public StoreHelper getStoreHelper() { return storeHelper; }
+
+    public BlogEditorHelper getBlogEditorHelper() { return blogEditorHelper; }
+
+    public WebDriverWait getWait () { return wait; }
 }

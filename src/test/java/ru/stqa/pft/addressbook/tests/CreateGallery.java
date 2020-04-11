@@ -14,6 +14,7 @@ public class CreateGallery extends TestBase {
         app.getNavigationHelper().goToPagesPage();
         List<MenuEditorItem> before = app.getMenuEditorHelper().getMenuItemsList();
         app.getMenuEditorHelper().createMenuEditorItem(new MenuEditorItem(Type.GALLERY, app.galleryName));
+        app.getPageEditorHelper().waitPageEditorOpened();
         app.getNavigationHelper().goToPagesPage();
         List<MenuEditorItem> after = app.getMenuEditorHelper().getMenuItemsList();
         Assert.assertEquals(after.size(), before.size() + 1);

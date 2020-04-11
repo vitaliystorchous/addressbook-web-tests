@@ -16,10 +16,12 @@ public class CreateBlogPost extends TestBase {
         if(! app.getMenuEditorHelper().isBlogPresent(before)) {
             MenuEditorItem blog = new MenuEditorItem(Type.BLOG, app.blogName);
             app.getMenuEditorHelper().createMenuEditorItem(blog);
+            app.getBlogEditorHelper().waitBlogEditorOpened();
             app.getNavigationHelper().goToPagesPage();
             before.add(blog);
         }
         app.getMenuEditorHelper().createMenuEditorItem(new MenuEditorItem(Type.BLOG_POST, app.blogPostName));
+        app.getPageEditorHelper().waitPageEditorOpened();
         app.getNavigationHelper().goToPagesPage();
         List<MenuEditorItem> after = app.getMenuEditorHelper().getMenuItemsList();
         Assert.assertEquals(after.size(), before.size());

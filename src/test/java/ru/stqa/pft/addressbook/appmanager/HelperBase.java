@@ -1,13 +1,17 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class HelperBase {
     protected WebDriver wd;
+    protected WebDriverWait wait;
 
     public HelperBase(WebDriver wd) {
         this.wd = wd;
+        this.wait = new WebDriverWait(wd, Duration.ofSeconds(10));
     }
 
     protected void click(By locator) {
@@ -72,6 +76,4 @@ public class HelperBase {
     protected void editElementsContent(WebElement element, String text) {
         ((JavascriptExecutor)wd).executeScript("var ele=arguments[0]; ele.innerHTML = '" + text + "';", element);
     }
-
-
 }

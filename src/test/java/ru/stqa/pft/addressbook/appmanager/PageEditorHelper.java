@@ -1,17 +1,12 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class PageEditorHelper extends HelperBase {
 
     public PageEditorHelper(WebDriver wd) { super(wd); }
-
-    public void goBackToPagesFromPageEditor() {
-        wd.findElement(By.cssSelector(".whitespace-no-wrap")).click();
-    }
 
     public void addFirstTextSection() {
         switchFrame(getElement(By.cssSelector("iframe#editorFrame")));
@@ -44,5 +39,9 @@ public class PageEditorHelper extends HelperBase {
         } else {
             switchToBaseFrame();
         }
+    }
+
+    public void waitPageEditorOpened() {
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".page-editor-header")));
     }
 }

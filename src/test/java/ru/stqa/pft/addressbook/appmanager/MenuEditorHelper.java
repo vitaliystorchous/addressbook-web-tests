@@ -100,17 +100,6 @@ public class MenuEditorHelper extends HelperBase {
                 break;
             }
         }
-
-        switch (item.getType()) {
-            case GALLERY: case COLLECTION: case CUSTOM_PAGE: case PROOFING_PROJECT:
-                isElementPresent(By.cssSelector(".page-editor-header"));
-                break;
-            case STORE: case STORE_PRODUCT: case BLOG: case BLOG_POST:
-                isElementPresent(By.cssSelector(".format-ui.page-header.page-index-header"));
-                break;
-            case EXTERNAL_LINK: case SUBMENU:
-                break;
-        }
     }
 
     public void checkCustomPagePresence(String customPageName) {
