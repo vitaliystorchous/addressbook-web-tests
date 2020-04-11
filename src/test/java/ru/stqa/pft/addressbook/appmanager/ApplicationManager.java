@@ -35,6 +35,7 @@ public class ApplicationManager {
     public String proofingProjectName = "Test proofing project (*Selenium*)";
     public String submenuName = "Test submenu (*Selenium*)";
     public String storeName = "Test store (*Selenium*)";
+    public String storeProductName = "Test store product (*Selenium*)";
     Dimension dimension = new Dimension(1920, 1024);
     private PageEditorHelper pageEditorHelper;
     private String browser;

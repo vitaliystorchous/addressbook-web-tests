@@ -71,11 +71,11 @@ public class MenuEditorHelper extends HelperBase {
             case EXTERNAL_LINK: click(By.cssSelector(".site-menu-action-header li:nth-child(5)")); break;
             case PROOFING_PROJECT: click(By.cssSelector(".site-menu-action-header li:nth-child(6)")); break;
             case SUBMENU: click(By.cssSelector(".site-menu-action-header li:nth-child(7)")); break;
-            case STORE: click(By.cssSelector(".site-menu-action-header li:nth-child(8)")); break;
+            case STORE: case STORE_PRODUCT: click(By.cssSelector(".site-menu-action-header li:nth-child(8)")); break;
         }
 
         switch (item.getType()) {
-            case GALLERY: case CUSTOM_PAGE: case COLLECTION: case BLOG_POST: case PROOFING_PROJECT: {
+            case GALLERY: case CUSTOM_PAGE: case COLLECTION: case BLOG_POST: case PROOFING_PROJECT: case STORE_PRODUCT: {
                 type(By.cssSelector(".page-type-modal-input"), item.getName());
                 click(By.cssSelector(".btn-primarycolor"));
                 break;
@@ -105,7 +105,7 @@ public class MenuEditorHelper extends HelperBase {
             case GALLERY: case COLLECTION: case CUSTOM_PAGE: case PROOFING_PROJECT:
                 isElementPresent(By.cssSelector(".page-editor-header"));
                 break;
-            case STORE: case BLOG: case BLOG_POST:
+            case STORE: case STORE_PRODUCT: case BLOG: case BLOG_POST:
                 isElementPresent(By.cssSelector(".format-ui.page-header.page-index-header"));
                 break;
             case EXTERNAL_LINK: case SUBMENU:

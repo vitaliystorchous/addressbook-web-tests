@@ -11,7 +11,8 @@ public class MenuEditorItem {
         BLOG,
         BLOG_POST,
         PROOFING_PROJECT,
-        STORE
+        STORE,
+        STORE_PRODUCT
     }
 
     Type type;
