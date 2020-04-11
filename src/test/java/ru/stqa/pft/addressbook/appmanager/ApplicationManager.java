@@ -31,6 +31,7 @@ public class ApplicationManager {
     public String blogName = "Test blog (*Selenium*)";
     public String blogPostName = "Test blog post (*Selenium*)";
     public String externalLinkName = "Test external link (*Selenium*)";
+    public String proofingProjectName = "Test proofing project (*Selenium*)";
     Dimension dimension = new Dimension(1920, 1024);
     private PageEditorHelper pageEditorHelper;
     private String browser;
