@@ -70,5 +70,8 @@ public class HelperBase {
     }
 
     protected void editElementsContent(WebElement element, String text) {
-        ((JavascriptExecutor)wd).executeScript("var ele=arguments[0]; ele.innerHTML = '" + text + "';", element); }
+        ((JavascriptExecutor)wd).executeScript("var ele=arguments[0]; ele.innerHTML = '" + text + "';", element);
+    }
+
+
 }

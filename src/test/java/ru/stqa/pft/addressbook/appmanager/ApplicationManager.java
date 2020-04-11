@@ -23,13 +23,14 @@ public class ApplicationManager {
     private WebDriver wd;
     private NavigationHelper navigationHelper;
     private MenuEditorHelper menuEditorHelper;
-    String login = "rufjtigk+84@gmail.com";
+    String login = "rufjtigk+83@gmail.com";
     String password = "qweriuyt";
     public String customPageName = "Test custom page (*Selenium*)";
     public String galleryName = "Test gallery (*Selenium*)";
     public String collectionName = "Test collection (*Selenium*)";
     public String blogName = "Test blog (*Selenium*)";
     public String blogPostName = "Test blog post (*Selenium*)";
+    public String externalLinkName = "Test external link (*Selenium*)";
     Dimension dimension = new Dimension(1920, 1024);
     private PageEditorHelper pageEditorHelper;
     private String browser;
@@ -67,6 +68,14 @@ public class ApplicationManager {
 
     public void stop() {
         wd.quit();
+    }
+
+    public void pause(long seconds) {
+        try {
+            Thread.sleep(seconds * 1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public MenuEditorHelper getMenuEditorHelper() { return menuEditorHelper; }
