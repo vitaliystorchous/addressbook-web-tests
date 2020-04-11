@@ -24,7 +24,7 @@ public class ApplicationManager {
     private NavigationHelper navigationHelper;
     private MenuEditorHelper menuEditorHelper;
     private StoreHelper storeHelper;
-    String login = "rufjtigk+83@gmail.com";
+    String login = "rufjtigk+86@gmail.com";
     String password = "qweriuyt";
     public String customPageName = "Test custom page (*Selenium*)";
     public String galleryName = "Test gallery (*Selenium*)";
