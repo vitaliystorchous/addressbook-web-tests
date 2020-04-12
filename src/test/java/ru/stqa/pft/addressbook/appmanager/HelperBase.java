@@ -4,14 +4,16 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
 public class HelperBase {
     protected WebDriver wd;
     protected WebDriverWait wait;
+    protected long waitDurationSec = 10;
 
     public HelperBase(WebDriver wd) {
         this.wd = wd;
-        this.wait = new WebDriverWait(wd, Duration.ofSeconds(10));
+        this.wait = new WebDriverWait(wd, Duration.ofSeconds(waitDurationSec));
     }
 
     protected void click(By locator) {
@@ -45,7 +47,9 @@ public class HelperBase {
 
     public boolean isElementPresent(By locator) {
         try {
+            wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
             wd.findElement(locator);
+            wd.manage().timeouts().implicitlyWait(waitDurationSec, TimeUnit.SECONDS);
             return true;
         } catch (NoSuchElementException ex) {
             return false;
@@ -54,7 +58,9 @@ public class HelperBase {
 
     public boolean isElementPresent(String byText) {
         try {
+            wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
             wd.findElement(By.xpath("//*[contains(., '" + byText + "')]"));
+            wd.manage().timeouts().implicitlyWait(waitDurationSec, TimeUnit.SECONDS);
             return true;
         } catch (NoSuchElementException ex) {
             return false;

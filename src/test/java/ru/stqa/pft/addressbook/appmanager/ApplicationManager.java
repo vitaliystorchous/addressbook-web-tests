@@ -19,12 +19,11 @@ public class ApplicationManager {
 
     private SessionHelper sessionHelper;
     private WebDriver wd;
-    private WebDriverWait wait;
     private NavigationHelper navigationHelper;
     private MenuEditorHelper menuEditorHelper;
     private StoreHelper storeHelper;
     private BlogEditorHelper blogEditorHelper;
-    String login = "rufjtigk+87@gmail.com";
+    String login = "rufjtigk+84@gmail.com";
     String password = "qweriuyt";
     public String customPageName = "Test custom page (*Selenium*)";
     public String galleryName = "Test gallery (*Selenium*)";
@@ -59,7 +58,6 @@ public class ApplicationManager {
             wd = new OperaDriver();
         }
 
-        wait = new WebDriverWait(wd, Duration.ofSeconds(10));
         wd.manage().window().setSize(dimension);
         wd.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         wd.get("https://www.format.com/");
@@ -97,6 +95,4 @@ public class ApplicationManager {
     public StoreHelper getStoreHelper() { return storeHelper; }
 
     public BlogEditorHelper getBlogEditorHelper() { return blogEditorHelper; }
-
-    public WebDriverWait getWait () { return wait; }
 }
