@@ -123,7 +123,7 @@ public class MenuEditorHelper extends HelperBase {
         for(WebElement element : elements) {
             Type type = getElementType(element);
             String elementName = getElementName(element);
-            String elementDataId = getElementDataId(element);
+            int elementDataId = getElementDataId(element);
             MenuEditorItem item = new MenuEditorItem(elementDataId, type, elementName);
             item.setHomepage(element.findElements(By.xpath(".//*[contains(@class, 'site-menu-editor-item-home-icon')]")).size() != 0);
             item.setInMenu(element.findElements(By.xpath("./../../../*[contains(@class, 'pages-editor-sortable-wrap--in-menu')]")).size() != 0);
@@ -180,7 +180,14 @@ public class MenuEditorHelper extends HelperBase {
         return type;
     }
 
-    private String getElementDataId(WebElement element) {
-        return element.findElement(By.xpath("./..")).getAttribute("data-id");
+    private int getElementDataId(WebElement element) {
+        String dataId = element.findElement(By.xpath("./..")).getAttribute("data-id");
+        if(dataId.contains("_page")) {
+            dataId = dataId.replace("_page", "");
+        } else {
+            dataId = dataId.replace("_group", "");
+        }
+
+        return Integer.parseInt(dataId);
     }
 }
