@@ -16,6 +16,9 @@ public class DeleteCustomPage extends TestBase {
         app.getMenuEditorHelper().deleteSelectedPage(app.customPageName);
         List<MenuEditorItem> after = app.getMenuEditorHelper().getMenuItemsList();
         Assert.assertEquals(after.size(), before.size() - 1);
+
+        before.remove(0);
+        Assert.assertEquals(after, before);
         //Assert.assertTrue(app.getMenuEditorHelper().isElementPresent(By.cssSelector(".format-ui-toast-header")));
         // нужно добавить проверку того, что страницы нету в списке menu editor
     }

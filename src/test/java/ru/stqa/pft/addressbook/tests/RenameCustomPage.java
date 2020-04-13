@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.MenuEditorItem;
 
+import java.util.HashSet;
 import java.util.List;
 
 public class RenameCustomPage extends TestBase {
@@ -15,10 +16,17 @@ public class RenameCustomPage extends TestBase {
         app.getNavigationHelper().goToPagesPage();
         app.getMenuEditorHelper().checkCustomPagePresence(app.customPageName);
         List<MenuEditorItem> before = app.getMenuEditorHelper().getMenuItemsList();
+        for(int i = 0; i < before.size() - 1; i++) {
+            if(before.get(i).getType() == MenuEditorItem.Type.CUSTOM_PAGE && before.get(i).getName().equals(app.customPageName)) {
+                before.add(new MenuEditorItem(before.get(i).getDataId(), MenuEditorItem.Type.CUSTOM_PAGE, newPageName));
+                before.remove(i);
+                break;
+            }
+        }
         app.getMenuEditorHelper().renameSelectedPage(app.customPageName, newPageName);
         List<MenuEditorItem> after = app.getMenuEditorHelper().getMenuItemsList();
         Assert.assertEquals(after.size(), before.size());
-        // нужно добавить проверку, этот вариант не работает правильно - Assert.assertTrue(app.getMenuEditorHelper().isElementPresent(newPageName));
-        // он находит не тот элемент который нам нужен
+
+        Assert.assertEquals(new HashSet<Object>(after), new HashSet<Object>(before));
     }
 }

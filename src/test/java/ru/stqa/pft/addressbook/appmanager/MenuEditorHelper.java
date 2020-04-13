@@ -42,7 +42,7 @@ public class MenuEditorHelper extends HelperBase {
 
     public void renameSelectedPage(String pageName, String newName) {
         clickMoreOptions(pageName);
-        click(By.xpath("//span[contains(.,'Rename')]"));
+        click(By.xpath("//ul/li/span"));
         type(By.id("page-title"), newName);
         click(By.cssSelector(".btn-primarycolor"));
     }
@@ -123,7 +123,8 @@ public class MenuEditorHelper extends HelperBase {
         for(WebElement element : elements) {
             Type type = getElementType(element);
             String elementName = getElementName(element);
-            MenuEditorItem item = new MenuEditorItem(type, elementName);
+            String elementDataId = getElementDataId(element);
+            MenuEditorItem item = new MenuEditorItem(elementDataId, type, elementName);
             item.setHomepage(element.findElements(By.xpath(".//*[contains(@class, 'site-menu-editor-item-home-icon')]")).size() != 0);
             item.setInMenu(element.findElements(By.xpath("./../../../*[contains(@class, 'pages-editor-sortable-wrap--in-menu')]")).size() != 0);
             items.add(item);
@@ -177,5 +178,9 @@ public class MenuEditorHelper extends HelperBase {
             }
         }
         return type;
+    }
+
+    private String getElementDataId(WebElement element) {
+        return element.findElement(By.xpath("./..")).getAttribute("data-id");
     }
 }
