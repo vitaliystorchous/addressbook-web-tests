@@ -23,11 +23,26 @@ public class MenuEditorItem {
     //нужно создать еще подклас, наследник данного класа, который будет содержать дополнительные атрибуты для элемента External link
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        MenuEditorItem item = (MenuEditorItem) o;
 
+        if (type != item.type) return false;
+        return name != null ? name.equals(item.name) : item.name == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = type != null ? type.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        return result;
+    }
 
     public MenuEditorItem(Type type, String name) {
-        this.dataId = 0;
+        this.dataId = Integer.MAX_VALUE;
         this.type = type;
         this.name = name;
         this.homepage = false;
@@ -97,26 +112,6 @@ public class MenuEditorItem {
                 ", type=" + type +
                 ", name='" + name + '\'' +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        MenuEditorItem item = (MenuEditorItem) o;
-
-        if (dataId != item.dataId) return false;
-        if (type != item.type) return false;
-        return name != null ? name.equals(item.name) : item.name == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = dataId;
-        result = 31 * result + (type != null ? type.hashCode() : 0);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        return result;
     }
 
 }

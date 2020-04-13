@@ -24,11 +24,11 @@ public class CreateCustomPage extends TestBase {
         List<MenuEditorItem> after = app.getMenuEditorHelper().getMenuItemsList();
         Assert.assertEquals(after.size(), before.size() + 1);
 
-
-
-        item.setDataId(after.stream().max((item1, item2) -> Integer.compare(item1.getDataId(), item2.getDataId())).get().getDataId());
         before.add(item);
-        Assert.assertEquals(new HashSet<Object>(after), new HashSet<Object>(before));
+        Comparator<? super MenuEditorItem> byId = (i1, i2) -> Integer.compare(i1.getDataId(), i2.getDataId());
+        before.sort(byId);
+        after.sort(byId);
+        Assert.assertEquals(after, before);
     }
 
 }
