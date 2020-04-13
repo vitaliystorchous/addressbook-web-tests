@@ -23,7 +23,7 @@ public class ApplicationManager {
     private MenuEditorHelper menuEditorHelper;
     private StoreHelper storeHelper;
     private BlogEditorHelper blogEditorHelper;
-    String login = "rufjtigk+84@gmail.com";
+    String login = "rufjtigk+83@gmail.com";
     String password = "qweriuyt";
     public String customPageName = "Test custom page (*Selenium*)";
     public String galleryName = "Test gallery (*Selenium*)";

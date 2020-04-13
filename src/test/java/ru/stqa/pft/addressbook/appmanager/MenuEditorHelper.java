@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 public class MenuEditorHelper extends HelperBase {
 
     NavigationHelper navigationHelper = new NavigationHelper(wd);
+    PageEditorHelper pageEditorHelper = new PageEditorHelper(wd);
 
     public MenuEditorHelper(WebDriver wd) {
         super(wd);
@@ -105,6 +106,7 @@ public class MenuEditorHelper extends HelperBase {
     public void checkCustomPagePresence(String customPageName) {
         if(! isElementPresent(customPageName)) {
             createMenuEditorItem(new MenuEditorItem(Type.CUSTOM_PAGE, customPageName));
+            pageEditorHelper.waitPageEditorOpened();
             navigationHelper.goToPagesPage();
         }
     }
