@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.MenuEditorItem;
 import ru.stqa.pft.addressbook.model.MenuEditorItem.Type;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class CreateSubmenu extends TestBase {
@@ -13,9 +14,22 @@ public class CreateSubmenu extends TestBase {
     public void theTest() {
         app.getNavigationHelper().goToPagesPage();
         List<MenuEditorItem> before = app.getMenuEditorHelper().getMenuItemsList();
-        app.getMenuEditorHelper().createMenuEditorItem(new MenuEditorItem(Type.SUBMENU, app.submenuName));
+        MenuEditorItem item = new MenuEditorItem(Type.SUBMENU, app.submenuName);
+        app.getMenuEditorHelper().createMenuEditorItem(item);
         app.pause(2);
         List<MenuEditorItem> after = app.getMenuEditorHelper().getMenuItemsList();
         Assert.assertEquals(after.size(), before.size() + 1);
+
+        before.add(item);
+        Comparator<? super MenuEditorItem> byId = (i1, i2) -> i1.getName().compareTo(i2.getName());
+        before.sort(byId);
+        for(MenuEditorItem it : before) {
+            System.out.println(it.toString());
+        }
+        after.sort(byId);
+        for(MenuEditorItem it : after) {
+            System.out.println(it.toString());
+        }
+        Assert.assertEquals(before, after);
     }
 }
