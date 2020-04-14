@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.MenuEditorItem;
 import ru.stqa.pft.addressbook.model.MenuEditorItem.Type;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class CreateStoreProduct extends TestBase {
@@ -26,5 +27,10 @@ public class CreateStoreProduct extends TestBase {
         app.getNavigationHelper().goToPagesPage();
         List<MenuEditorItem> after = app.getMenuEditorHelper().getMenuItemsList();
         Assert.assertEquals(after.size(), before.size());
+
+        Comparator<? super MenuEditorItem> byId = (i1, i2) -> Integer.compare(i1.getDataId(), i2.getDataId());
+        before.sort(byId);
+        after.sort(byId);
+        Assert.assertEquals(after, before);
     }
 }
