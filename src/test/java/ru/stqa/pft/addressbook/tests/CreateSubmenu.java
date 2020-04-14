@@ -21,12 +21,12 @@ public class CreateSubmenu extends TestBase {
         Assert.assertEquals(after.size(), before.size() + 1);
 
         before.add(item);
-        Comparator<? super MenuEditorItem> byId = (i1, i2) -> i1.getName().compareTo(i2.getName());
-        before.sort(byId);
+        Comparator<? super MenuEditorItem> byName = (i1, i2) -> i1.getName().compareTo(i2.getName());
+        before.sort(byName);
         for(MenuEditorItem it : before) {
             System.out.println(it.toString());
         }
-        after.sort(byId);
+        after.sort(byName);
         for(MenuEditorItem it : after) {
             System.out.println(it.toString());
         }
