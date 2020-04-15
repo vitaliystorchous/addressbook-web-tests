@@ -163,7 +163,8 @@ public class MenuEditorHelper extends HelperBase {
     @NotNull
     private String getElementName(WebElement element) {
         String elementName = element.getText();
-        if(elementName.contains("HOME")) { elementName = elementName.replace("\nHOME", ""); }
+        if(elementName.contains("HOME")) { elementName = elementName.replace("\nHOME", ""); } //это костыль. нужно убрать его и вместо этого извлекать текст из нужного html элемента - тогда этод метод не будет нужен
+        if(elementName.contains("Edit")) { elementName = elementName.replace("\nEdit", ""); } //это костыль. нужно убрать его и вместо этого извлекать текст из нужного html элемента - тогда этод метод не будет нужен
         return elementName;
     }
 
