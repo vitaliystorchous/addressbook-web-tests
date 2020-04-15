@@ -10,16 +10,14 @@ import java.util.List;
 
 public class CreateBlog extends TestBase {
 
-    @Test
+    @Test (enabled = false)
     public void theTest() {
-        app.getNavigationHelper().goToPagesPage();
-        List<MenuEditorItem> before = app.getMenuEditorHelper().getMenuItemsList();
-        if(! app.getMenuEditorHelper().isBlogPresent(before)) {
-            MenuEditorItem item = new MenuEditorItem(Type.BLOG, app.blogName);
-            app.getMenuEditorHelper().createMenuEditorItem(item);
-            app.getBlogEditorHelper().waitBlogEditorOpened();
-            app.getNavigationHelper().goToPagesPage();
-            List<MenuEditorItem> after = app.getMenuEditorHelper().getMenuItemsList();
+        app.goTo().pagesPage();
+        List<MenuEditorItem> before = app.menuEditor().itemsList();
+        if(! app.menuEditor().isBlogPresent(before)) {
+            MenuEditorItem item = new MenuEditorItem().withType(Type.BLOG).withName(app.blogName);
+            app.menuEditor().createItem(item);
+            List<MenuEditorItem> after = app.menuEditor().itemsList();
             Assert.assertEquals(after.size(), before.size() + 1);
 
             before.add(item);

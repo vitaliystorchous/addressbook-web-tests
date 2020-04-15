@@ -84,9 +84,9 @@ public class ApplicationManager {
         }
     }
 
-    public MenuEditorHelper getMenuEditorHelper() { return menuEditorHelper; }
+    public MenuEditorHelper menuEditor() { return menuEditorHelper; }
 
-    public NavigationHelper getNavigationHelper() {
+    public NavigationHelper goTo() {
         return navigationHelper;
     }
 

@@ -8,14 +8,14 @@ import java.util.List;
 
 public class DeleteSelectedPage extends TestBase {
 
-    @Test
+    @Test (enabled = false)
     public void theTest() {
-        app.getNavigationHelper().goToPagesPage();
-        List<MenuEditorItem> before = app.getMenuEditorHelper().getMenuItemsList();
+        app.goTo().pagesPage();
+        List<MenuEditorItem> before = app.menuEditor().itemsList();
         // в методе deleteSelectedPage() по индексу нужно сделать проверку что это не блог и не магазин
         // (что под этим индексом находится страница и ее можно удалить)
-        app.getMenuEditorHelper().deleteSelectedPage(before.size() - 1);
-        List<MenuEditorItem> after = app.getMenuEditorHelper().getMenuItemsList();
+        app.menuEditor().deleteSelectedPage(before.size() - 1);
+        List<MenuEditorItem> after = app.menuEditor().itemsList();
         Assert.assertEquals(after.size(), before.size() - 1);
 
         before.remove(before.size() - 1);

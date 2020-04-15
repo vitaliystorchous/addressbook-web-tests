@@ -21,6 +21,8 @@ public class StoreHelper extends HelperBase {
     }
 
     public void closeModal() {
-        click(By.cssSelector(".f-overlay-close.f-overlay-close-x"));
+        if(isElementPresent(By.cssSelector(".f-overlay-close.f-overlay-close-x"))) {
+            click(By.cssSelector(".f-overlay-close.f-overlay-close-x"));
+        }
     }
 }

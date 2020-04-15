@@ -4,11 +4,11 @@ import org.testng.annotations.Test;
 
 public class AddTextSection1 extends TestBase {
 
-    @Test
+    @Test (enabled = false)
     public void theTest() {
-        app.getNavigationHelper().goToPagesPage();
-        app.getMenuEditorHelper().checkCustomPagePresence(app.customPageName);
-        app.getMenuEditorHelper().openSelectedPageInPageEditor(app.customPageName);
+        app.goTo().pagesPage();
+        app.menuEditor().checkCustomPagePresence(app.customPageName);
+        app.menuEditor().openSelectedPageInPageEditor(app.customPageName);
         app.getPageEditorHelper().addFirstTextSection();
     }
 }

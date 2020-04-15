@@ -15,6 +15,8 @@ public class MenuEditorHelper extends HelperBase {
 
     NavigationHelper navigationHelper = new NavigationHelper(wd);
     PageEditorHelper pageEditorHelper = new PageEditorHelper(wd);
+    BlogEditorHelper blogEditorHelper = new BlogEditorHelper(wd);
+    StoreHelper storeHelper = new StoreHelper(wd);
 
     public MenuEditorHelper(WebDriver wd) {
         super(wd);
@@ -61,7 +63,7 @@ public class MenuEditorHelper extends HelperBase {
         click(By.xpath("//span[contains(.,'Add to Menu')]"));
     }
 
-    public void createMenuEditorItem(MenuEditorItem item) {
+    public void createItem(MenuEditorItem item) {
         click(By.xpath("//button[@class=\"btn\"]"));
 
         switch (item.getType()) {
@@ -79,12 +81,21 @@ public class MenuEditorHelper extends HelperBase {
             case GALLERY: case CUSTOM_PAGE: case COLLECTION: case BLOG_POST: case PROOFING_PROJECT: case STORE_PRODUCT: {
                 type(By.cssSelector(".page-type-modal-input"), item.getName());
                 click(By.cssSelector(".btn-primarycolor"));
+                pageEditorHelper.waitPageEditorOpened();
+                navigationHelper.pagesPage();
                 break;
             }
 
             case BLOG: case STORE: {
                 type(By.cssSelector("input[name='page[name]']"), item.getName());
                 click(By.cssSelector(".btn-primarycolor"));
+                if(item.getType() == Type.BLOG) {
+                    blogEditorHelper.waitBlogEditorOpened();
+                } else if(item.getType() == Type.STORE) {
+                    storeHelper.waitStoreOpened();
+                    storeHelper.closeModal();
+                }
+                navigationHelper.pagesPage();
                 break;
             }
 
@@ -105,9 +116,7 @@ public class MenuEditorHelper extends HelperBase {
 
     public void checkCustomPagePresence(String customPageName) {
         if(! isElementPresent(customPageName)) {
-            createMenuEditorItem(new MenuEditorItem(Type.CUSTOM_PAGE, customPageName));
-            pageEditorHelper.waitPageEditorOpened();
-            navigationHelper.goToPagesPage();
+            createItem(new MenuEditorItem().withType(Type.CUSTOM_PAGE).withName(customPageName));
         }
     }
 
@@ -115,7 +124,7 @@ public class MenuEditorHelper extends HelperBase {
         return wd.findElements(By.cssSelector(".site-menu-editor-item")).size();
     }
 
-    public List<MenuEditorItem> getMenuItemsList() {
+    public List<MenuEditorItem> itemsList() {
         List<MenuEditorItem> items = new ArrayList<MenuEditorItem>();
         List<WebElement> elements = wd.findElements(By.cssSelector(".site-menu-editor-item-flex-wrap"));
 
@@ -124,9 +133,9 @@ public class MenuEditorHelper extends HelperBase {
             Type type = getElementType(element);
             String elementName = getElementName(element);
             int elementDataId = getElementDataId(element);
-            MenuEditorItem item = new MenuEditorItem(elementDataId, type, elementName);
-            item.setHomepage(element.findElements(By.xpath(".//*[contains(@class, 'site-menu-editor-item-home-icon')]")).size() != 0);
-            item.setInMenu(element.findElements(By.xpath("./../../../*[contains(@class, 'pages-editor-sortable-wrap--in-menu')]")).size() != 0);
+            MenuEditorItem item = new MenuEditorItem().withDataId(elementDataId).withType(type).withName(elementName);
+            item.withHomepage(element.findElements(By.xpath(".//*[contains(@class, 'site-menu-editor-item-home-icon')]")).size() != 0);
+            item.withInMenu(element.findElements(By.xpath("./../../../*[contains(@class, 'pages-editor-sortable-wrap--in-menu')]")).size() != 0);
             items.add(item);
         }
         wd.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);

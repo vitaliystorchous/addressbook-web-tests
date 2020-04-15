@@ -1,6 +1,7 @@
 package ru.stqa.pft.addressbook.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.MenuEditorItem;
 
@@ -8,13 +9,17 @@ import java.util.List;
 
 public class DeleteCustomPage extends TestBase {
 
+    @BeforeMethod
+    public void ensurePreconditions() {
+        app.goTo().pagesPage();
+        app.menuEditor().checkCustomPagePresence(app.customPageName);
+    }
+
     @Test
     public void theTest() {
-        app.getNavigationHelper().goToPagesPage();
-        app.getMenuEditorHelper().checkCustomPagePresence(app.customPageName);
-        List<MenuEditorItem> before = app.getMenuEditorHelper().getMenuItemsList();
-        app.getMenuEditorHelper().deleteSelectedPage(app.customPageName);
-        List<MenuEditorItem> after = app.getMenuEditorHelper().getMenuItemsList();
+        List<MenuEditorItem> before = app.menuEditor().itemsList();
+        app.menuEditor().deleteSelectedPage(app.customPageName); //нужно переделать на deleteItem
+        List<MenuEditorItem> after = app.menuEditor().itemsList();
         Assert.assertEquals(after.size(), before.size() - 1);
 
         for(int i = 0; i <= before.size(); i++) {

@@ -1,6 +1,7 @@
 package ru.stqa.pft.addressbook.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.MenuEditorItem;
 
@@ -9,14 +10,18 @@ import java.util.List;
 
 public class AddCustomPageToMenu extends TestBase {
 
-    @Test
+    @BeforeMethod
+    public void ensurePreconditions() {
+        app.goTo().pagesPage();
+        app.menuEditor().checkCustomPagePresence(app.customPageName);
+    }
+
+    @Test (enabled = false)
     public void theTest() {
-        app.getNavigationHelper().goToPagesPage();
-        app.getMenuEditorHelper().checkCustomPagePresence(app.customPageName);
-        List<MenuEditorItem> before = app.getMenuEditorHelper().getMenuItemsList();
-        app.getMenuEditorHelper().addSelectedPageToMenu(app.customPageName);
+        List<MenuEditorItem> before = app.menuEditor().itemsList();
+        app.menuEditor().addSelectedPageToMenu(app.customPageName); //нужно переделать на addItemToMenu и создать также метод removeItemFormMenu
         app.pause(3);
-        List<MenuEditorItem> after = app.getMenuEditorHelper().getMenuItemsList();
+        List<MenuEditorItem> after = app.menuEditor().itemsList();
 
         Comparator<? super MenuEditorItem> byId = (i1, i2) -> Integer.compare(i1.getDataId(), i2.getDataId());
         before.sort(byId);

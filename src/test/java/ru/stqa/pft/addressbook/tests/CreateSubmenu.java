@@ -12,12 +12,12 @@ public class CreateSubmenu extends TestBase {
 
     @Test
     public void theTest() {
-        app.getNavigationHelper().goToPagesPage();
-        List<MenuEditorItem> before = app.getMenuEditorHelper().getMenuItemsList();
-        MenuEditorItem item = new MenuEditorItem(Type.SUBMENU, app.submenuName);
-        app.getMenuEditorHelper().createMenuEditorItem(item);
+        app.goTo().pagesPage();
+        List<MenuEditorItem> before = app.menuEditor().itemsList();
+        MenuEditorItem item = new MenuEditorItem().withType(Type.SUBMENU).withName(app.submenuName);
+        app.menuEditor().createItem(item);
         app.pause(2);
-        List<MenuEditorItem> after = app.getMenuEditorHelper().getMenuItemsList();
+        List<MenuEditorItem> after = app.menuEditor().itemsList();
         Assert.assertEquals(after.size(), before.size() + 1);
 
         before.add(item);

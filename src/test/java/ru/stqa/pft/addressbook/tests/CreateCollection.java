@@ -12,13 +12,11 @@ public class CreateCollection extends TestBase {
 
     @Test
     public void theTest() {
-        app.getNavigationHelper().goToPagesPage();
-        List<MenuEditorItem> before = app.getMenuEditorHelper().getMenuItemsList();
-        MenuEditorItem item = new MenuEditorItem(Type.COLLECTION, app.collectionName);
-        app.getMenuEditorHelper().createMenuEditorItem(item);
-        app.getPageEditorHelper().waitPageEditorOpened();
-        app.getNavigationHelper().goToPagesPage();
-        List<MenuEditorItem> after = app.getMenuEditorHelper().getMenuItemsList();
+        app.goTo().pagesPage();
+        List<MenuEditorItem> before = app.menuEditor().itemsList();
+        MenuEditorItem item = new MenuEditorItem().withType(Type.COLLECTION).withName(app.collectionName);
+        app.menuEditor().createItem(item);
+        List<MenuEditorItem> after = app.menuEditor().itemsList();
         Assert.assertEquals(after.size(), before.size() + 1);
 
         before.add(item);

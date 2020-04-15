@@ -15,7 +15,7 @@ public class MenuEditorItem {
         STORE_PRODUCT
     }
 
-    int dataId;
+    int dataId = Integer.MAX_VALUE;
     Type type;
     String name;
     boolean homepage;
@@ -41,64 +41,45 @@ public class MenuEditorItem {
         return result;
     }
 
-    public MenuEditorItem(Type type, String name) {
-        this.dataId = Integer.MAX_VALUE;
-        this.type = type;
-        this.name = name;
-        this.homepage = false;
-        switch (type) {
-            case GALLERY: case CUSTOM_PAGE: case COLLECTION: case BLOG: case PROOFING_PROJECT: case STORE:
-                this.inMenu = false;
-                break;
-
-            case EXTERNAL_LINK: case SUBMENU:
-                this.inMenu = true;
-                break;
-        }
-    }
-
-    public MenuEditorItem(int dataId, Type type, String name) {
-        this.dataId = dataId;
-        this.type = type;
-        this.name = name;
-        this.homepage = false;
-        switch (type) {
-            case GALLERY: case CUSTOM_PAGE: case COLLECTION: case BLOG: case PROOFING_PROJECT: case STORE:
-                this.inMenu = false;
-                break;
-
-            case EXTERNAL_LINK: case SUBMENU:
-                this.inMenu = true;
-                break;
-        }
-    }
-
     public int getDataId() {
         return dataId;
     }
 
-    public void setDataId(int dataId) {
+    public MenuEditorItem withDataId(int dataId) {
         this.dataId = dataId;
+        return this;
     }
 
     public Type getType() {
         return this.type;
     }
 
+    public MenuEditorItem withType(Type type) {
+        this.type = type;
+        return this;
+    }
+
     public String getName() {
         return  this.name;
     }
 
-    public void setHomepage(boolean value) {
+    public MenuEditorItem withName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public MenuEditorItem withHomepage(boolean value) {
         this.homepage = value;
+        return this;
     }
 
     public boolean isHomepage() {
         return this.homepage;
     }
 
-    public void setInMenu(boolean value) {
+    public MenuEditorItem withInMenu(boolean value) {
         this.inMenu = value;
+        return this;
     }
 
     public boolean isInMenu() {

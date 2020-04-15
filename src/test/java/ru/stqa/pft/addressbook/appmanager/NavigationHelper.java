@@ -16,7 +16,7 @@ public class NavigationHelper extends HelperBase {
         wait = new WebDriverWait(wd, Duration.ofSeconds(10));
     }
 
-    public void goToPagesPage() {
+    public void pagesPage() {
         if(isElementPresent(By.cssSelector(".site-menu-editor-items__wrapper"))) {
             return;
         }

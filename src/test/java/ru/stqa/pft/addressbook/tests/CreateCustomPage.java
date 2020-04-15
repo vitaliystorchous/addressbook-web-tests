@@ -5,9 +5,7 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.MenuEditorItem;
 import ru.stqa.pft.addressbook.model.MenuEditorItem.Type;
 
-import java.awt.*;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 
@@ -15,13 +13,11 @@ public class CreateCustomPage extends TestBase {
 
     @Test
     public void theTest() {
-        app.getNavigationHelper().goToPagesPage();
-        List<MenuEditorItem> before = app.getMenuEditorHelper().getMenuItemsList();
-        MenuEditorItem item = new MenuEditorItem(Type.CUSTOM_PAGE, app.customPageName);
-        app.getMenuEditorHelper().createMenuEditorItem(item);
-        app.getPageEditorHelper().waitPageEditorOpened();
-        app.getNavigationHelper().goToPagesPage();
-        List<MenuEditorItem> after = app.getMenuEditorHelper().getMenuItemsList();
+        app.goTo().pagesPage();
+        List<MenuEditorItem> before = app.menuEditor().itemsList();
+        MenuEditorItem item = new MenuEditorItem().withType(Type.CUSTOM_PAGE).withName(app.customPageName);
+        app.menuEditor().createItem(item);
+        List<MenuEditorItem> after = app.menuEditor().itemsList();
         Assert.assertEquals(after.size(), before.size() + 1);
 
         before.add(item);

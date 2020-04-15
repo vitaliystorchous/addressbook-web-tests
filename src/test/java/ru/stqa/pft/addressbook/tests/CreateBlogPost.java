@@ -12,19 +12,15 @@ public class CreateBlogPost extends TestBase {
 
     @Test
     public void theTest() {
-        app.getNavigationHelper().goToPagesPage();
-        List<MenuEditorItem> before = app.getMenuEditorHelper().getMenuItemsList();
-        if(! app.getMenuEditorHelper().isBlogPresent(before)) {
-            MenuEditorItem blog = new MenuEditorItem(Type.BLOG, app.blogName);
-            app.getMenuEditorHelper().createMenuEditorItem(blog);
-            app.getBlogEditorHelper().waitBlogEditorOpened();
-            app.getNavigationHelper().goToPagesPage();
+        app.goTo().pagesPage();
+        List<MenuEditorItem> before = app.menuEditor().itemsList();
+        if(! app.menuEditor().isBlogPresent(before)) {
+            MenuEditorItem blog = new MenuEditorItem().withType(Type.BLOG).withName(app.blogName);
+            app.menuEditor().createItem(blog);
             before.add(blog);
         }
-        app.getMenuEditorHelper().createMenuEditorItem(new MenuEditorItem(Type.BLOG_POST, app.blogPostName));
-        app.getPageEditorHelper().waitPageEditorOpened();
-        app.getNavigationHelper().goToPagesPage();
-        List<MenuEditorItem> after = app.getMenuEditorHelper().getMenuItemsList();
+        app.menuEditor().createItem(new MenuEditorItem().withType(Type.BLOG_POST).withName(app.blogPostName));
+        List<MenuEditorItem> after = app.menuEditor().itemsList();
         Assert.assertEquals(after.size(), before.size());
 
         Comparator<? super MenuEditorItem> byId = (i1, i2) -> Integer.compare(i1.getDataId(), i2.getDataId());

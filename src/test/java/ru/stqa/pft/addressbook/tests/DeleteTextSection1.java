@@ -4,11 +4,11 @@ import org.testng.annotations.Test;
 
 public class DeleteTextSection1 extends TestBase {
 
-    @Test
+    @Test (enabled = false)
     public void theTest() {
-        app.getNavigationHelper().goToPagesPage();
-        app.getMenuEditorHelper().checkCustomPagePresence(app.customPageName);
-        app.getMenuEditorHelper().openSelectedPageInPageEditor(app.customPageName);
+        app.goTo().pagesPage();
+        app.menuEditor().checkCustomPagePresence(app.customPageName);
+        app.menuEditor().openSelectedPageInPageEditor(app.customPageName);
         app.getPageEditorHelper().checkTextSection1Presence();
         // последнем шаге метода deleteFirstTextSection() тест упадет, 
         // потому что кнопка не успевает стать кликабельной к моменту, кодгда селениум делает клик по ней
