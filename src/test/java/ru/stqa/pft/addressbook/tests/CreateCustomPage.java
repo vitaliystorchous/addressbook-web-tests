@@ -14,13 +14,13 @@ public class CreateCustomPage extends TestBase {
     public void theTest() {
         app.goTo().pagesPage();
         Set<MenuEditorItem> before = app.menuEditor().allItems();
-        MenuEditorItem item = new MenuEditorItem().withType(Type.CUSTOM_PAGE).withName(app.customPageName);
-        app.menuEditor().createItem(item);
+        MenuEditorItem customPage = new MenuEditorItem().withType(Type.CUSTOM_PAGE).withName(app.customPageName);
+        app.menuEditor().createItem(customPage);
         Set<MenuEditorItem> after = app.menuEditor().allItems();
         Assert.assertEquals(after.size(), before.size() + 1);
 
-        item.withDataId(after.stream().mapToInt((i) -> i.getDataId()).max().getAsInt());
-        before.add(item);
+        customPage.withDataId(after.stream().mapToInt((i) -> i.getDataId()).max().getAsInt());
+        before.add(customPage);
         Assert.assertEquals(after, before);
     }
 

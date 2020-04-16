@@ -7,23 +7,22 @@ import ru.stqa.pft.addressbook.model.MenuEditorItem.Type;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 public class CreateExternalLink extends TestBase {
 
     @Test
     public void theTest() {
         app.goTo().pagesPage();
-        List<MenuEditorItem> before = app.menuEditor().itemsList();
-        MenuEditorItem item = new MenuEditorItem().withType(Type.EXTERNAL_LINK).withName(app.externalLinkName);
-        app.menuEditor().createItem(item);
-        app.pause(2);
-        List<MenuEditorItem> after = app.menuEditor().itemsList();
+        Set<MenuEditorItem> before = app.menuEditor().allItems();
+        MenuEditorItem externalLink = new MenuEditorItem().withType(Type.EXTERNAL_LINK).withName(app.externalLinkName);
+        app.menuEditor().createItem(externalLink);
+        app.pause(2); //нужно заменить на waitItemVisible()
+        Set<MenuEditorItem> after = app.menuEditor().allItems();
         Assert.assertEquals(after.size(), before.size() + 1);
 
-        before.add(item);
-        Comparator<? super MenuEditorItem> byId = (i1, i2) -> Integer.compare(i1.getDataId(), i2.getDataId());
-        before.sort(byId);
-        after.sort(byId);
+        externalLink.withDataId(after.stream().mapToInt(MenuEditorItem::getDataId).max().getAsInt());
+        before.add(externalLink);
         Assert.assertEquals(after, before);
     }
 
