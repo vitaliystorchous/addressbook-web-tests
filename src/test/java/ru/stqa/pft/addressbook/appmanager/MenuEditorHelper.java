@@ -8,7 +8,9 @@ import ru.stqa.pft.addressbook.model.MenuEditorItem;
 import ru.stqa.pft.addressbook.model.MenuEditorItem.Type;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class MenuEditorHelper extends HelperBase {
@@ -30,6 +32,10 @@ public class MenuEditorHelper extends HelperBase {
         wd.findElements(By.cssSelector(".site-menu-item-actions-cta--meatball-svg")).get(index).click();
     }
 
+    private void clickMoreOptionsByItemId(int dataId) {
+        wd.findElement(By.xpath("//*[contains(@data-id, '" + dataId +"')]//button[contains(@class, 'site-menu-item-actions-cta')]")).click();
+    }
+
     public void deleteSelectedPage(String pageName) {
         clickMoreOptions(pageName);
         click(By.cssSelector(".site-menu-editor-item-actions__action-link--delete-permanently"));
@@ -39,6 +45,19 @@ public class MenuEditorHelper extends HelperBase {
     public void deleteSelectedPage(int index) {
         clickMoreOptions(index);
         click(By.cssSelector(".site-menu-editor-item-actions__action-link--delete-permanently"));
+        click(By.cssSelector(".btn-red"));
+    }
+
+    public void deleteItem(MenuEditorItem item) {
+        clickMoreOptionsByItemId(item.getDataId());
+        switch (item.getType()) {
+            case PROOFING_PROJECT: case GALLERY: case CUSTOM_PAGE: case COLLECTION: case SUBMENU: case EXTERNAL_LINK:
+                click(By.cssSelector(".site-menu-editor-item-actions__action-link--delete-permanently"));
+                break;
+            case BLOG: case BLOG_POST: case STORE_PRODUCT: case STORE: {
+                System.out.println("Blog, blog post, store product and store can't be deleted through menu editor");
+            }
+        }
         click(By.cssSelector(".btn-red"));
     }
 
@@ -154,6 +173,24 @@ public class MenuEditorHelper extends HelperBase {
             if(item.getType() == Type.STORE) { return true; }
         }
         return false;
+    }
+
+    public Set<MenuEditorItem> all() {
+        Set<MenuEditorItem> items = new HashSet<MenuEditorItem>();
+        List<WebElement> elements = wd.findElements(By.cssSelector(".site-menu-editor-item-flex-wrap"));
+
+        wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+        for(WebElement element : elements) {
+            Type type = getElementType(element);
+            String elementName = getElementName(element);
+            int elementDataId = getElementDataId(element);
+            MenuEditorItem item = new MenuEditorItem().withDataId(elementDataId).withType(type).withName(elementName);
+            item.withHomepage(element.findElements(By.xpath(".//*[contains(@class, 'site-menu-editor-item-home-icon')]")).size() != 0);
+            item.withInMenu(element.findElements(By.xpath("./../../../*[contains(@class, 'pages-editor-sortable-wrap--in-menu')]")).size() != 0);
+            items.add(item);
+        }
+        wd.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+        return items;
     }
 
     

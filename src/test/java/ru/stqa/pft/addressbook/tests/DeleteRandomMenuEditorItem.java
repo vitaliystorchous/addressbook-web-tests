@@ -7,7 +7,7 @@ import ru.stqa.pft.addressbook.model.MenuEditorItem;
 
 import java.util.Set;
 
-public class DeleteCustomPage extends TestBase {
+public class DeleteRandomMenuEditorItem extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
@@ -18,7 +18,7 @@ public class DeleteCustomPage extends TestBase {
     @Test
     public void theTest() {
         Set<MenuEditorItem> before = app.menuEditor().all();
-        MenuEditorItem deletedItem = MenuEditorItem.getItem(before, MenuEditorItem.Type.CUSTOM_PAGE, app.customPageName);
+        MenuEditorItem deletedItem = before.iterator().next();
         app.menuEditor().deleteItem(deletedItem);
         Set<MenuEditorItem> after = app.menuEditor().all();
         Assert.assertEquals(after.size(), before.size() - 1);
@@ -28,4 +28,5 @@ public class DeleteCustomPage extends TestBase {
         //Assert.assertTrue(app.getMenuEditorHelper().isElementPresent(By.cssSelector(".format-ui-toast-header")));
         // нужно добавить проверку того, что страницы нету в списке menu editor
     }
+
 }

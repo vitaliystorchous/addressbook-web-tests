@@ -7,6 +7,7 @@ import ru.stqa.pft.addressbook.model.MenuEditorItem.Type;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 
 public class CreateCustomPage extends TestBase {
@@ -14,16 +15,14 @@ public class CreateCustomPage extends TestBase {
     @Test
     public void theTest() {
         app.goTo().pagesPage();
-        List<MenuEditorItem> before = app.menuEditor().itemsList();
+        Set<MenuEditorItem> before = app.menuEditor().all();
         MenuEditorItem item = new MenuEditorItem().withType(Type.CUSTOM_PAGE).withName(app.customPageName);
         app.menuEditor().createItem(item);
-        List<MenuEditorItem> after = app.menuEditor().itemsList();
+        Set<MenuEditorItem> after = app.menuEditor().all();
         Assert.assertEquals(after.size(), before.size() + 1);
 
+        item.withDataId(after.stream().mapToInt((i) -> i.getDataId()).max().getAsInt());
         before.add(item);
-        Comparator<? super MenuEditorItem> byId = (i1, i2) -> Integer.compare(i1.getDataId(), i2.getDataId());
-        before.sort(byId);
-        after.sort(byId);
         Assert.assertEquals(after, before);
     }
 
