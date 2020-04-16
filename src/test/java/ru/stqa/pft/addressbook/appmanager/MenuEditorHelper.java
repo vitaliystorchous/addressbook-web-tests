@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 public class MenuEditorHelper extends HelperBase {
 
-    NavigationHelper navigationHelper = new NavigationHelper(wd);
+    NavigationHelper goTo = new NavigationHelper(wd);
     PageEditorHelper pageEditorHelper = new PageEditorHelper(wd);
     BlogEditorHelper blogEditorHelper = new BlogEditorHelper(wd);
     StoreHelper storeHelper = new StoreHelper(wd);
@@ -127,7 +127,7 @@ public class MenuEditorHelper extends HelperBase {
                 type(By.cssSelector(".page-type-modal-input"), item.getName());
                 click(By.cssSelector(".btn-primarycolor"));
                 pageEditorHelper.waitPageEditorOpened();
-                navigationHelper.pagesPage();
+                goTo.pagesPage();
                 break;
             }
 
@@ -140,7 +140,7 @@ public class MenuEditorHelper extends HelperBase {
                     storeHelper.waitStoreOpened();
                     storeHelper.closeModal();
                 }
-                navigationHelper.pagesPage();
+                goTo.pagesPage();
                 break;
             }
 
@@ -188,21 +188,21 @@ public class MenuEditorHelper extends HelperBase {
         return items;
     }
 
-    public boolean isBlogPresent(List<MenuEditorItem> items) {
+    public boolean isBlogPresent(Set<MenuEditorItem> items) {
         for(MenuEditorItem item : items) {
             if(item.getType() == Type.BLOG) { return true; }
         }
         return false;
     }
 
-    public boolean isStorePresent(List<MenuEditorItem> items) {
+    public boolean isStorePresent(Set<MenuEditorItem> items) {
         for(MenuEditorItem item : items) {
             if(item.getType() == Type.STORE) { return true; }
         }
         return false;
     }
 
-    public Set<MenuEditorItem> all() {
+    public Set<MenuEditorItem> allItems() {
         Set<MenuEditorItem> items = new HashSet<MenuEditorItem>();
         List<WebElement> elements = wd.findElements(By.cssSelector(".site-menu-editor-item-flex-wrap"));
 

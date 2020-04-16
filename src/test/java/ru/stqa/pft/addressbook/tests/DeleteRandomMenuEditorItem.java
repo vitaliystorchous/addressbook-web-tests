@@ -17,10 +17,10 @@ public class DeleteRandomMenuEditorItem extends TestBase {
 
     @Test
     public void theTest() {
-        Set<MenuEditorItem> before = app.menuEditor().all();
+        Set<MenuEditorItem> before = app.menuEditor().allItems();
         MenuEditorItem deletedItem = before.iterator().next();
         app.menuEditor().deleteItem(deletedItem);
-        Set<MenuEditorItem> after = app.menuEditor().all();
+        Set<MenuEditorItem> after = app.menuEditor().allItems();
         Assert.assertEquals(after.size(), before.size() - 1);
 
         before.remove(deletedItem);

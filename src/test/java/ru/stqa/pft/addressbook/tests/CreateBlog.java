@@ -5,25 +5,22 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.MenuEditorItem;
 import ru.stqa.pft.addressbook.model.MenuEditorItem.Type;
 
-import java.util.Comparator;
-import java.util.List;
+import java.util.Set;
 
+//этот тест нужно доработать в отдельном порядке (сейчас нету смысла тратить на него много времени так как блог нельзя удалить)
 public class CreateBlog extends TestBase {
 
     @Test (enabled = false)
     public void theTest() {
         app.goTo().pagesPage();
-        List<MenuEditorItem> before = app.menuEditor().itemsList();
+        Set<MenuEditorItem> before = app.menuEditor().allItems();
         if(! app.menuEditor().isBlogPresent(before)) {
-            MenuEditorItem item = new MenuEditorItem().withType(Type.BLOG).withName(app.blogName);
-            app.menuEditor().createItem(item);
-            List<MenuEditorItem> after = app.menuEditor().itemsList();
+            MenuEditorItem blog = new MenuEditorItem().withType(Type.BLOG).withName(app.blogName);
+            app.menuEditor().createItem(blog);
+            Set<MenuEditorItem> after = app.menuEditor().allItems();
             Assert.assertEquals(after.size(), before.size() + 1);
 
-            before.add(item);
-            Comparator<? super MenuEditorItem> byId = (i1, i2) -> Integer.compare(i1.getDataId(), i2.getDataId());
-            before.sort(byId);
-            after.sort(byId);
+            before.add(blog);
             Assert.assertEquals(after, before);
         } else {
             System.out.println("Blog is already present");
