@@ -7,6 +7,7 @@ import ru.stqa.pft.addressbook.model.MenuEditorItem;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 public class AddCustomPageToMenu extends TestBase {
 
@@ -18,14 +19,11 @@ public class AddCustomPageToMenu extends TestBase {
 
     @Test (enabled = false)
     public void theTest() {
-        List<MenuEditorItem> before = app.menuEditor().itemsList();
+        Set<MenuEditorItem> before = app.menuEditor().all();
         app.menuEditor().addSelectedPageToMenu(app.customPageName); //нужно переделать на addItemToMenu и создать также метод removeItemFormMenu
         app.pause(3);
-        List<MenuEditorItem> after = app.menuEditor().itemsList();
+        Set<MenuEditorItem> after = app.menuEditor().all();
 
-        Comparator<? super MenuEditorItem> byId = (i1, i2) -> Integer.compare(i1.getDataId(), i2.getDataId());
-        before.sort(byId);
-        after.sort(byId);
         Assert.assertEquals(after, before);
     }
 }

@@ -169,6 +169,7 @@ public class MenuEditorHelper extends HelperBase {
         return wd.findElements(By.cssSelector(".site-menu-editor-item")).size();
     }
 
+    //метод itemsList() устаревший - нужно заменить все случаи использования на метод all() при этом убрать сортировки так как сравниваються множества а не упорядоченые списки элементов
     public List<MenuEditorItem> itemsList() {
         List<MenuEditorItem> items = new ArrayList<MenuEditorItem>();
         List<WebElement> elements = wd.findElements(By.cssSelector(".site-menu-editor-item-flex-wrap"));
