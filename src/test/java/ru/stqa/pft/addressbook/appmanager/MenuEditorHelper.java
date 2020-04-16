@@ -36,6 +36,10 @@ public class MenuEditorHelper extends HelperBase {
         wd.findElement(By.xpath("//*[contains(@data-id, '" + dataId +"')]//button[contains(@class, 'site-menu-item-actions-cta')]")).click();
     }
 
+    private void clickEditById(int dataId) {
+        wd.findElement(By.xpath("//*[contains(@data-id, '" + dataId +"')]//*[contains(@class, 'pages-editor-item__edit-button')]")).click();
+    }
+
     public void deleteSelectedPage(String pageName) {
         clickMoreOptions(pageName);
         click(By.cssSelector(".site-menu-editor-item-actions__action-link--delete-permanently"));
@@ -66,6 +70,28 @@ public class MenuEditorHelper extends HelperBase {
         click(By.xpath("//ul/li/span"));
         type(By.id("page-title"), newName);
         click(By.cssSelector(".btn-primarycolor"));
+    }
+
+    public void renameItem(MenuEditorItem item) {
+        clickMoreOptionsByItemId(item.getDataId());
+
+        switch (item.getType()) {
+            case BLOG: case STORE: case CUSTOM_PAGE: case COLLECTION: case GALLERY: case PROOFING_PROJECT: {
+                click(By.xpath("//ul/li[1]/span"));
+                type(By.id("page-title"), item.getName());
+                break;
+            }
+
+            case EXTERNAL_LINK: case SUBMENU: {
+                clickEditById(item.getDataId());
+                if(item.getType() == Type.EXTERNAL_LINK) { type(By.id("link-title"), item.getName()); }
+                else if(item.getType() == Type.SUBMENU) { type(By.id("sub-menu-name"), item.getName()); }
+                break;
+            }
+        }
+
+        click(By.cssSelector(".btn-primarycolor"));
+
     }
 
     public void openSelectedPageInPageEditor(String pageName) {

@@ -59,7 +59,7 @@ public class HelperBase {
     public boolean isElementPresent(String byText) {
         try {
             wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-            wd.findElement(By.xpath("//*[contains(., '" + byText + "')]"));
+            wd.findElement(By.xpath("//*[.='" + byText + "']"));
             wd.manage().timeouts().implicitlyWait(waitDurationSec, TimeUnit.SECONDS);
             return true;
         } catch (NoSuchElementException ex) {
