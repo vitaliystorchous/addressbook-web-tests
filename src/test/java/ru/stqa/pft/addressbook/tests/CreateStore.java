@@ -17,12 +17,13 @@ public class CreateStore extends TestBase {
         app.goTo().pagesPage();
         Set<MenuEditorItem> before = app.menuEditor().allItems();
         if(! app.menuEditor().isStorePresent(before)) {
-            MenuEditorItem item = new MenuEditorItem().withType(Type.STORE).withName(app.storeName);
-            app.menuEditor().createItem(item);
+            MenuEditorItem store = new MenuEditorItem().withType(Type.STORE).withName(app.storeName);
+            app.menuEditor().createItem(store);
             Set<MenuEditorItem> after = app.menuEditor().allItems();
             Assert.assertEquals(after.size(), before.size() + 1);
 
-            before.add(item);
+            store.withDataId(after.stream().mapToInt(MenuEditorItem::getDataId).max().getAsInt());
+            before.add(store);
             Assert.assertEquals(after, before);
         } else {
             System.out.println("Store is already present");

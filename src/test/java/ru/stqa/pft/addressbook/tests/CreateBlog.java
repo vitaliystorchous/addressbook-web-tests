@@ -20,6 +20,7 @@ public class CreateBlog extends TestBase {
             Set<MenuEditorItem> after = app.menuEditor().allItems();
             Assert.assertEquals(after.size(), before.size() + 1);
 
+            blog.withDataId(after.stream().mapToInt(MenuEditorItem::getDataId).max().getAsInt());
             before.add(blog);
             Assert.assertEquals(after, before);
         } else {
