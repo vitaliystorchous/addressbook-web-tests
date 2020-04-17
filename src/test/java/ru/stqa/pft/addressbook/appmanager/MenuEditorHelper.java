@@ -220,8 +220,6 @@ public class MenuEditorHelper extends HelperBase {
         wd.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         return items;
     }
-
-    
     
     //inner service methods
 

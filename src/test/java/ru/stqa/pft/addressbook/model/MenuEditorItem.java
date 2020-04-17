@@ -1,5 +1,6 @@
 package ru.stqa.pft.addressbook.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class MenuEditorItem {
@@ -106,6 +107,25 @@ public class MenuEditorItem {
             }
         }
         System.out.println("No such item!");
+        return null;
+    }
+
+    public static MenuEditorItem getLastCreatedSubmenu(Set<MenuEditorItem> after) {
+        Set<MenuEditorItem> submenus = new HashSet<>();
+        for(MenuEditorItem item : after) {
+            if(item.getType() == Type.SUBMENU) {
+                submenus.add(item);
+            }
+        }
+
+        int maxId = submenus.stream().mapToInt(MenuEditorItem::getDataId).max().getAsInt();
+        for(MenuEditorItem item : submenus) {
+            if(item.getDataId() == maxId) {
+                return item;
+            }
+        }
+
+        System.out.println("Submenu is not found");
         return null;
     }
 
