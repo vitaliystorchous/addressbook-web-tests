@@ -290,7 +290,7 @@ public class MenuEditorHelper extends HelperBase {
             return element.findElement(By.xpath(".//*[@class='site-menu-editor-item-name']")).getAttribute("innerText");
         }
         else {
-            return element.findElement(By.xpath("//*[@class='site-menu-editor-item-sub-menu-name']"))
+            return element.findElement(By.xpath(".//*[@class='site-menu-editor-item-sub-menu-name']"))
                     .getAttribute("innerText")
                     .replace("\nEdit", "");
         }
