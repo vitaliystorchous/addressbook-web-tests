@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 //этот тест нужно доработать в отдельном порядке (сейчас нету смысла тратить на него много времени так как магазин нельзя удалить)
-public class CreateStore extends TestBase {
+public class CreateStoreTest extends TestBase {
 
     @Test (enabled = false)
     public void theTest() {

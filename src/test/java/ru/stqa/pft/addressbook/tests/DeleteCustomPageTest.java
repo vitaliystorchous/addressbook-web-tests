@@ -7,7 +7,7 @@ import ru.stqa.pft.addressbook.model.MenuEditorItem;
 
 import java.util.Set;
 
-public class DeleteCustomPage extends TestBase {
+public class DeleteCustomPageTest extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {

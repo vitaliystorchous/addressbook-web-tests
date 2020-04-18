@@ -9,21 +9,21 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
-public class CreateExternalLink extends TestBase {
+public class CreateStoreProductTest extends TestBase {
 
     @Test
     public void theTest() {
         app.goTo().pagesPage();
         Set<MenuEditorItem> before = app.menuEditor().allItems();
-        MenuEditorItem externalLink = new MenuEditorItem().withType(Type.EXTERNAL_LINK).withName(app.externalLinkName);
-        app.menuEditor().createItem(externalLink);
-        app.pause(2); //нужно заменить на waitItemVisible()
+        if(! app.menuEditor().isStorePresent(before)) {
+            MenuEditorItem store = new MenuEditorItem().withType(Type.STORE).withName(app.storeName);
+            app.menuEditor().createItem(store);
+            before.add(store);
+        }
+        app.menuEditor().createItem(new MenuEditorItem().withType(Type.STORE_PRODUCT).withName(app.storeProductName));
         Set<MenuEditorItem> after = app.menuEditor().allItems();
-        Assert.assertEquals(after.size(), before.size() + 1);
+        Assert.assertEquals(after.size(), before.size());
 
-        externalLink.withDataId(after.stream().mapToInt(MenuEditorItem::getDataId).max().getAsInt());
-        before.add(externalLink);
         Assert.assertEquals(after, before);
     }
-
 }

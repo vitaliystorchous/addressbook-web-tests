@@ -5,9 +5,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.MenuEditorItem;
 
-import java.util.Set;
+import java.util.List;
 
-public class AddCustomPageToMenu extends TestBase {
+public class SetCustomPageAsHomepageTest extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
@@ -15,13 +15,12 @@ public class AddCustomPageToMenu extends TestBase {
         app.menuEditor().checkCustomPagePresence(app.customPageName);
     }
 
-    @Test (enabled = false)
+    @Test
     public void theTest() {
-        Set<MenuEditorItem> before = app.menuEditor().allItems();
-        app.menuEditor().addSelectedPageToMenu(app.customPageName); //нужно переделать на addItemToMenu и создать также метод removeItemFormMenu
+        List<MenuEditorItem> before = app.menuEditor().itemsList();
+        app.menuEditor().setSelectedPageAsHomepage(app.customPageName);
+        List<MenuEditorItem> after = app.menuEditor().itemsList();
         app.pause(3);
-        Set<MenuEditorItem> after = app.menuEditor().allItems();
-
         Assert.assertEquals(after, before);
     }
 }

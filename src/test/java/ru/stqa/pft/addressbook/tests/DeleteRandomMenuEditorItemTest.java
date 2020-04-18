@@ -7,7 +7,7 @@ import ru.stqa.pft.addressbook.model.MenuEditorItem;
 
 import java.util.Set;
 
-public class DeleteRandomMenuEditorItem extends TestBase {
+public class DeleteRandomMenuEditorItemTest extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {

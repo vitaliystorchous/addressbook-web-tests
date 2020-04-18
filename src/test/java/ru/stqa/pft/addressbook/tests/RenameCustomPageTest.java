@@ -7,9 +7,9 @@ import ru.stqa.pft.addressbook.model.MenuEditorItem;
 
 import java.util.Set;
 
-public class RenameRandomMenuEditorItem extends TestBase {
+public class RenameCustomPageTest extends TestBase {
 
-    String newPageName = "Renamed test item (*Selenium*)";
+    String newPageName = "Renamed " + app.customPageName;
 
     @BeforeMethod
     public void ensurePreconditions() {
@@ -20,20 +20,13 @@ public class RenameRandomMenuEditorItem extends TestBase {
     @Test
     public void testRenameCustomPage() {
         Set<MenuEditorItem> before = app.menuEditor().allItems();
-        MenuEditorItem renamedItem = before.iterator().next();
+        MenuEditorItem renamedItem = MenuEditorItem.getItem(before, MenuEditorItem.Type.CUSTOM_PAGE, app.customPageName);
         before.remove(renamedItem);
         before.add(renamedItem.withName(newPageName));
         app.menuEditor().renameItem(renamedItem); // здесь нужно переделать метод что бы с помощью него я мог переименовать любую item в menu editor и после этого переименовать метод на renameItem
         Set<MenuEditorItem> after = app.menuEditor().allItems();
         Assert.assertEquals(after.size(), before.size());
 
-        for(MenuEditorItem i : before) {
-            System.out.println(i.toString());
-        }
-
-        for(MenuEditorItem i : after) {
-            System.out.println(i.toString());
-        }
         Assert.assertEquals(after, before);
     }
 }

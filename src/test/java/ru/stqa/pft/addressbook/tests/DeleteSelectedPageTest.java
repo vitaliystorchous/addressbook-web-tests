@@ -6,7 +6,7 @@ import ru.stqa.pft.addressbook.model.MenuEditorItem;
 
 import java.util.List;
 
-public class DeleteSelectedPage extends TestBase {
+public class DeleteSelectedPageTest extends TestBase {
 
     @Test (enabled = false)
     public void theTest() {

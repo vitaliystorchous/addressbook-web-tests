@@ -8,7 +8,7 @@ import ru.stqa.pft.addressbook.model.MenuEditorItem.Type;
 import java.util.Set;
 
 //этот тест нужно доработать в отдельном порядке (сейчас нету смысла тратить на него много времени так как блог нельзя удалить)
-public class CreateBlog extends TestBase {
+public class CreateBlogTest extends TestBase {
 
     @Test (enabled = false)
     public void theTest() {

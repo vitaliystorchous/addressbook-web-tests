@@ -9,19 +9,19 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
-public class CreateProofingProject extends TestBase {
+public class CreateGalleryTest extends TestBase {
 
     @Test
     public void theTest() {
         app.goTo().pagesPage();
         Set<MenuEditorItem> before = app.menuEditor().allItems();
-        MenuEditorItem proofingProject = new MenuEditorItem().withType(Type.PROOFING_PROJECT).withName(app.proofingProjectName);
-        app.menuEditor().createItem(proofingProject);
+        MenuEditorItem gallery = new MenuEditorItem().withType(Type.GALLERY).withName(app.galleryName);
+        app.menuEditor().createItem(gallery);
         Set<MenuEditorItem> after = app.menuEditor().allItems();
         Assert.assertEquals(after.size(), before.size() + 1);
 
-        proofingProject.withDataId(after.stream().mapToInt(MenuEditorItem::getDataId).max().getAsInt());
-        before.add(proofingProject);
+        gallery.withDataId(after.stream().mapToInt(MenuEditorItem::getDataId).max().getAsInt());
+        before.add(gallery);
         Assert.assertEquals(after, before);
     }
 

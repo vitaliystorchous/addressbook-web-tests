@@ -5,23 +5,23 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.MenuEditorItem;
 import ru.stqa.pft.addressbook.model.MenuEditorItem.Type;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 
-public class CreateBlogPost extends TestBase {
+public class CreateCollectionTest extends TestBase {
 
     @Test
     public void theTest() {
         app.goTo().pagesPage();
         Set<MenuEditorItem> before = app.menuEditor().allItems();
-        if(! app.menuEditor().isBlogPresent(before)) {
-            MenuEditorItem blog = new MenuEditorItem().withType(Type.BLOG).withName(app.blogName);
-            app.menuEditor().createItem(blog);
-            before.add(blog);
-        }
-        app.menuEditor().createItem(new MenuEditorItem().withType(Type.BLOG_POST).withName(app.blogPostName));
+        MenuEditorItem collection = new MenuEditorItem().withType(Type.COLLECTION).withName(app.collectionName);
+        app.menuEditor().createItem(collection);
         Set<MenuEditorItem> after = app.menuEditor().allItems();
-        Assert.assertEquals(after.size(), before.size());
+        Assert.assertEquals(after.size(), before.size() + 1);
 
+        collection.withDataId(after.stream().mapToInt(MenuEditorItem::getDataId).max().getAsInt());
+        before.add(collection);
         Assert.assertEquals(after, before);
     }
 

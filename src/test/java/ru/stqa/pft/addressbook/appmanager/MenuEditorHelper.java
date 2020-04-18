@@ -9,10 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.stqa.pft.addressbook.model.MenuEditorItem;
 import ru.stqa.pft.addressbook.model.MenuEditorItem.Type;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class MenuEditorHelper extends HelperBase {
@@ -57,9 +54,9 @@ public class MenuEditorHelper extends HelperBase {
 
     public void deleteItem(MenuEditorItem item) {
         clickMoreOptionsByItemId(item.getDataId());
+        String selector = ".site-menu-editor-item-actions__action-link--delete-permanently";
         switch (item.getType()) {
             case PROOFING_PROJECT: case GALLERY: case CUSTOM_PAGE: case COLLECTION: case SUBMENU: case EXTERNAL_LINK: {
-                String selector = ".site-menu-editor-item-actions__action-link--delete-permanently";
                 try {
                     click(By.cssSelector(selector));
                     return;
