@@ -11,13 +11,13 @@ public class RenameRandomMenuEditorItemTest extends TestBase {
 
     String newPageName = "Renamed test item (*Selenium*)";
 
-    @BeforeMethod
+    @BeforeMethod (enabled = false)
     public void ensurePreconditions() {
         app.goTo().pagesPage();
         app.menuEditor().checkCustomPagePresence(app.customPageName); //все checkCustomPagePresence нужно или переписать так, что бы они проверяли наличие определенного item, или просто удалить и написать в самих тестах проверки вручную с помощью метода isElementPresent
     }
 
-    @Test
+    @Test (enabled = false)
     public void testRenameCustomPage() {
         Set<MenuEditorItem> before = app.menuEditor().allItems();
         MenuEditorItem renamedItem = before.iterator().next();
