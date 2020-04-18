@@ -59,7 +59,6 @@ public class MenuEditorHelper extends HelperBase {
             case PROOFING_PROJECT: case GALLERY: case CUSTOM_PAGE: case COLLECTION: case SUBMENU: case EXTERNAL_LINK: {
                 try {
                     click(By.cssSelector(selector));
-                    return;
                 } catch (StaleElementReferenceException ex) {
                     clickMoreOptionsByItemId(item.getDataId());
                     click(By.cssSelector(selector));
@@ -248,7 +247,7 @@ public class MenuEditorHelper extends HelperBase {
             return element.findElement(By.xpath(".//*[@class='site-menu-editor-item-name']")).getAttribute("innerText");
         }
         else {
-            return element.findElement(By.xpath("//*[@class='site-menu-editor-item-flex-wrap']"))
+            return element.findElement(By.xpath("//*[@class='site-menu-editor-item-sub-menu-name']"))
                     .getAttribute("innerText")
                     .replace("\nEdit", "");
         }

@@ -9,13 +9,13 @@ import java.util.Set;
 
 public class DeleteRandomMenuEditorItemTest extends TestBase {
 
-    @BeforeMethod
+    @BeforeMethod (enabled = false)
     public void ensurePreconditions() {
         app.goTo().pagesPage();
         app.menuEditor().checkCustomPagePresence(app.customPageName);
     }
 
-    @Test
+    @Test (enabled = false)
     public void theTest() {
         Set<MenuEditorItem> before = app.menuEditor().allItems();
         MenuEditorItem deletedItem = before.iterator().next();
