@@ -87,11 +87,23 @@ public class MenuEditorHelper extends HelperBase {
     }
 
     public void renameItem(MenuEditorItem item) {
-        clickMoreOptionsByItemId(item.getDataId());
 
         switch (item.getType()) {
             case BLOG: case STORE: case CUSTOM_PAGE: case COLLECTION: case GALLERY: case PROOFING_PROJECT: {
-                click(By.xpath("//ul/li[1]/span"));
+                clickMoreOptionsByItemId(item.getDataId());
+
+                String selector = "//ul/li[1]/span";
+                WebElement element = wd.findElement(By.xpath(selector));
+                Actions actions = new Actions(wd);
+                actions.moveToElement(element);
+                actions.perform();
+                try {
+                    click(By.xpath(selector));
+                } catch (StaleElementReferenceException ex) {
+                    clickMoreOptionsByItemId(item.getDataId());
+                    click(By.xpath(selector));
+                }
+
                 type(By.id("page-title"), item.getName());
                 break;
             }
