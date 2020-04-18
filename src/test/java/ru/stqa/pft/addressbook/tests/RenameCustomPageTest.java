@@ -9,12 +9,12 @@ import java.util.Set;
 
 public class RenameCustomPageTest extends TestBase {
 
-    String newPageName = "Renamed " + app.customPageName;
-
     @BeforeMethod
     public void ensurePreconditions() {
         app.goTo().pagesPage();
-        app.menuEditor().checkCustomPagePresence(app.customPageName); //все checkCustomPagePresence нужно или переписать так, что бы они проверяли наличие определенного item, или просто удалить и написать в самих тестах проверки вручную с помощью метода isElementPresent
+        if(! app.menuEditor().isItemPresent(MenuEditorItem.Type.CUSTOM_PAGE, app.customPageName)) {
+            app.menuEditor().createItem(new MenuEditorItem().withType(MenuEditorItem.Type.CUSTOM_PAGE).withName(app.customPageName));
+        }
     }
 
     @Test
@@ -22,7 +22,7 @@ public class RenameCustomPageTest extends TestBase {
         Set<MenuEditorItem> before = app.menuEditor().allItems();
         MenuEditorItem renamedItem = MenuEditorItem.getItem(before, MenuEditorItem.Type.CUSTOM_PAGE, app.customPageName);
         before.remove(renamedItem);
-        before.add(renamedItem.withName(newPageName));
+        before.add(renamedItem.withName("Renamed " + app.customPageName));
         app.menuEditor().renameItem(renamedItem); // здесь нужно переделать метод что бы с помощью него я мог переименовать любую item в menu editor и после этого переименовать метод на renameItem
         Set<MenuEditorItem> after = app.menuEditor().allItems();
         Assert.assertEquals(after.size(), before.size());

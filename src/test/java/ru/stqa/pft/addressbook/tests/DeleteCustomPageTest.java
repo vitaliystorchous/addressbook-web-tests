@@ -12,7 +12,7 @@ public class DeleteCustomPageTest extends TestBase {
     @BeforeMethod
     public void ensurePreconditions() {
         app.goTo().pagesPage();
-        if(! app.menuEditor().isItemPresent(MenuEditorItem.Type.CUSTOM_PAGE, app.customPageName)) {
+        if(! app.menuEditor().isItemPresent(MenuEditorItem.Type.CUSTOM_PAGE)) {
             app.menuEditor().createItem(new MenuEditorItem().withType(MenuEditorItem.Type.CUSTOM_PAGE).withName(app.customPageName));
         }
     }
@@ -20,7 +20,7 @@ public class DeleteCustomPageTest extends TestBase {
     @Test
     public void theTest() {
         Set<MenuEditorItem> before = app.menuEditor().allItems();
-        MenuEditorItem customPage = MenuEditorItem.getItem(before, MenuEditorItem.Type.CUSTOM_PAGE, app.customPageName);
+        MenuEditorItem customPage = MenuEditorItem.getItem(before, MenuEditorItem.Type.CUSTOM_PAGE);
         app.menuEditor().deleteItem(customPage);
         Set<MenuEditorItem> after = app.menuEditor().allItems();
         Assert.assertEquals(after.size(), before.size() - 1);

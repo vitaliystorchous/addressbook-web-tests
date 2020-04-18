@@ -12,7 +12,7 @@ public class DeleteCollectionTest extends TestBase {
     @BeforeMethod
     public void ensurePreconditions() {
         app.goTo().pagesPage();
-        if(! app.menuEditor().isItemPresent(MenuEditorItem.Type.COLLECTION, app.collectionName)) {
+        if(! app.menuEditor().isItemPresent(MenuEditorItem.Type.COLLECTION)) {
             app.menuEditor().createItem(new MenuEditorItem().withType(MenuEditorItem.Type.COLLECTION).withName(app.collectionName));
         }
     }
@@ -20,7 +20,7 @@ public class DeleteCollectionTest extends TestBase {
     @Test
     public void theTest() {
         Set<MenuEditorItem> before = app.menuEditor().allItems();
-        MenuEditorItem collection = MenuEditorItem.getItem(before, MenuEditorItem.Type.COLLECTION, app.collectionName);
+        MenuEditorItem collection = MenuEditorItem.getItem(before, MenuEditorItem.Type.COLLECTION);
         app.menuEditor().deleteItem(collection);
         Set<MenuEditorItem> after = app.menuEditor().allItems();
         Assert.assertEquals(after.size(), before.size() - 1);

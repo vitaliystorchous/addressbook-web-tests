@@ -12,7 +12,7 @@ public class DeleteProofingProjectTest extends TestBase {
     @BeforeMethod
     public void ensurePreconditions() {
         app.goTo().pagesPage();
-        if(! app.menuEditor().isItemPresent(MenuEditorItem.Type.PROOFING_PROJECT, app.proofingProjectName)) {
+        if(! app.menuEditor().isItemPresent(MenuEditorItem.Type.PROOFING_PROJECT)) {
             app.menuEditor().createItem(new MenuEditorItem().withType(MenuEditorItem.Type.PROOFING_PROJECT).withName(app.proofingProjectName));
         }
     }
@@ -20,7 +20,7 @@ public class DeleteProofingProjectTest extends TestBase {
     @Test
     public void theTest() {
         Set<MenuEditorItem> before = app.menuEditor().allItems();
-        MenuEditorItem proofingProject = MenuEditorItem.getItem(before, MenuEditorItem.Type.PROOFING_PROJECT, app.proofingProjectName);
+        MenuEditorItem proofingProject = MenuEditorItem.getItem(before, MenuEditorItem.Type.PROOFING_PROJECT);
         app.menuEditor().deleteItem(proofingProject);
         Set<MenuEditorItem> after = app.menuEditor().allItems();
         Assert.assertEquals(after.size(), before.size() - 1);

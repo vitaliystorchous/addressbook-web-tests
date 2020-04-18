@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import ru.stqa.pft.addressbook.model.MenuEditorItem;
 import ru.stqa.pft.addressbook.model.MenuEditorItem.Type;
 
@@ -53,9 +54,14 @@ public class MenuEditorHelper extends HelperBase {
 
     public void deleteItem(MenuEditorItem item) {
         clickMoreOptionsByItemId(item.getDataId());
-        String selector = ".site-menu-editor-item-actions__action-link--delete-permanently";
+
         switch (item.getType()) {
             case PROOFING_PROJECT: case GALLERY: case CUSTOM_PAGE: case COLLECTION: case SUBMENU: case EXTERNAL_LINK: {
+                String selector = ".site-menu-editor-item-actions__action-link--delete-permanently";
+                WebElement element = wd.findElement(By.cssSelector(selector));
+                Actions actions = new Actions(wd);
+                actions.moveToElement(element);
+                actions.perform();
                 try {
                     click(By.cssSelector(selector));
                 } catch (StaleElementReferenceException ex) {
@@ -153,18 +159,33 @@ public class MenuEditorHelper extends HelperBase {
             }
 
             case SUBMENU: {
+                int itemsCount = getItemsCount();
                 type(By.cssSelector("input#sub-menu-name"), item.getName());
                 click(By.cssSelector(".btn-primarycolor"));
+                waitItemsCountIncreased(itemsCount, waitDurationSec);
                 break;
             }
 
             case EXTERNAL_LINK: {
+                int itemsCount = getItemsCount();
                 type(By.cssSelector("input#link-title"), item.getName());
                 type(By.cssSelector("input#link-url"), "https://www.google.com/");
                 click(By.cssSelector(".btn-primarycolor"));
+                waitItemsCountIncreased(itemsCount, waitDurationSec);
                 break;
             }
         }
+    }
+
+    private void waitItemsCountIncreased(int itemsCount, long waitDurationSec) {
+        for(int seconds = 0; seconds <= waitDurationSec; seconds++) {
+            if(getItemsCount() > itemsCount) {
+                return;
+            } else {
+                pause(1);
+            }
+        }
+        System.out.println("Items count is not increased (no element was created)");
     }
 
     public void checkCustomPagePresence(String customPageName) {
@@ -173,7 +194,7 @@ public class MenuEditorHelper extends HelperBase {
         }
     }
 
-    public int getPagesCount() {
+    public int getItemsCount() {
         return wd.findElements(By.cssSelector(".site-menu-editor-item")).size();
     }
 
@@ -226,6 +247,16 @@ public class MenuEditorHelper extends HelperBase {
         }
         wd.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         return items;
+    }
+
+    public boolean isItemPresent(Type type) {
+        Set<MenuEditorItem> items = allItems();
+        for(MenuEditorItem item : items) {
+            if(item.getType() == type) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean isItemPresent(Type type, String name) {

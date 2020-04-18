@@ -100,6 +100,16 @@ public class MenuEditorItem {
                 '}';
     }
 
+    public static MenuEditorItem getItem(Set<MenuEditorItem> set, Type type) {
+        for(MenuEditorItem item : set) {
+            if(item.getType() == type) {
+                return item;
+            }
+        }
+        System.out.println("No such item!");
+        return null;
+    }
+
     public static MenuEditorItem getItem(Set<MenuEditorItem> set, Type type, String itemName) {
         for(MenuEditorItem item : set) {
             if(item.getType() == type && item.getName().equals(itemName)) {

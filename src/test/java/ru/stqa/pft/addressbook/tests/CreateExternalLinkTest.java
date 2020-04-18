@@ -17,7 +17,6 @@ public class CreateExternalLinkTest extends TestBase {
         Set<MenuEditorItem> before = app.menuEditor().allItems();
         MenuEditorItem externalLink = new MenuEditorItem().withType(Type.EXTERNAL_LINK).withName(app.externalLinkName);
         app.menuEditor().createItem(externalLink);
-        app.pause(5); //нужно заменить на waitItemVisible()
         Set<MenuEditorItem> after = app.menuEditor().allItems();
         Assert.assertEquals(after.size(), before.size() + 1);
 
