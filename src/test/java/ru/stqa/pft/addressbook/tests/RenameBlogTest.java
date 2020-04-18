@@ -1,6 +1,7 @@
 package ru.stqa.pft.addressbook.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.MenuEditorItem;
@@ -28,5 +29,15 @@ public class RenameBlogTest extends TestBase {
         Assert.assertEquals(after.size(), before.size());
 
         Assert.assertEquals(after, before);
+    }
+
+    @AfterMethod
+    public void returnBackCondition() {
+        Set<MenuEditorItem> items = app.menuEditor().allItems();
+        MenuEditorItem renamedBlog = MenuEditorItem.getItem(items, MenuEditorItem.Type.BLOG);
+        items.remove(renamedBlog);
+        items.add(renamedBlog.withName(app.blogName));
+        app.menuEditor().renameItem(renamedBlog);
+        app.pause(1);
     }
 }

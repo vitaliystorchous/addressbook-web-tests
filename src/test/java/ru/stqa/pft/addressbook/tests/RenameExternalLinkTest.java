@@ -12,7 +12,7 @@ public class RenameExternalLinkTest extends TestBase {
     @BeforeMethod
     public void ensurePreconditions() {
         app.goTo().pagesPage();
-        if(! app.menuEditor().isItemPresent(MenuEditorItem.Type.EXTERNAL_LINK)) {
+        if(! app.menuEditor().isItemPresent(MenuEditorItem.Type.EXTERNAL_LINK, app.externalLinkName)) {
             app.menuEditor().createItem(new MenuEditorItem().withType(MenuEditorItem.Type.EXTERNAL_LINK).withName(app.externalLinkName));
         }
     }
@@ -20,7 +20,7 @@ public class RenameExternalLinkTest extends TestBase {
     @Test
     public void testRenameCustomPage() {
         Set<MenuEditorItem> before = app.menuEditor().allItems();
-        MenuEditorItem renamedExternalLink = MenuEditorItem.getItem(before, MenuEditorItem.Type.EXTERNAL_LINK);
+        MenuEditorItem renamedExternalLink = MenuEditorItem.getItem(before, MenuEditorItem.Type.EXTERNAL_LINK, app.externalLinkName);
         before.remove(renamedExternalLink);
         before.add(renamedExternalLink.withName("Renamed " + renamedExternalLink.getName()));
         app.menuEditor().renameItem(renamedExternalLink); // здесь нужно переделать метод что бы с помощью него я мог переименовать любую item в menu editor и после этого переименовать метод на renameItem

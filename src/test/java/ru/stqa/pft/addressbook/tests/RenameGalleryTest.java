@@ -12,7 +12,7 @@ public class RenameGalleryTest extends TestBase {
     @BeforeMethod
     public void ensurePreconditions() {
         app.goTo().pagesPage();
-        if(! app.menuEditor().isItemPresent(MenuEditorItem.Type.GALLERY)) {
+        if(! app.menuEditor().isItemPresent(MenuEditorItem.Type.GALLERY, app.galleryName)) {
             app.menuEditor().createItem(new MenuEditorItem().withType(MenuEditorItem.Type.GALLERY).withName(app.galleryName));
         }
     }
@@ -20,7 +20,7 @@ public class RenameGalleryTest extends TestBase {
     @Test
     public void testRenameCustomPage() {
         Set<MenuEditorItem> before = app.menuEditor().allItems();
-        MenuEditorItem renamedGallery = MenuEditorItem.getItem(before, MenuEditorItem.Type.GALLERY);
+        MenuEditorItem renamedGallery = MenuEditorItem.getItem(before, MenuEditorItem.Type.GALLERY, app.galleryName);
         before.remove(renamedGallery);
         before.add(renamedGallery.withName("Renamed " + renamedGallery.getName()));
         app.menuEditor().renameItem(renamedGallery); // здесь нужно переделать метод что бы с помощью него я мог переименовать любую item в menu editor и после этого переименовать метод на renameItem
