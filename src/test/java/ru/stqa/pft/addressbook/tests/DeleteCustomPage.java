@@ -12,7 +12,10 @@ public class DeleteCustomPage extends TestBase {
     @BeforeMethod
     public void ensurePreconditions() {
         app.goTo().pagesPage();
-        app.menuEditor().checkCustomPagePresence(app.customPageName);
+        //app.menuEditor().checkCustomPagePresence(app.customPageName);
+        if(! app.menuEditor().isItemPresent(MenuEditorItem.Type.CUSTOM_PAGE, app.customPageName)) {
+            app.menuEditor().createItem(new MenuEditorItem().withType(MenuEditorItem.Type.CUSTOM_PAGE).withName(app.customPageName));
+        }
     }
 
     @Test

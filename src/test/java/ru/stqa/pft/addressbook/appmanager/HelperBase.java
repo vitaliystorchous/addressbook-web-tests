@@ -82,4 +82,12 @@ public class HelperBase {
     protected void editElementsContent(WebElement element, String text) {
         ((JavascriptExecutor)wd).executeScript("var ele=arguments[0]; ele.innerHTML = '" + text + "';", element);
     }
+
+    public void pause(long seconds) {
+        try {
+            Thread.sleep(seconds * 1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }

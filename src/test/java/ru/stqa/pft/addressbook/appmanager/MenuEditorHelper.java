@@ -2,6 +2,7 @@ package ru.stqa.pft.addressbook.appmanager;
 
 import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -20,6 +21,7 @@ public class MenuEditorHelper extends HelperBase {
     PageEditorHelper pageEditorHelper = new PageEditorHelper(wd);
     BlogEditorHelper blogEditorHelper = new BlogEditorHelper(wd);
     StoreHelper storeHelper = new StoreHelper(wd);
+
 
     public MenuEditorHelper(WebDriver wd) {
         super(wd);
@@ -56,11 +58,21 @@ public class MenuEditorHelper extends HelperBase {
     public void deleteItem(MenuEditorItem item) {
         clickMoreOptionsByItemId(item.getDataId());
         switch (item.getType()) {
-            case PROOFING_PROJECT: case GALLERY: case CUSTOM_PAGE: case COLLECTION: case SUBMENU: case EXTERNAL_LINK:
-                click(By.cssSelector(".site-menu-editor-item-actions__action-link--delete-permanently"));
+            case PROOFING_PROJECT: case GALLERY: case CUSTOM_PAGE: case COLLECTION: case SUBMENU: case EXTERNAL_LINK: {
+                String selector = ".site-menu-editor-item-actions__action-link--delete-permanently";
+                try {
+                    click(By.cssSelector(selector));
+                    return;
+                } catch (StaleElementReferenceException ex) {
+                    clickMoreOptionsByItemId(item.getDataId());
+                    click(By.cssSelector(selector));
+                }
                 break;
+            }
+
             case BLOG: case BLOG_POST: case STORE_PRODUCT: case STORE: {
                 System.out.println("Blog, blog post, store product and store can't be deleted through menu editor");
+                break;
             }
         }
         click(By.cssSelector(".btn-red"));
@@ -178,7 +190,7 @@ public class MenuEditorHelper extends HelperBase {
         wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
         for(WebElement element : elements) {
             Type type = getElementType(element);
-            String elementName = getElementName(element);
+            String elementName = getElementName(element, type);
             int elementDataId = getElementDataId(element);
             MenuEditorItem item = new MenuEditorItem().withDataId(elementDataId).withType(type).withName(elementName);
             item.withHomepage(element.findElements(By.xpath(".//*[contains(@class, 'site-menu-editor-item-home-icon')]")).size() != 0);
@@ -210,7 +222,7 @@ public class MenuEditorHelper extends HelperBase {
         wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
         for(WebElement element : elements) {
             Type type = getElementType(element);
-            String elementName = getElementName(element);
+            String elementName = getElementName(element, type);
             int elementDataId = getElementDataId(element);
             MenuEditorItem item = new MenuEditorItem().withDataId(elementDataId).withType(type).withName(elementName);
             item.withHomepage(element.findElements(By.xpath(".//*[contains(@class, 'site-menu-editor-item-home-icon')]")).size() != 0);
@@ -220,15 +232,29 @@ public class MenuEditorHelper extends HelperBase {
         wd.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         return items;
     }
+
+    public boolean isItemPresent(Type type, String name) {
+        Set<MenuEditorItem> items = allItems();
+        for(MenuEditorItem item : items) {
+            if(item.getType() == type && item.getName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
     
     //inner service methods
 
     @NotNull
-    private String getElementName(WebElement element) {
-        String elementName = element.getText();
-        if(elementName.contains("HOME")) { elementName = elementName.replace("\nHOME", ""); } //это костыль. нужно убрать его и вместо этого извлекать текст из нужного html элемента - тогда этод метод не будет нужен
-        if(elementName.contains("Edit")) { elementName = elementName.replace("\nEdit", ""); } //это костыль. нужно убрать его и вместо этого извлекать текст из нужного html элемента - тогда этод метод не будет нужен
-        return elementName;
+    private String getElementName(WebElement element, Type type) {
+        if(type != Type.SUBMENU) {
+            return element.findElement(By.xpath(".//*[@class='site-menu-editor-item-name']")).getAttribute("innerText");
+        }
+        else {
+            return element.findElement(By.xpath("//*[@class='site-menu-editor-item-flex-wrap']"))
+                    .getAttribute("innerText")
+                    .replace("\nEdit", "");
+        }
     }
 
     @NotNull
