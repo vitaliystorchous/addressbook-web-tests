@@ -5,7 +5,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.stqa.pft.addressbook.model.MenuEditorItem;
 import ru.stqa.pft.addressbook.model.MenuEditorItem.Type;
 
@@ -238,7 +237,8 @@ public class MenuEditorHelper extends HelperBase {
         }
         return false;
     }
-    
+
+
     //inner service methods
 
     @NotNull
