@@ -7,7 +7,7 @@ import ru.stqa.pft.addressbook.model.MenuEditorItem;
 
 import java.util.Set;
 
-import static ru.stqa.pft.addressbook.model.MenuEditorItem.Type.*;
+import static ru.stqa.pft.addressbook.model.MenuEditorItem.Type.PROOFING_PROJECT;
 
 public class RenameProofingProjectTest extends TestBase {
 

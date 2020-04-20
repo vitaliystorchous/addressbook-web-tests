@@ -8,7 +8,7 @@ import ru.stqa.pft.addressbook.model.MenuEditorItem;
 
 import java.util.Set;
 
-import static ru.stqa.pft.addressbook.model.MenuEditorItem.Type.*;
+import static ru.stqa.pft.addressbook.model.MenuEditorItem.Type.BLOG;
 
 public class RenameBlogTest extends TestBase {
 

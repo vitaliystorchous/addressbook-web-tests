@@ -5,8 +5,6 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.MenuEditorItem;
 import ru.stqa.pft.addressbook.model.MenuEditorItem.Type;
 
-import java.util.Comparator;
-import java.util.List;
 import java.util.Set;
 
 //этот тест нужно доработать в отдельном порядке (сейчас нету смысла тратить на него много времени так как магазин нельзя удалить)
