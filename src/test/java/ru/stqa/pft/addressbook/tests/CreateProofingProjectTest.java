@@ -16,7 +16,7 @@ public class CreateProofingProjectTest extends TestBase {
         Items before = app.menuEditor().allItems();
         MenuEditorItem proofingProject = new MenuEditorItem().withType(PROOFING_PROJECT).withName(app.proofingProjectName);
         app.menuEditor().createItem(proofingProject);
-        assertThat(app.menuEditor().getItemsCount(), equalTo(before.size() + 1));
+        assertThat(app.menuEditor().itemsCount(), equalTo(before.size() + 1));
         Items after = app.menuEditor().allItems();
         assertThat(after, equalTo(
                 before.withAdded(proofingProject.withDataId(after.stream().mapToInt((i) -> i.getDataId()).max().getAsInt()))));

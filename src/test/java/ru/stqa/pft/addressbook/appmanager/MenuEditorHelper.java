@@ -6,7 +6,6 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.stqa.pft.addressbook.model.Items;
 import ru.stqa.pft.addressbook.model.MenuEditorItem;
 import ru.stqa.pft.addressbook.model.MenuEditorItem.Type;
@@ -15,7 +14,6 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class MenuEditorHelper extends HelperBase {
 
@@ -177,7 +175,7 @@ public class MenuEditorHelper extends HelperBase {
             }
 
             case SUBMENU: {
-                int itemsCount = getItemsCount();
+                int itemsCount = itemsCount();
                 type(By.cssSelector("input#sub-menu-name"), item.getName());
                 click(By.cssSelector(".btn-primarycolor"));
                 waitItemsCountIncreased(itemsCount, waitDurationSec);
@@ -185,7 +183,7 @@ public class MenuEditorHelper extends HelperBase {
             }
 
             case EXTERNAL_LINK: {
-                int itemsCount = getItemsCount();
+                int itemsCount = itemsCount();
                 wait.until(elementToBeClickable(By.cssSelector("input#link-title")));
                 type(By.cssSelector("input#link-title"), item.getName());
                 type(By.cssSelector("input#link-url"), "https://www.google.com/");
@@ -199,7 +197,7 @@ public class MenuEditorHelper extends HelperBase {
 
     private void waitItemsCountIncreased(int itemsCount, long waitDurationSec) {
         for(int seconds = 0; seconds <= waitDurationSec; seconds++) {
-            if(getItemsCount() > itemsCount) {
+            if(itemsCount() > itemsCount) {
                 return;
             } else {
                 pause(1);
@@ -214,7 +212,7 @@ public class MenuEditorHelper extends HelperBase {
         }
     }
 
-    public int getItemsCount() {
+    public int itemsCount() {
         return wd.findElements(By.cssSelector(".site-menu-editor-item")).size();
     }
 

@@ -16,7 +16,7 @@ public class CreateGalleryTest extends TestBase {
         Items before = app.menuEditor().allItems();
         MenuEditorItem gallery = new MenuEditorItem().withType(GALLERY).withName(app.galleryName);
         app.menuEditor().createItem(gallery);
-        assertThat(app.menuEditor().getItemsCount(), equalTo(before.size() + 1));
+        assertThat(app.menuEditor().itemsCount(), equalTo(before.size() + 1));
         Items after = app.menuEditor().allItems();
         assertThat(after, equalTo(
                 before.withAdded(gallery.withDataId(after.stream().mapToInt(MenuEditorItem::getDataId).max().getAsInt()))));

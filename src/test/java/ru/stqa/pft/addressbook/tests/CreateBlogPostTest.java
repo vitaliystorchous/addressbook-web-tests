@@ -23,7 +23,7 @@ public class CreateBlogPostTest extends TestBase {
     public void theTest() {
         Items before = app.menuEditor().allItems();
         app.menuEditor().createItem(new MenuEditorItem().withType(BLOG_POST).withName(app.blogPostName));
-        assertThat(app.menuEditor().getItemsCount(), equalTo(before.size()));
+        assertThat(app.menuEditor().itemsCount(), equalTo(before.size()));
         Items after = app.menuEditor().allItems();
         assertThat(after, equalTo(before));
     }

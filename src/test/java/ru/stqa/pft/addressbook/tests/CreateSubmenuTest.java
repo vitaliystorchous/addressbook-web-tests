@@ -1,26 +1,24 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.Test;
+import ru.stqa.pft.addressbook.model.Items;
 import ru.stqa.pft.addressbook.model.MenuEditorItem;
-import ru.stqa.pft.addressbook.model.MenuEditorItem.Type;
 
-import java.util.Set;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static ru.stqa.pft.addressbook.model.MenuEditorItem.Type.*;
 
 public class CreateSubmenuTest extends TestBase {
 
     @Test
     public void theTest() {
         app.goTo().pagesPage();
-        Set<MenuEditorItem> before = app.menuEditor().allItems();
-        MenuEditorItem submenu = new MenuEditorItem().withType(Type.SUBMENU).withName(app.submenuName);
+        Items before = app.menuEditor().allItems();
+        MenuEditorItem submenu = new MenuEditorItem().withType(SUBMENU).withName(app.submenuName);
         app.menuEditor().createItem(submenu);
-        app.pause(2);
-        Set<MenuEditorItem> after = app.menuEditor().allItems();
-        Assert.assertEquals(after.size(), before.size() + 1);
-
-        submenu.withDataId(MenuEditorItem.getLastCreatedSubmenu(after).getDataId());
-        before.add(submenu);
-        Assert.assertEquals(before, after);
+        assertThat(app.menuEditor().itemsCount(), equalTo(before.size() + 1));
+        Items after = app.menuEditor().allItems();
+        assertThat(after, equalTo(
+                before.withAdded(submenu.withDataId(MenuEditorItem.getLastCreatedSubmenu(after).getDataId()))));
     }
 }

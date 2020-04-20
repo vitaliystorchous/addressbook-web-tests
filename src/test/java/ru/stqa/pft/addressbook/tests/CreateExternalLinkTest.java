@@ -16,7 +16,7 @@ public class CreateExternalLinkTest extends TestBase {
         Items before = app.menuEditor().allItems();
         MenuEditorItem externalLink = new MenuEditorItem().withType(EXTERNAL_LINK).withName(app.externalLinkName);
         app.menuEditor().createItem(externalLink);
-        assertThat(app.menuEditor().getItemsCount(), equalTo(before.size() + 1));
+        assertThat(app.menuEditor().itemsCount(), equalTo(before.size() + 1));
         Items after = app.menuEditor().allItems();
         assertThat(after, equalTo(
                 before.withAdded(externalLink.withDataId(after.stream().mapToInt(MenuEditorItem::getDataId).max().getAsInt()))));

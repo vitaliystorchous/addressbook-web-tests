@@ -16,7 +16,7 @@ public class CreateCollectionTest extends TestBase {
         Items before = app.menuEditor().allItems();
         MenuEditorItem collection = new MenuEditorItem().withType(COLLECTION).withName(app.collectionName);
         app.menuEditor().createItem(collection);
-        assertThat(app.menuEditor().getItemsCount(), equalTo(before.size() +1));
+        assertThat(app.menuEditor().itemsCount(), equalTo(before.size() +1));
         Items after = app.menuEditor().allItems();
         assertThat(after, equalTo(
                 before.withAdded(collection.withDataId(after.stream().mapToInt(MenuEditorItem::getDataId).max().getAsInt()))));

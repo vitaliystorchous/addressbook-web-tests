@@ -23,7 +23,7 @@ public class CreateStoreProductTest extends TestBase {
     public void theTest() {
         Items before = app.menuEditor().allItems();
         app.menuEditor().createItem(new MenuEditorItem().withType(Type.STORE_PRODUCT).withName(app.storeProductName));
-        assertThat(app.menuEditor().getItemsCount(), equalTo(before.size()));
+        assertThat(app.menuEditor().itemsCount(), equalTo(before.size()));
         Items after = app.menuEditor().allItems();
         assertThat(after, equalTo(before));
     }
