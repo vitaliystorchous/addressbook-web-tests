@@ -3,6 +3,7 @@ package ru.stqa.pft.addressbook.generators;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
+import com.thoughtworks.xstream.XStream;
 import ru.stqa.pft.addressbook.model.MenuEditorItem;
 import ru.stqa.pft.addressbook.model.MenuEditorItem.Type;
 
@@ -26,6 +27,8 @@ public class MenuItemGenerator {
     @Parameter (names = "-f", description = "Target file")
     public String file;
 
+    @Parameter (names = "-d", description = "Data format")
+    public String format;
 
 
     public static void main(String[] args) throws IOException {
@@ -42,10 +45,25 @@ public class MenuItemGenerator {
 
     private void run() throws IOException {
         List<MenuEditorItem> items = generateItems(type1, count1);
-        save(items, new File(file));
+        if (format.equals("csv")) {
+            saveAsCsv(items, new File(file));
+        } else if (format.equals("xml")) {
+            saveAsXml(items, new File(file));
+        } else {
+            System.out.println("Unrecognized format - " + format);
+        }
     }
 
-    private void save(List<MenuEditorItem> items, File file) throws IOException {
+    private void saveAsXml(List<MenuEditorItem> items, File file) throws IOException {
+        XStream xstream = new XStream();
+        xstream.processAnnotations(MenuEditorItem.class);
+        String xml = xstream.toXML(items);
+        Writer writer = new FileWriter(file);
+        writer.write(xml);
+        writer.close();
+    }
+
+    private void saveAsCsv(List<MenuEditorItem> items, File file) throws IOException {
         Writer writer = new FileWriter(file);
         for(MenuEditorItem item : items) {
             writer.write(String.format("%s;%s\n", item.getType(), item.getName()));
@@ -65,7 +83,7 @@ public class MenuItemGenerator {
 
     private static Type getType(String type) {
         Type t;
-        switch (type) {
+        switch (type.toLowerCase()) {
             case "custom page": t = CUSTOM_PAGE; break;
             case "gallery": t = GALLERY; break;
             case "collection": t = COLLECTION; break;

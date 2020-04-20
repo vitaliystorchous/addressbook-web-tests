@@ -1,8 +1,12 @@
 package ru.stqa.pft.addressbook.model;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
 import java.util.HashSet;
 import java.util.Set;
 
+@XStreamAlias("item")
 public class MenuEditorItem {
 
     public enum Type {
@@ -18,10 +22,13 @@ public class MenuEditorItem {
         STORE_PRODUCT
     }
 
+    @XStreamOmitField
     int dataId = Integer.MAX_VALUE;
     Type type;
     String name;
+    @XStreamOmitField
     boolean homepage;
+    @XStreamOmitField
     boolean inMenu;
     //нужно создать еще подклас, наследник данного класа, который будет содержать дополнительные атрибуты для элемента External link
 
