@@ -24,7 +24,7 @@ public class RenameCollectionTest extends TestBase {
     public void test() {
         Items before = app.menuEditor().allItems();
         MenuEditorItem collectionToRename = MenuEditorItem.getItem(before, COLLECTION, app.collectionName);
-        MenuEditorItem renamedCollection = collectionToRename.withName("Renamed test collection (*Selenium)");
+        MenuEditorItem renamedCollection = collectionToRename.withName("Renamed test collection (*Selenium*)");
         app.menuEditor().renameItem(collectionToRename);
         assertEquals(app.menuEditor().itemsCount(), before.size());
         Items after = app.menuEditor().allItems();

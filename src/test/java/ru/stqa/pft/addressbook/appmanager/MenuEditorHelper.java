@@ -18,6 +18,7 @@ public class MenuEditorHelper extends HelperBase {
     PageEditorHelper pageEditorHelper = new PageEditorHelper(wd);
     BlogEditorHelper blogEditorHelper = new BlogEditorHelper(wd);
     StoreHelper storeHelper = new StoreHelper(wd);
+    PreviewBlockHelper previewBlocHelper = new PreviewBlockHelper(wd);
 
 
     public MenuEditorHelper(WebDriver wd) {
@@ -292,6 +293,10 @@ public class MenuEditorHelper extends HelperBase {
         return false;
     }
 
+    public PreviewBlockHelper previewBloc() {
+        return previewBlocHelper;
+    }
+
 
     //inner service methods
 
@@ -346,5 +351,16 @@ public class MenuEditorHelper extends HelperBase {
                 clickEditById(item.getDataId());
             }
         }
+    }
+
+    public Items itemsInMenu() {
+        Items itemsInMenu = new Items();
+        Items allItems = allItems();
+        for(MenuEditorItem item : allItems) {
+            if(item.isInMenu()) {
+                itemsInMenu.add(item);
+            }
+        }
+        return itemsInMenu;
     }
 }
