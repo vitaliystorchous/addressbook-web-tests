@@ -7,7 +7,8 @@ import ru.stqa.pft.addressbook.model.MenuEditorItem;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static ru.stqa.pft.addressbook.model.MenuEditorItem.Type.*;
+import static ru.stqa.pft.addressbook.model.MenuEditorItem.Type.BLOG;
+import static ru.stqa.pft.addressbook.model.MenuEditorItem.Type.BLOG_POST;
 
 public class CreateBlogPostTest extends TestBase {
 
@@ -20,7 +21,7 @@ public class CreateBlogPostTest extends TestBase {
     }
 
     @Test
-    public void theTest() {
+    public void test() {
         Items before = app.menuEditor().allItems();
         app.menuEditor().createItem(new MenuEditorItem().withType(BLOG_POST).withName(app.blogPostName));
         assertThat(app.menuEditor().itemsCount(), equalTo(before.size()));

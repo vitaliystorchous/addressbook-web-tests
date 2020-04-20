@@ -11,7 +11,7 @@ import static ru.stqa.pft.addressbook.model.MenuEditorItem.Type.EXTERNAL_LINK;
 public class CreateExternalLinkTest extends TestBase {
 
     @Test
-    public void theTest() {
+    public void test() {
         app.goTo().pagesPage();
         Items before = app.menuEditor().allItems();
         MenuEditorItem externalLink = new MenuEditorItem().withType(EXTERNAL_LINK).withName(app.externalLinkName);

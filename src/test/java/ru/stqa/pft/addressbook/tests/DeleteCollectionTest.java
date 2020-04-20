@@ -7,20 +7,22 @@ import ru.stqa.pft.addressbook.model.MenuEditorItem;
 
 import java.util.Set;
 
+import static ru.stqa.pft.addressbook.model.MenuEditorItem.Type.COLLECTION;
+
 public class DeleteCollectionTest extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
         app.goTo().pagesPage();
-        if(! app.menuEditor().isItemPresent(MenuEditorItem.Type.COLLECTION)) {
-            app.menuEditor().createItem(new MenuEditorItem().withType(MenuEditorItem.Type.COLLECTION).withName(app.collectionName));
+        if(! app.menuEditor().isItemPresent(COLLECTION)) {
+            app.menuEditor().createItem(new MenuEditorItem().withType(COLLECTION).withName(app.collectionName));
         }
     }
 
     @Test
-    public void theTest() {
+    public void test() {
         Set<MenuEditorItem> before = app.menuEditor().allItems();
-        MenuEditorItem collection = MenuEditorItem.getItem(before, MenuEditorItem.Type.COLLECTION);
+        MenuEditorItem collection = MenuEditorItem.getItem(before, COLLECTION);
         app.menuEditor().deleteItem(collection);
         Set<MenuEditorItem> after = app.menuEditor().allItems();
         Assert.assertEquals(after.size(), before.size() - 1);

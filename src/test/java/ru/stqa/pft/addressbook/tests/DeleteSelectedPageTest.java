@@ -9,7 +9,7 @@ import java.util.List;
 public class DeleteSelectedPageTest extends TestBase {
 
     @Test (enabled = false)
-    public void theTest() {
+    public void test() {
         app.goTo().pagesPage();
         List<MenuEditorItem> before = app.menuEditor().itemsList();
         // в методе deleteSelectedPage() по индексу нужно сделать проверку что это не блог и не магазин

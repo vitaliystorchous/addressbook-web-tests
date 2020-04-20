@@ -21,7 +21,7 @@ public class DeleteCustomPageTest extends TestBase {
     }
 
     @Test
-    public void theTest() {
+    public void test() {
         Items before = app.menuEditor().allItems();
         MenuEditorItem customPage = MenuEditorItem.getItem(before, CUSTOM_PAGE);
         app.menuEditor().deleteItem(customPage);

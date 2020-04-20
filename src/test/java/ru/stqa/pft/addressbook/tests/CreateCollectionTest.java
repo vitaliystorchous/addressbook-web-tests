@@ -6,12 +6,12 @@ import ru.stqa.pft.addressbook.model.MenuEditorItem;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static ru.stqa.pft.addressbook.model.MenuEditorItem.Type.*;
+import static ru.stqa.pft.addressbook.model.MenuEditorItem.Type.COLLECTION;
 
 public class CreateCollectionTest extends TestBase {
 
     @Test
-    public void theTest() {
+    public void test() {
         app.goTo().pagesPage();
         Items before = app.menuEditor().allItems();
         MenuEditorItem collection = new MenuEditorItem().withType(COLLECTION).withName(app.collectionName);

@@ -1,10 +1,13 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
+
+import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 public class HelperBase {
     protected WebDriver wd;
@@ -25,6 +28,7 @@ public class HelperBase {
         if (text != null) {
             String existingText = wd.findElement(locator).getAttribute("value");
             if (!text.equals(existingText)) {
+                wait.until(elementToBeClickable(locator));
                 wd.findElement(locator).clear();
                 wd.findElement(locator).sendKeys(text);
             }

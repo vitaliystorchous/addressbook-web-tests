@@ -3,19 +3,20 @@ package ru.stqa.pft.addressbook.tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.MenuEditorItem;
-import ru.stqa.pft.addressbook.model.MenuEditorItem.Type;
 
 import java.util.Set;
+
+import static ru.stqa.pft.addressbook.model.MenuEditorItem.Type.STORE;
 
 //этот тест нужно доработать в отдельном порядке (сейчас нету смысла тратить на него много времени так как магазин нельзя удалить)
 public class CreateStoreTest extends TestBase {
 
     @Test (enabled = false)
-    public void theTest() {
+    public void test() {
         app.goTo().pagesPage();
         Set<MenuEditorItem> before = app.menuEditor().allItems();
         if(! app.menuEditor().isStorePresent(before)) {
-            MenuEditorItem store = new MenuEditorItem().withType(Type.STORE).withName(app.storeName);
+            MenuEditorItem store = new MenuEditorItem().withType(STORE).withName(app.storeName);
             app.menuEditor().createItem(store);
             Set<MenuEditorItem> after = app.menuEditor().allItems();
             Assert.assertEquals(after.size(), before.size() + 1);

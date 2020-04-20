@@ -16,7 +16,7 @@ public class DeleteRandomMenuEditorItemTest extends TestBase {
     }
 
     @Test (enabled = false)
-    public void theTest() {
+    public void test() {
         Set<MenuEditorItem> before = app.menuEditor().allItems();
         MenuEditorItem deletedItem = before.iterator().next();
         app.menuEditor().deleteItem(deletedItem);
