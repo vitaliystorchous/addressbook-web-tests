@@ -10,6 +10,8 @@ import ru.stqa.pft.addressbook.model.MenuEditorItem;
 
 import java.util.Set;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static ru.stqa.pft.addressbook.model.MenuEditorItem.Type.EXTERNAL_LINK;
 
 public class DeleteExternalLinkTest extends TestBase {
@@ -29,6 +31,6 @@ public class DeleteExternalLinkTest extends TestBase {
         app.menuEditor().deleteItem(externalLink);
         Assert.assertEquals(app.menuEditor().itemsCount(), before.size() - 1);
         Items after = app.menuEditor().allItems();
-        MatcherAssert.assertThat(after, CoreMatchers.equalTo(before.without(externalLink)));
+        assertThat(after, equalTo(before.without(externalLink)));
     }
 }

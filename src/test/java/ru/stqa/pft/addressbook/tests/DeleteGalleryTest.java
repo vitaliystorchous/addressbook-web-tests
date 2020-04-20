@@ -1,12 +1,17 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.stqa.pft.addressbook.model.Items;
 import ru.stqa.pft.addressbook.model.MenuEditorItem;
 
 import java.util.Set;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static ru.stqa.pft.addressbook.model.MenuEditorItem.Type.GALLERY;
 
 public class DeleteGalleryTest extends TestBase {
@@ -21,13 +26,11 @@ public class DeleteGalleryTest extends TestBase {
 
     @Test
     public void test() {
-        Set<MenuEditorItem> before = app.menuEditor().allItems();
+        Items before = app.menuEditor().allItems();
         MenuEditorItem gallery = MenuEditorItem.getItem(before, GALLERY);
         app.menuEditor().deleteItem(gallery);
-        Set<MenuEditorItem> after = app.menuEditor().allItems();
-        Assert.assertEquals(after.size(), before.size() - 1);
-
-        before.remove(gallery);
-        Assert.assertEquals(after, before);
+        Assert.assertEquals(app.menuEditor().itemsCount(), before.size() - 1);
+        Items after = app.menuEditor().allItems();
+        assertThat(after, equalTo(before.without(gallery)));
     }
 }
