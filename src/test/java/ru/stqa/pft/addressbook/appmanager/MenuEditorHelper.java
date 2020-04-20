@@ -6,6 +6,7 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import ru.stqa.pft.addressbook.model.Items;
 import ru.stqa.pft.addressbook.model.MenuEditorItem;
 import ru.stqa.pft.addressbook.model.MenuEditorItem.Type;
 
@@ -243,8 +244,8 @@ public class MenuEditorHelper extends HelperBase {
         return false;
     }
 
-    public Set<MenuEditorItem> allItems() {
-        Set<MenuEditorItem> items = new HashSet<MenuEditorItem>();
+    public Items allItems() {
+        Items items = new Items();
         List<WebElement> elements = wd.findElements(By.cssSelector(".site-menu-editor-item-flex-wrap"));
 
         wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);

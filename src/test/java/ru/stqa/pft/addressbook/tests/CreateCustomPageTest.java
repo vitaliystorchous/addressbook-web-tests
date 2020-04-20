@@ -1,11 +1,12 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.Test;
+import ru.stqa.pft.addressbook.model.Items;
 import ru.stqa.pft.addressbook.model.MenuEditorItem;
 import ru.stqa.pft.addressbook.model.MenuEditorItem.Type;
 
-import java.util.Set;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 
 public class CreateCustomPageTest extends TestBase {
@@ -13,15 +14,14 @@ public class CreateCustomPageTest extends TestBase {
     @Test
     public void theTest() {
         app.goTo().pagesPage();
-        Set<MenuEditorItem> before = app.menuEditor().allItems();
+        Items before = app.menuEditor().allItems();
         MenuEditorItem customPage = new MenuEditorItem().withType(Type.CUSTOM_PAGE).withName(app.customPageName);
         app.menuEditor().createItem(customPage);
-        Set<MenuEditorItem> after = app.menuEditor().allItems();
-        Assert.assertEquals(after.size(), before.size() + 1);
+        Items after = app.menuEditor().allItems();
+        assertThat(after.size(), equalTo(before.size() + 1));
 
-        customPage.withDataId(after.stream().mapToInt((i) -> i.getDataId()).max().getAsInt());
-        before.add(customPage);
-        Assert.assertEquals(after, before);
+        assertThat(after, equalTo(
+                before.withAdded(customPage.withDataId(after.stream().mapToInt((i) -> i.getDataId()).max().getAsInt()))));
     }
 
 }
