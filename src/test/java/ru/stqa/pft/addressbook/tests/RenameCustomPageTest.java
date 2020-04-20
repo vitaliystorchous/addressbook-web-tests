@@ -27,8 +27,8 @@ public class RenameCustomPageTest extends TestBase {
         MenuEditorItem customPage =
                 new MenuEditorItem().withDataId(renamedCustomPage.getDataId()).withType(CUSTOM_PAGE).withName("Renamed test custom page (*Selenium*)");
         app.menuEditor().renameItem(customPage);
+        assertEquals(app.menuEditor().getItemsCount(), before.size());
         Items after = app.menuEditor().allItems();
-        assertEquals(after.size(), before.size());
         assertThat(after, equalTo(before.without(renamedCustomPage).withAdded(customPage)));
     }
 }

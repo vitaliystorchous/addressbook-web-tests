@@ -17,8 +17,8 @@ public class CreateCustomPageTest extends TestBase {
         Items before = app.menuEditor().allItems();
         MenuEditorItem customPage = new MenuEditorItem().withType(Type.CUSTOM_PAGE).withName(app.customPageName);
         app.menuEditor().createItem(customPage);
+        assertThat(app.menuEditor().getItemsCount(), equalTo(before.size() + 1));
         Items after = app.menuEditor().allItems();
-        assertThat(after.size(), equalTo(before.size() + 1));
 
         assertThat(after, equalTo(
                 before.withAdded(customPage.withDataId(after.stream().mapToInt((i) -> i.getDataId()).max().getAsInt()))));

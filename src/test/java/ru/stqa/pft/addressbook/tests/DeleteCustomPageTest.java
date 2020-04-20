@@ -25,9 +25,8 @@ public class DeleteCustomPageTest extends TestBase {
         Items before = app.menuEditor().allItems();
         MenuEditorItem customPage = MenuEditorItem.getItem(before, CUSTOM_PAGE);
         app.menuEditor().deleteItem(customPage);
+        Assert.assertEquals(app.menuEditor().getItemsCount(), before.size() - 1);
         Items after = app.menuEditor().allItems();
-        Assert.assertEquals(after.size(), before.size() - 1);
-
         assertThat(after, equalTo(before.without(customPage)));
     }
 }
