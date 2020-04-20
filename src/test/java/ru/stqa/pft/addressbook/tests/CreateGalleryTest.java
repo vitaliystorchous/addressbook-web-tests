@@ -1,26 +1,25 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.Test;
+import ru.stqa.pft.addressbook.model.Items;
 import ru.stqa.pft.addressbook.model.MenuEditorItem;
-import ru.stqa.pft.addressbook.model.MenuEditorItem.Type;
 
-import java.util.Set;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static ru.stqa.pft.addressbook.model.MenuEditorItem.Type.*;
 
 public class CreateGalleryTest extends TestBase {
 
     @Test
     public void theTest() {
         app.goTo().pagesPage();
-        Set<MenuEditorItem> before = app.menuEditor().allItems();
-        MenuEditorItem gallery = new MenuEditorItem().withType(Type.GALLERY).withName(app.galleryName);
+        Items before = app.menuEditor().allItems();
+        MenuEditorItem gallery = new MenuEditorItem().withType(GALLERY).withName(app.galleryName);
         app.menuEditor().createItem(gallery);
-        Set<MenuEditorItem> after = app.menuEditor().allItems();
-        Assert.assertEquals(after.size(), before.size() + 1);
-
-        gallery.withDataId(after.stream().mapToInt(MenuEditorItem::getDataId).max().getAsInt());
-        before.add(gallery);
-        Assert.assertEquals(after, before);
+        assertThat(app.menuEditor().getItemsCount(), equalTo(before.size() + 1));
+        Items after = app.menuEditor().allItems();
+        assertThat(after, equalTo(
+                before.withAdded(gallery.withDataId(after.stream().mapToInt(MenuEditorItem::getDataId).max().getAsInt()))));
     }
 
 }
