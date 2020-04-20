@@ -1,8 +1,11 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.stqa.pft.addressbook.model.Items;
 import ru.stqa.pft.addressbook.model.MenuEditorItem;
 
 import java.util.Set;
@@ -21,13 +24,11 @@ public class DeleteExternalLinkTest extends TestBase {
 
     @Test
     public void test() {
-        Set<MenuEditorItem> before = app.menuEditor().allItems();
+        Items before = app.menuEditor().allItems();
         MenuEditorItem externalLink = MenuEditorItem.getItem(before, EXTERNAL_LINK);
         app.menuEditor().deleteItem(externalLink);
-        Set<MenuEditorItem> after = app.menuEditor().allItems();
-        Assert.assertEquals(after.size(), before.size() - 1);
-
-        before.remove(externalLink);
-        Assert.assertEquals(after, before);
+        Assert.assertEquals(app.menuEditor().itemsCount(), before.size() - 1);
+        Items after = app.menuEditor().allItems();
+        MatcherAssert.assertThat(after, CoreMatchers.equalTo(before.without(externalLink)));
     }
 }
