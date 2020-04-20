@@ -1,26 +1,28 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import ru.stqa.pft.addressbook.model.Items;
 import ru.stqa.pft.addressbook.model.MenuEditorItem;
-import ru.stqa.pft.addressbook.model.MenuEditorItem.Type;
 
-import java.util.Set;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static ru.stqa.pft.addressbook.model.MenuEditorItem.Type.*;
 
 public class CreateCollectionTest extends TestBase {
 
     @Test
     public void theTest() {
         app.goTo().pagesPage();
-        Set<MenuEditorItem> before = app.menuEditor().allItems();
-        MenuEditorItem collection = new MenuEditorItem().withType(Type.COLLECTION).withName(app.collectionName);
+        Items before = app.menuEditor().allItems();
+        MenuEditorItem collection = new MenuEditorItem().withType(COLLECTION).withName(app.collectionName);
         app.menuEditor().createItem(collection);
-        Set<MenuEditorItem> after = app.menuEditor().allItems();
-        Assert.assertEquals(after.size(), before.size() + 1);
-
-        collection.withDataId(after.stream().mapToInt(MenuEditorItem::getDataId).max().getAsInt());
-        before.add(collection);
-        Assert.assertEquals(after, before);
+        assertThat(app.menuEditor().getItemsCount(), equalTo(before.size() +1));
+        Items after = app.menuEditor().allItems();
+        assertThat(after, equalTo(
+                before.withAdded(collection.withDataId(after.stream().mapToInt(MenuEditorItem::getDataId).max().getAsInt()))));
     }
 
 }
