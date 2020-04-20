@@ -1,12 +1,13 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.stqa.pft.addressbook.model.Items;
 import ru.stqa.pft.addressbook.model.MenuEditorItem;
 import ru.stqa.pft.addressbook.model.MenuEditorItem.Type;
 
-import java.util.Set;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class CreateBlogPostTest extends TestBase {
 
@@ -20,12 +21,11 @@ public class CreateBlogPostTest extends TestBase {
 
     @Test
     public void theTest() {
-        Set<MenuEditorItem> before = app.menuEditor().allItems();
+        Items before = app.menuEditor().allItems();
         app.menuEditor().createItem(new MenuEditorItem().withType(Type.BLOG_POST).withName(app.blogPostName));
-        Set<MenuEditorItem> after = app.menuEditor().allItems();
-        Assert.assertEquals(after.size(), before.size());
-
-        Assert.assertEquals(after, before);
+        assertThat(app.menuEditor().getItemsCount(), equalTo(before.size()));
+        Items after = app.menuEditor().allItems();
+        assertThat(after, equalTo(before));
     }
 
 }
