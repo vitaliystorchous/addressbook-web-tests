@@ -347,7 +347,7 @@ public class MenuEditorHelper extends HelperBase {
 
     public void openItemInPageEditor(MenuEditorItem item) {
         switch (item.getType()) {
-            case CUSTOM_PAGE: {
+            case CUSTOM_PAGE: case GALLERY: {
                 clickEditById(item.getDataId());
             }
         }

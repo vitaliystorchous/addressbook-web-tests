@@ -4,9 +4,16 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.awt.*;
+
 public class PageEditorHelper extends HelperBase {
 
-    public PageEditorHelper(WebDriver wd) { super(wd); }
+    private GalleryHelper galleryHelper;
+
+    public PageEditorHelper(WebDriver wd) {
+        super(wd);
+        galleryHelper = new GalleryHelper(wd);
+    }
 
     public void addFirstTextSection() {
         switchFrame(getElement(By.cssSelector("iframe#editorFrame")));
@@ -47,5 +54,9 @@ public class PageEditorHelper extends HelperBase {
 
     public String pageName() {
         return wd.findElement(By.xpath("//ul//button/span[1]")).getAttribute("innerText");
+    }
+
+    public GalleryHelper gallery() {
+        return galleryHelper;
     }
 }
