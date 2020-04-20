@@ -29,21 +29,20 @@ public class RenameBlogTest extends TestBase {
     @Test
     public void test() {
         Items before = app.menuEditor().allItems();
-        MenuEditorItem blogBefore = MenuEditorItem.getItem(before, BLOG);
-        MenuEditorItem blogAfter = blogBefore.withName("Renamed test blog (*Selenium*)");
-        app.menuEditor().renameItem(blogBefore);
+        MenuEditorItem blogToRename = MenuEditorItem.getItem(before, BLOG);
+        MenuEditorItem renamedBlog = blogToRename.withName("Renamed test blog (*Selenium*)");
+        app.menuEditor().renameItem(blogToRename);
         assertEquals(app.menuEditor().itemsCount(), before.size());
         Items after = app.menuEditor().allItems();
-        assertThat(after, equalTo(before.without(blogBefore).withAdded(blogAfter)));
+        assertThat(after, equalTo(before.without(blogToRename).withAdded(renamedBlog)));
     }
 
     @AfterMethod
     public void returnBackCondition() {
-        Set<MenuEditorItem> items = app.menuEditor().allItems();
-        MenuEditorItem renamedBlog = MenuEditorItem.getItem(items, BLOG);
-        items.remove(renamedBlog);
-        items.add(renamedBlog.withName(app.blogName));
-        app.menuEditor().renameItem(renamedBlog);
-        app.pause(1);
+        Items before = app.menuEditor().allItems();
+        MenuEditorItem blogToRename = MenuEditorItem.getItem(before, BLOG);
+        blogToRename.withName(app.blogName);
+        app.menuEditor().renameItem(blogToRename);
+        app.pause(2);
     }
 }

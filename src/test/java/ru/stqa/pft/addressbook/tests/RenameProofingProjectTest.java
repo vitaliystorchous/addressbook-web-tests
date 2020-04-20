@@ -1,12 +1,18 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.stqa.pft.addressbook.model.Items;
 import ru.stqa.pft.addressbook.model.MenuEditorItem;
 
 import java.util.Set;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 import static ru.stqa.pft.addressbook.model.MenuEditorItem.Type.PROOFING_PROJECT;
 
 public class RenameProofingProjectTest extends TestBase {
@@ -21,14 +27,12 @@ public class RenameProofingProjectTest extends TestBase {
 
     @Test
     public void test() {
-        Set<MenuEditorItem> before = app.menuEditor().allItems();
-        MenuEditorItem renamedProofingProject = MenuEditorItem.getItem(before, PROOFING_PROJECT, app.proofingProjectName);
-        before.remove(renamedProofingProject);
-        before.add(renamedProofingProject.withName("Renamed test proofing project (*Selenium*)"));
-        app.menuEditor().renameItem(renamedProofingProject);
-        Set<MenuEditorItem> after = app.menuEditor().allItems();
-        Assert.assertEquals(after.size(), before.size());
-
-        Assert.assertEquals(after, before);
+        Items before = app.menuEditor().allItems();
+        MenuEditorItem proofingProjectToRename = MenuEditorItem.getItem(before, PROOFING_PROJECT, app.proofingProjectName);
+        MenuEditorItem renamedProofingProject = proofingProjectToRename.withName("Renamed test proofing project (*Selenium*)");
+        app.menuEditor().renameItem(proofingProjectToRename);
+        assertEquals(app.menuEditor().itemsCount(), before.size());
+        Items after = app.menuEditor().allItems();
+        assertThat(after, equalTo(before.without(proofingProjectToRename).withAdded(renamedProofingProject)));
     }
 }

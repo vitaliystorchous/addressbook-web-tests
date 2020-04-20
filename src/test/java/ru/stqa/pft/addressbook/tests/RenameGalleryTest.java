@@ -1,12 +1,17 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.stqa.pft.addressbook.model.Items;
 import ru.stqa.pft.addressbook.model.MenuEditorItem;
 
 import java.util.Set;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static ru.stqa.pft.addressbook.model.MenuEditorItem.Type.GALLERY;
 
 public class RenameGalleryTest extends TestBase {
@@ -21,14 +26,12 @@ public class RenameGalleryTest extends TestBase {
 
     @Test
     public void test() {
-        Set<MenuEditorItem> before = app.menuEditor().allItems();
-        MenuEditorItem renamedGallery = MenuEditorItem.getItem(before, GALLERY, app.galleryName);
-        before.remove(renamedGallery);
-        before.add(renamedGallery.withName("Renamed test gallery (*Selenium*)"));
-        app.menuEditor().renameItem(renamedGallery);
-        Set<MenuEditorItem> after = app.menuEditor().allItems();
-        Assert.assertEquals(after.size(), before.size());
-
-        Assert.assertEquals(after, before);
+        Items before = app.menuEditor().allItems();
+        MenuEditorItem galleryToRename = MenuEditorItem.getItem(before, GALLERY, app.galleryName);
+        MenuEditorItem renamedGallery = galleryToRename.withName("Renamed test gallery (*Selenium*)");
+        app.menuEditor().renameItem(galleryToRename);
+        Assert.assertEquals(app.menuEditor().itemsCount(), before.size());
+        Items after = app.menuEditor().allItems();
+        assertThat(after, equalTo(before.without(galleryToRename).withAdded(renamedGallery)));
     }
 }

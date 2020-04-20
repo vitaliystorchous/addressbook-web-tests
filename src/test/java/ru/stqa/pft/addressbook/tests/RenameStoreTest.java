@@ -1,13 +1,19 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.stqa.pft.addressbook.model.Items;
 import ru.stqa.pft.addressbook.model.MenuEditorItem;
 
 import java.util.Set;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 import static ru.stqa.pft.addressbook.model.MenuEditorItem.Type.STORE;
 
 public class RenameStoreTest extends TestBase {
@@ -22,24 +28,21 @@ public class RenameStoreTest extends TestBase {
 
     @Test
     public void test() {
-        Set<MenuEditorItem> before = app.menuEditor().allItems();
-        MenuEditorItem renamedStore = MenuEditorItem.getItem(before, STORE);
-        before.remove(renamedStore);
-        before.add(renamedStore.withName("Renamed test store (*Selenium*)"));
-        app.menuEditor().renameItem(renamedStore);
-        Set<MenuEditorItem> after = app.menuEditor().allItems();
-        Assert.assertEquals(after.size(), before.size());
-
-        Assert.assertEquals(after, before);
+        Items before = app.menuEditor().allItems();
+        MenuEditorItem storeToRename = MenuEditorItem.getItem(before, STORE);
+        MenuEditorItem renamedStore = storeToRename.withName("Renamed test store (*Selenium*)");
+        app.menuEditor().renameItem(storeToRename);
+        assertEquals(app.menuEditor().itemsCount(), before.size());
+        Items after = app.menuEditor().allItems();
+        assertThat(after, equalTo(before.without(storeToRename).withAdded(renamedStore)));
     }
 
     @AfterMethod
     public void returnBackCondition() {
-        Set<MenuEditorItem> items = app.menuEditor().allItems();
-        MenuEditorItem renamedStore = MenuEditorItem.getItem(items, STORE);
-        items.remove(renamedStore);
-        items.add(renamedStore.withName(app.storeName));
-        app.menuEditor().renameItem(renamedStore);
-        app.pause(1);
+        Items before = app.menuEditor().allItems();
+        MenuEditorItem storeToRename = MenuEditorItem.getItem(before, STORE);
+        storeToRename.withName(app.storeName);
+        app.menuEditor().renameItem(storeToRename);
+        app.pause(2);
     }
 }
