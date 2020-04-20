@@ -2,13 +2,10 @@ package ru.stqa.pft.addressbook.tests;
 
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.Items;
 import ru.stqa.pft.addressbook.model.MenuEditorItem;
-
-import java.util.Set;
 
 import static org.testng.Assert.assertEquals;
 import static ru.stqa.pft.addressbook.model.MenuEditorItem.Type.PROOFING_PROJECT;

@@ -44,4 +44,8 @@ public class PageEditorHelper extends HelperBase {
     public void waitPageEditorOpened() {
         wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".page-editor-header")));
     }
+
+    public String pageName() {
+        return wd.findElement(By.xpath("//ul//button/span[1]")).getAttribute("innerText");
+    }
 }

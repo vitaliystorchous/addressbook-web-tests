@@ -339,4 +339,12 @@ public class MenuEditorHelper extends HelperBase {
 
         return Integer.parseInt(dataId);
     }
+
+    public void openItemInPageEditor(MenuEditorItem item) {
+        switch (item.getType()) {
+            case CUSTOM_PAGE: {
+                clickEditById(item.getDataId());
+            }
+        }
+    }
 }

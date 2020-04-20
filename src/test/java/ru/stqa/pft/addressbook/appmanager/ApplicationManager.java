@@ -90,7 +90,7 @@ public class ApplicationManager {
         return navigationHelper;
     }
 
-    public PageEditorHelper getPageEditorHelper() { return pageEditorHelper; }
+    public PageEditorHelper pageEditor() { return pageEditorHelper; }
 
     public StoreHelper getStoreHelper() { return storeHelper; }
 
