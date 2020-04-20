@@ -8,7 +8,6 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static ru.stqa.pft.addressbook.model.MenuEditorItem.Type.*;
 
-
 public class CreateCustomPageTest extends TestBase {
 
     @Test

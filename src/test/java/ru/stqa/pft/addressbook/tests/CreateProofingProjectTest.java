@@ -1,26 +1,25 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.Test;
+import ru.stqa.pft.addressbook.model.Items;
 import ru.stqa.pft.addressbook.model.MenuEditorItem;
-import ru.stqa.pft.addressbook.model.MenuEditorItem.Type;
 
-import java.util.Set;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static ru.stqa.pft.addressbook.model.MenuEditorItem.Type.*;
 
 public class CreateProofingProjectTest extends TestBase {
 
     @Test
     public void theTest() {
         app.goTo().pagesPage();
-        Set<MenuEditorItem> before = app.menuEditor().allItems();
-        MenuEditorItem proofingProject = new MenuEditorItem().withType(Type.PROOFING_PROJECT).withName(app.proofingProjectName);
+        Items before = app.menuEditor().allItems();
+        MenuEditorItem proofingProject = new MenuEditorItem().withType(PROOFING_PROJECT).withName(app.proofingProjectName);
         app.menuEditor().createItem(proofingProject);
-        Set<MenuEditorItem> after = app.menuEditor().allItems();
-        Assert.assertEquals(after.size(), before.size() + 1);
-
-        proofingProject.withDataId(after.stream().mapToInt(MenuEditorItem::getDataId).max().getAsInt());
-        before.add(proofingProject);
-        Assert.assertEquals(after, before);
+        assertThat(app.menuEditor().getItemsCount(), equalTo(before.size() + 1));
+        Items after = app.menuEditor().allItems();
+        assertThat(after, equalTo(
+                before.withAdded(proofingProject.withDataId(after.stream().mapToInt((i) -> i.getDataId()).max().getAsInt()))));
     }
 
 }
