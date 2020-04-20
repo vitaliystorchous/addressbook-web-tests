@@ -7,23 +7,25 @@ import ru.stqa.pft.addressbook.model.MenuEditorItem;
 
 import java.util.Set;
 
+import static ru.stqa.pft.addressbook.model.MenuEditorItem.Type.*;
+
 public class RenameGalleryTest extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
         app.goTo().pagesPage();
-        if(! app.menuEditor().isItemPresent(MenuEditorItem.Type.GALLERY, app.galleryName)) {
-            app.menuEditor().createItem(new MenuEditorItem().withType(MenuEditorItem.Type.GALLERY).withName(app.galleryName));
+        if(! app.menuEditor().isItemPresent(GALLERY, app.galleryName)) {
+            app.menuEditor().createItem(new MenuEditorItem().withType(GALLERY).withName(app.galleryName));
         }
     }
 
     @Test
-    public void testRenameCustomPage() {
+    public void test() {
         Set<MenuEditorItem> before = app.menuEditor().allItems();
-        MenuEditorItem renamedGallery = MenuEditorItem.getItem(before, MenuEditorItem.Type.GALLERY, app.galleryName);
+        MenuEditorItem renamedGallery = MenuEditorItem.getItem(before, GALLERY, app.galleryName);
         before.remove(renamedGallery);
-        before.add(renamedGallery.withName("Renamed " + renamedGallery.getName()));
-        app.menuEditor().renameItem(renamedGallery); // здесь нужно переделать метод что бы с помощью него я мог переименовать любую item в menu editor и после этого переименовать метод на renameItem
+        before.add(renamedGallery.withName("Renamed test gallery (*Selenium*)"));
+        app.menuEditor().renameItem(renamedGallery);
         Set<MenuEditorItem> after = app.menuEditor().allItems();
         Assert.assertEquals(after.size(), before.size());
 

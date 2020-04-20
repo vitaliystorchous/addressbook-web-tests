@@ -8,23 +8,25 @@ import ru.stqa.pft.addressbook.model.MenuEditorItem;
 
 import java.util.Set;
 
+import static ru.stqa.pft.addressbook.model.MenuEditorItem.Type.*;
+
 public class RenameBlogTest extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
         app.goTo().pagesPage();
-        if(! app.menuEditor().isItemPresent(MenuEditorItem.Type.BLOG)) {
-            app.menuEditor().createItem(new MenuEditorItem().withType(MenuEditorItem.Type.BLOG).withName(app.blogName));
+        if(! app.menuEditor().isItemPresent(BLOG)) {
+            app.menuEditor().createItem(new MenuEditorItem().withType(BLOG).withName(app.blogName));
         }
     }
 
     @Test
-    public void testRenameCustomPage() {
+    public void test() {
         Set<MenuEditorItem> before = app.menuEditor().allItems();
-        MenuEditorItem renamedBlog = MenuEditorItem.getItem(before, MenuEditorItem.Type.BLOG);
+        MenuEditorItem renamedBlog = MenuEditorItem.getItem(before, BLOG);
         before.remove(renamedBlog);
-        before.add(renamedBlog.withName("Renamed " + renamedBlog.getName()));
-        app.menuEditor().renameItem(renamedBlog); // здесь нужно переделать метод что бы с помощью него я мог переименовать любую item в menu editor и после этого переименовать метод на renameItem
+        before.add(renamedBlog.withName("Renamed test blog (*Selenium*)"));
+        app.menuEditor().renameItem(renamedBlog);
         Set<MenuEditorItem> after = app.menuEditor().allItems();
         Assert.assertEquals(after.size(), before.size());
 
@@ -34,7 +36,7 @@ public class RenameBlogTest extends TestBase {
     @AfterMethod
     public void returnBackCondition() {
         Set<MenuEditorItem> items = app.menuEditor().allItems();
-        MenuEditorItem renamedBlog = MenuEditorItem.getItem(items, MenuEditorItem.Type.BLOG);
+        MenuEditorItem renamedBlog = MenuEditorItem.getItem(items, BLOG);
         items.remove(renamedBlog);
         items.add(renamedBlog.withName(app.blogName));
         app.menuEditor().renameItem(renamedBlog);

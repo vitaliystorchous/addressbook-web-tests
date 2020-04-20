@@ -18,12 +18,12 @@ public class RenameRandomMenuEditorItemTest extends TestBase {
     }
 
     @Test (enabled = false)
-    public void testRenameCustomPage() {
+    public void test() {
         Set<MenuEditorItem> before = app.menuEditor().allItems();
         MenuEditorItem renamedItem = before.iterator().next();
         before.remove(renamedItem);
         before.add(renamedItem.withName(newPageName));
-        app.menuEditor().renameItem(renamedItem); // здесь нужно переделать метод что бы с помощью него я мог переименовать любую item в menu editor и после этого переименовать метод на renameItem
+        app.menuEditor().renameItem(renamedItem);
         Set<MenuEditorItem> after = app.menuEditor().allItems();
         Assert.assertEquals(after.size(), before.size());
 

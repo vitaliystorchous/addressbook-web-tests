@@ -26,7 +26,7 @@ public class RenameCustomPageTest extends TestBase {
     }
 
     @Test
-    public void testRenameCustomPage() {
+    public void test() {
         Items before = app.menuEditor().allItems();
         MenuEditorItem renamedCustomPage = MenuEditorItem.getItem(before, CUSTOM_PAGE, app.customPageName);
         MenuEditorItem customPage =

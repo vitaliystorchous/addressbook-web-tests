@@ -6,6 +6,7 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.stqa.pft.addressbook.model.Items;
 import ru.stqa.pft.addressbook.model.MenuEditorItem;
 import ru.stqa.pft.addressbook.model.MenuEditorItem.Type;
@@ -78,6 +79,7 @@ public class MenuEditorHelper extends HelperBase {
             }
         }
         click(By.cssSelector(".btn-red"));
+        itemCache = null;
     }
 
     public void renameSelectedPage(String pageName, String newName) {
@@ -118,7 +120,7 @@ public class MenuEditorHelper extends HelperBase {
         }
 
         click(By.cssSelector(".btn-primarycolor"));
-
+        itemCache = null;
     }
 
     public void openSelectedPageInPageEditor(String pageName) {
@@ -181,6 +183,7 @@ public class MenuEditorHelper extends HelperBase {
 
             case EXTERNAL_LINK: {
                 int itemsCount = getItemsCount();
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input#link-title")));
                 type(By.cssSelector("input#link-title"), item.getName());
                 type(By.cssSelector("input#link-url"), "https://www.google.com/");
                 click(By.cssSelector(".btn-primarycolor"));
@@ -188,6 +191,7 @@ public class MenuEditorHelper extends HelperBase {
                 break;
             }
         }
+        itemCache = null;
     }
 
     private void waitItemsCountIncreased(int itemsCount, long waitDurationSec) {
@@ -244,8 +248,14 @@ public class MenuEditorHelper extends HelperBase {
         return false;
     }
 
+    private Items itemCache = null;
+
     public Items allItems() {
-        Items items = new Items();
+        if (itemCache != null) {
+            return new Items(itemCache);
+        }
+
+        itemCache = new Items();
         List<WebElement> elements = wd.findElements(By.cssSelector(".site-menu-editor-item-flex-wrap"));
 
         wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
@@ -256,10 +266,10 @@ public class MenuEditorHelper extends HelperBase {
             MenuEditorItem item = new MenuEditorItem().withDataId(elementDataId).withType(type).withName(elementName);
             item.withHomepage(element.findElements(By.xpath(".//*[contains(@class, 'site-menu-editor-item-home-icon')]")).size() != 0);
             item.withInMenu(element.findElements(By.xpath("./../../../*[contains(@class, 'pages-editor-sortable-wrap--in-menu')]")).size() != 0);
-            items.add(item);
+            itemCache.add(item);
         }
         wd.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
-        return items;
+        return new Items(itemCache);
     }
 
     public boolean isItemPresent(Type type) {
