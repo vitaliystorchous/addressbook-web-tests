@@ -1,10 +1,7 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.jetbrains.annotations.NotNull;
-import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import ru.stqa.pft.addressbook.model.Items;
 import ru.stqa.pft.addressbook.model.MenuEditorItem;
@@ -36,7 +33,9 @@ public class MenuEditorHelper extends HelperBase {
     }
 
     private void clickMoreOptionsByItemId(int dataId) {
-        wd.findElement(By.xpath("//*[contains(@data-id, '" + dataId +"')]//button[contains(@class, 'site-menu-item-actions-cta')]")).click();
+        WebElement element = wd.findElement(By.xpath("//*[contains(@data-id, '" + dataId +"')]//button[contains(@class, 'site-menu-item-actions-cta')]"));
+        ((JavascriptExecutor)wd).executeScript("arguments[0].scrollIntoView();", element);
+        element.click();
     }
 
     private void clickEditById(int dataId) {

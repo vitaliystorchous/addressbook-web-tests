@@ -12,6 +12,7 @@ import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 import static ru.stqa.pft.addressbook.model.MenuEditorItem.Type.GALLERY;
 
 public class DeleteGalleryTest extends TestBase {
@@ -29,7 +30,7 @@ public class DeleteGalleryTest extends TestBase {
         Items before = app.menuEditor().allItems();
         MenuEditorItem gallery = MenuEditorItem.getItem(before, GALLERY);
         app.menuEditor().deleteItem(gallery);
-        Assert.assertEquals(app.menuEditor().itemsCount(), before.size() - 1);
+        assertEquals(app.menuEditor().itemsCount(), before.size() - 1);
         Items after = app.menuEditor().allItems();
         assertThat(after, equalTo(before.without(gallery)));
     }
