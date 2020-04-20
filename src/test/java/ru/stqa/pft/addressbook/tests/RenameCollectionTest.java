@@ -1,12 +1,18 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.stqa.pft.addressbook.model.Items;
 import ru.stqa.pft.addressbook.model.MenuEditorItem;
 
 import java.util.Set;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 import static ru.stqa.pft.addressbook.model.MenuEditorItem.Type.COLLECTION;
 
 public class RenameCollectionTest extends TestBase {
@@ -21,14 +27,12 @@ public class RenameCollectionTest extends TestBase {
 
     @Test
     public void test() {
-        Set<MenuEditorItem> before = app.menuEditor().allItems();
-        MenuEditorItem renamedCollection = MenuEditorItem.getItem(before, COLLECTION, app.collectionName);
-        before.remove(renamedCollection);
-        before.add(renamedCollection.withName("Renamed test collection (*Selenium)"));
-        app.menuEditor().renameItem(renamedCollection);
-        Set<MenuEditorItem> after = app.menuEditor().allItems();
-        Assert.assertEquals(after.size(), before.size());
-
-        Assert.assertEquals(after, before);
+        Items before = app.menuEditor().allItems();
+        MenuEditorItem collectionToRename = MenuEditorItem.getItem(before, COLLECTION, app.collectionName);
+        MenuEditorItem renamedCollection = collectionToRename.withName("Renamed test collection (*Selenium)");
+        app.menuEditor().renameItem(collectionToRename);
+        assertEquals(app.menuEditor().itemsCount(), before.size());
+        Items after = app.menuEditor().allItems();
+        assertThat(after, equalTo(before.without(collectionToRename).withAdded(renamedCollection)));
     }
 }
