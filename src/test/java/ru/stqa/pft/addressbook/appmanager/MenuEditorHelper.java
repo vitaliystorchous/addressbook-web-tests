@@ -14,6 +14,9 @@ import ru.stqa.pft.addressbook.model.MenuEditorItem.Type;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
+
 public class MenuEditorHelper extends HelperBase {
 
     NavigationHelper goTo = new NavigationHelper(wd);
@@ -183,7 +186,7 @@ public class MenuEditorHelper extends HelperBase {
 
             case EXTERNAL_LINK: {
                 int itemsCount = getItemsCount();
-                wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input#link-title")));
+                wait.until(elementToBeClickable(By.cssSelector("input#link-title")));
                 type(By.cssSelector("input#link-title"), item.getName());
                 type(By.cssSelector("input#link-url"), "https://www.google.com/");
                 click(By.cssSelector(".btn-primarycolor"));
