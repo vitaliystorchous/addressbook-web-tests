@@ -25,10 +25,22 @@ task testCreateItems(type: Test) {
     useTestNG() {
         suites 'src/test/resources/testng-create.xml'
     }
+    if (project.hasProperty('browser')) {
+        systemProperty 'browser', "${browser}"
+    }
+    if (project.hasProperty('target')) {
+        systemProperty 'target', "${target}"
+    }
 }
 
 task testRenameItems(type: Test) {
     useTestNG() {
         suites 'src/test/resources/testng-rename.xml'
+    }
+    if (project.hasProperty('browser')) {
+        systemProperty 'browser', "${browser}"
+    }
+    if (project.hasProperty('target')) {
+        systemProperty 'target', "${target}"
     }
 }

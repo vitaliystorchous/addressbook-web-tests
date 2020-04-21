@@ -8,23 +8,23 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.remote.BrowserType;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import ru.stqa.pft.addressbook.model.LoginData;
 
 import java.io.File;
-import java.time.Duration;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
 
+    private final Properties properties;
     private SessionHelper sessionHelper;
     private WebDriver wd;
     private NavigationHelper navigationHelper;
     private MenuEditorHelper menuEditorHelper;
     private StoreHelper storeHelper;
     private BlogEditorHelper blogEditorHelper;
-    String login = "rufjtigk+88@gmail.com";
-    String password = "qweriuyt";
     public String customPageName = "Test custom page (*Selenium*)";
     public String galleryName = "Test gallery (*Selenium*)";
     public String collectionName = "Test collection (*Selenium*)";
@@ -41,9 +41,14 @@ public class ApplicationManager {
 
     public ApplicationManager(String browser) {
         this.browser = browser;
+        properties = new Properties();
+
     }
 
-    public void init() {
+    public void init() throws IOException {
+        String target = System.getProperty("target", "local");
+        properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
+
         if (browser.equals(BrowserType.CHROME)) {
             wd = new ChromeDriver();
         } else if (browser.equals(BrowserType.FIREFOX)) {
@@ -60,14 +65,14 @@ public class ApplicationManager {
 
         wd.manage().window().setSize(dimension);
         wd.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        wd.get("https://www.format.com/");
+        wd.get(properties.getProperty("web.baseUrl"));
         menuEditorHelper = new MenuEditorHelper(wd);
         navigationHelper = new NavigationHelper(wd);
         pageEditorHelper = new PageEditorHelper(wd);
         storeHelper = new StoreHelper(wd);
         blogEditorHelper = new BlogEditorHelper(wd);
         sessionHelper = new SessionHelper(wd);
-        sessionHelper.login(new LoginData(login, password));
+        sessionHelper.login(properties.getProperty("web.login"), properties.getProperty("web.password"));
     }
 
 

@@ -3,10 +3,6 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import ru.stqa.pft.addressbook.model.LoginData;
-
-import java.time.Duration;
 
 public class SessionHelper extends HelperBase {
 
@@ -14,10 +10,10 @@ public class SessionHelper extends HelperBase {
         super(wd);
     }
 
-    public void login(LoginData loginData) {
+    public void login(String login, String password) {
         click(By.cssSelector(".navbar__link--login"));
-        type(By.id("email"), loginData.getLogin());
-        type(By.id("password"), loginData.getPassword());
+        type(By.id("email"), login);
+        type(By.id("password"), password);
         click(By.xpath("//form[@class=\"js-login-form\"]//input[@value=\"Log in\"]"));
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@class=\"font-ui sites dashboard\"]")));
     }
