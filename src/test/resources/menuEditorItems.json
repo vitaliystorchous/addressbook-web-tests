@@ -1,10 +1,6 @@
 [
   {
-    "type": "COLLECTION",
-    "name": "Test collection 0 (*Selenium*)"
-  },
-  {
-    "type": "COLLECTION",
-    "name": "Test collection 1 (*Selenium*)"
+    "type": "CUSTOM_PAGE",
+    "name": "Test custom page 0 (*Selenium*)"
   }
 ]
