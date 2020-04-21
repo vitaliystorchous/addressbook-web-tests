@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Suite1" verbose="1" >
+    <test name="Rename menu editor items" >
+        <classes>
+            <class name="ru.stqa.pft.addressbook.tests.RenameGalleryTest"></class>
+            <class name="ru.stqa.pft.addressbook.tests.RenameCollectionTest"></class>
+            <class name="ru.stqa.pft.addressbook.tests.RenameCustomPageTest"></class>
+            <class name="ru.stqa.pft.addressbook.tests.RenameExternalLinkTest"></class>
+            <class name="ru.stqa.pft.addressbook.tests.RenameProofingProjectTest"></class>
+            <class name="ru.stqa.pft.addressbook.tests.RenameSubmenuTest"></class>
+            <class name="ru.stqa.pft.addressbook.tests.RenameStoreTest"></class>
+            <class name="ru.stqa.pft.addressbook.tests.RenameBlogTest"></class>
+        </classes>
+    </test>
+</suite>

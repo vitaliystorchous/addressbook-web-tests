@@ -20,3 +20,15 @@ dependencies {
     implementation 'com.thoughtworks.xstream:xstream:1.4.12'
     implementation 'com.google.code.gson:gson:2.8.6'
 }
+
+task testCreateItems(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/testng-create.xml'
+    }
+}
+
+task testRenameItems(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/testng-rename.xml'
+    }
+}
