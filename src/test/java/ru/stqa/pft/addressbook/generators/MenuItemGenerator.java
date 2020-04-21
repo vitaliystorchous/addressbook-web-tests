@@ -61,26 +61,26 @@ public class MenuItemGenerator {
     private void saveAsJson(List<MenuEditorItem> items, File file) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(items);
-        Writer writer = new FileWriter(file);
-        writer.write(json);
-        writer.close();
+        try (Writer writer = new FileWriter(file)){
+            writer.write(json);
+        }
     }
 
     private void saveAsXml(List<MenuEditorItem> items, File file) throws IOException {
         XStream xstream = new XStream();
         xstream.processAnnotations(MenuEditorItem.class);
         String xml = xstream.toXML(items);
-        Writer writer = new FileWriter(file);
-        writer.write(xml);
-        writer.close();
+        try (Writer writer = new FileWriter(file)) {
+            writer.write(xml);
+        }
     }
 
     private void saveAsCsv(List<MenuEditorItem> items, File file) throws IOException {
-        Writer writer = new FileWriter(file);
-        for(MenuEditorItem item : items) {
-            writer.write(String.format("%s;%s\n", item.getType(), item.getName()));
+        try (Writer writer = new FileWriter(file)) {
+            for (MenuEditorItem item : items) {
+                writer.write(String.format("%s;%s\n", item.getType(), item.getName()));
+            }
         }
-        writer.close();
     }
 
     private List<MenuEditorItem> generateItems(String type1, int count1) {

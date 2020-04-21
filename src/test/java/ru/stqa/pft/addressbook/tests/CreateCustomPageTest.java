@@ -25,31 +25,34 @@ public class CreateCustomPageTest extends TestBase {
 
     @DataProvider
     public Iterator<Object[]> validItemsFromXmlFromJson() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/menuEditorItems.json")));
-        String json = "";
-        String line = reader.readLine();
-        while (line != null) {
-            json += line;
-            line = reader.readLine();
+        try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/menuEditorItems.json")))) {
+            String json = "";
+            String line = reader.readLine();
+            while (line != null) {
+                json += line;
+                line = reader.readLine();
+            }
+            Gson gson = new Gson();
+            List<MenuEditorItem> items = gson.fromJson(json, new TypeToken<List<MenuEditorItem>>() {
+            }.getType()); //List<MenuEditorItem>.class
+            return items.stream().map((i) -> new Object[]{i}).collect(Collectors.toList()).iterator();
         }
-        Gson gson = new Gson();
-        List<MenuEditorItem> items = gson.fromJson(json, new TypeToken<List<MenuEditorItem>>(){}.getType()); //List<MenuEditorItem>.class
-        return items.stream().map((i) -> new Object[] {i}).collect(Collectors.toList()).iterator();
     }
 
     @DataProvider
     public Iterator<Object[]> validItemsFromXml() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/menuEditorItems.xml")));
-        String xml = "";
-        String line = reader.readLine();
-        while (line != null) {
-            xml += line;
-            line = reader.readLine();
+        try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/menuEditorItems.xml")))) {
+            String xml = "";
+            String line = reader.readLine();
+            while (line != null) {
+                xml += line;
+                line = reader.readLine();
+            }
+            XStream xstream = new XStream();
+            xstream.processAnnotations(MenuEditorItem.class);
+            List<MenuEditorItem> items = (List<MenuEditorItem>) xstream.fromXML(xml);
+            return items.stream().map((i) -> new Object[]{i}).collect(Collectors.toList()).iterator();
         }
-        XStream xstream = new XStream();
-        xstream.processAnnotations(MenuEditorItem.class);
-        List<MenuEditorItem> items = (List<MenuEditorItem>) xstream.fromXML(xml);
-        return items.stream().map((i) -> new Object[] {i}).collect(Collectors.toList()).iterator();
     }
 
     @Test (dataProvider = "validItemsFromXmlFromJson")
