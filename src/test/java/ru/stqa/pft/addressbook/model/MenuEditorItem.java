@@ -1,5 +1,6 @@
 package ru.stqa.pft.addressbook.model;
 
+import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
@@ -24,7 +25,9 @@ public class MenuEditorItem {
 
     @XStreamOmitField
     int dataId = Integer.MAX_VALUE;
+    @Expose
     Type type;
+    @Expose
     String name;
     @XStreamOmitField
     boolean homepage;
