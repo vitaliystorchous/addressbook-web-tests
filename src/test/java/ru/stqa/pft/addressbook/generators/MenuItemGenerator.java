@@ -26,6 +26,60 @@ public class MenuItemGenerator {
     @Parameter (names = "-c1", description = "Amount of items with first type")
     public int count1;
 
+    @Parameter (names = "-t2", description = "Second type of items")
+    public String type2;
+
+    @Parameter (names = "-c2", description = "Amount of items with second type")
+    public int count2;
+
+    @Parameter (names = "-t3", description = "3rd type of items")
+    public String type3;
+
+    @Parameter (names = "-c3", description = "Amount of items with 3rd type")
+    public int count3;
+
+    @Parameter (names = "-t4", description = "4th type of items")
+    public String type4;
+
+    @Parameter (names = "-c4", description = "Amount of items with 4th type")
+    public int count4;
+
+    @Parameter (names = "-t5", description = "5th type of items")
+    public String type5;
+
+    @Parameter (names = "-c5", description = "Amount of items with 5th type")
+    public int count5;
+
+    @Parameter (names = "-t6", description = "6th type of items")
+    public String type6;
+
+    @Parameter (names = "-c6", description = "Amount of items with 6th type")
+    public int count6;
+
+    @Parameter (names = "-t7", description = "7th type of items")
+    public String type7;
+
+    @Parameter (names = "-c7", description = "Amount of items with 7th type")
+    public int count7;
+
+    @Parameter (names = "-t8", description = "8th type of items")
+    public String type8;
+
+    @Parameter (names = "-c8", description = "Amount of items with 8th type")
+    public int count8;
+
+    @Parameter (names = "-t9", description = "9th type of items")
+    public String type9;
+
+    @Parameter (names = "-c9", description = "Amount of items with 9th type")
+    public int count9;
+
+    @Parameter (names = "-t10", description = "10th type of items")
+    public String type10;
+
+    @Parameter (names = "-c10", description = "Amount of items with 10th type")
+    public int count10;
+
     @Parameter (names = "-f", description = "Target file")
     public String file;
 
@@ -46,7 +100,18 @@ public class MenuItemGenerator {
     }
 
     private void run() throws IOException {
-        List<MenuEditorItem> items = generateItems(type1, count1);
+        List<MenuEditorItem> items = new ArrayList<>();
+        generateItems(items, type1, count1);
+        if(type2 != null && count2 > 0) { generateItems(items, type2, count2); }
+        if(type3 != null && count3 > 0) { generateItems(items, type3, count3); }
+        if(type4 != null && count4 > 0) { generateItems(items, type4, count4); }
+        if(type5 != null && count5 > 0) { generateItems(items, type5, count5); }
+        if(type6 != null && count6 > 0) { generateItems(items, type6, count6); }
+        if(type7 != null && count7 > 0) { generateItems(items, type7, count7); }
+        if(type8 != null && count8 > 0) { generateItems(items, type8, count8); }
+        if(type9 != null && count9 > 0) { generateItems(items, type9, count9); }
+        if(type10 != null && count10 > 0) { generateItems(items, type10, count10); }
+
         if (format.equals("csv")) {
             saveAsCsv(items, new File(file));
         } else if (format.equals("xml")) {
@@ -83,10 +148,9 @@ public class MenuItemGenerator {
         }
     }
 
-    private List<MenuEditorItem> generateItems(String type1, int count1) {
+    private List<MenuEditorItem> generateItems(List<MenuEditorItem> items, String type1, int count1) {
         Type type = getType(type1);
         if(type == STORE || type == BLOG) { count1 = 1; }
-        List<MenuEditorItem> items = new ArrayList<>();
         for (int i = 0; i < count1; i++) {
             items.add(new MenuEditorItem().withType(type).withName(String.format("Test " + type1 + " %s (*Selenium*)", i)));
         }
