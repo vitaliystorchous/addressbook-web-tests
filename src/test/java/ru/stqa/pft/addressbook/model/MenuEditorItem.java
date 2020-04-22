@@ -3,11 +3,16 @@ package ru.stqa.pft.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.ColumnTransformer;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @XStreamAlias("item")
+@Entity
+@Table (name = "menueditoritems")
 public class MenuEditorItem {
 
     public enum Type {
@@ -24,14 +29,22 @@ public class MenuEditorItem {
     }
 
     @XStreamOmitField
+    @Id
+    @Column (name = "dataId")
     int dataId = Integer.MAX_VALUE;
     @Expose
+    @Column (name = "type")
+    @ColumnTransformer(read = "UPPER(type)")
+    @Enumerated(EnumType.STRING)
     Type type;
     @Expose
+    @Column (name = "name")
     String name;
     @XStreamOmitField
+    @Column (name = "homepage")
     boolean homepage;
     @XStreamOmitField
+    @Column (name = "inMenu")
     boolean inMenu;
     //нужно создать еще подклас, наследник данного класа, который будет содержать дополнительные атрибуты для элемента External link
 
