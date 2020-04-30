@@ -1,0 +1,42 @@
+[
+  {
+    "type": "CUSTOM_PAGE",
+    "name": "Test custom page 0 (*Selenium*)"
+  },
+  {
+    "type": "GALLERY",
+    "name": "Test gallery 0 (*Selenium*)"
+  },
+  {
+    "type": "COLLECTION",
+    "name": "Test collection 0 (*Selenium*)"
+  },
+  {
+    "type": "BLOG_POST",
+    "name": "Test blog post 0 (*Selenium*)"
+  },
+  {
+    "type": "EXTERNAL_LINK",
+    "name": "Test external link 0 (*Selenium*)"
+  },
+  {
+    "type": "PROOFING_PROJECT",
+    "name": "Test proofing project 0 (*Selenium*)"
+  },
+  {
+    "type": "SUBMENU",
+    "name": "Test submenu 0 (*Selenium*)"
+  },
+  {
+    "type": "STORE_PRODUCT",
+    "name": "Test store product 0 (*Selenium*)"
+  },
+  {
+    "type": "STORE",
+    "name": "Test store 0 (*Selenium*)"
+  },
+  {
+    "type": "BLOG",
+    "name": "Test blog 0 (*Selenium*)"
+  }
+]
