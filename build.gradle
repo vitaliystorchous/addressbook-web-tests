@@ -24,6 +24,10 @@ dependencies {
     implementation 'org.hibernate:hibernate-core:5.4.10.Final'
 }
 
+test {
+    useTestNG()
+}
+
 task testCreateItems(type: Test) {
     useTestNG() {
         suites 'src/test/resources/testng-create.xml'
