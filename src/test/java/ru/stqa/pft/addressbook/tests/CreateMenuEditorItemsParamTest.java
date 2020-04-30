@@ -23,7 +23,7 @@ import static ru.stqa.pft.addressbook.model.MenuEditorItem.Type.*;
 public class CreateMenuEditorItemsParamTest extends TestBase {
 
     @DataProvider
-    public Iterator<Object[]> validItemsFromXmlFromJson() throws IOException {
+    public Iterator<Object[]> validItemsFromJson() throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/menuEditorItems.json")))) {
             String json = "";
             String line = reader.readLine();
@@ -54,7 +54,7 @@ public class CreateMenuEditorItemsParamTest extends TestBase {
         }
     }
 
-    @Test(dataProvider = "validItemsFromXmlFromJson")
+    @Test(dataProvider = "validItemsFromJson", enabled = false)
     public void createMenuEditorItem(MenuEditorItem item) {
         app.goTo().pagesPage();
         Items before = app.menuEditor().allItems();
