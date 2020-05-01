@@ -1,9 +1,6 @@
 package ru.stqa.pft.addressbook.appmanager;
 
-import org.openqa.selenium.Capabilities;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.Platform;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -112,4 +109,8 @@ public class ApplicationManager {
     public StoreHelper getStoreHelper() { return storeHelper; }
 
     public BlogEditorHelper getBlogEditorHelper() { return blogEditorHelper; }
+
+    public byte[] takeScreenshot() {
+        return ((TakesScreenshot) wd).getScreenshotAs(OutputType.BYTES);
+    }
 }

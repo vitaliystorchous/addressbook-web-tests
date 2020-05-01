@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.stqa.pft.addressbook.tests.CreateCustomPageTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-05-01T17:15:00" hostname="v-starchous-pc" time="10.579">
+  <properties/>
+  <testcase name="createCustomPage" classname="ru.stqa.pft.addressbook.tests.CreateCustomPageTest" time="10.579"/>
+  <system-out><![CDATA[20:15:00.406 [Test worker] INFO  r.s.pft.addressbook.tests.TestBase - Start test createCustomPage with parameters []
+20:15:11.028 [Test worker] INFO  r.s.pft.addressbook.tests.TestBase - Stop test createCustomPage
+]]></system-out>
+  <system-err><![CDATA[[1588353303.932][SEVERE]: Timed out receiving message from renderer: 0.100
+[1588353304.678][SEVERE]: Timed out receiving message from renderer: 0.100
+[1588353305.265][SEVERE]: Timed out receiving message from renderer: 0.100
+[1588353305.475][SEVERE]: Timed out receiving message from renderer: 0.100
+[1588353305.673][SEVERE]: Timed out receiving message from renderer: 0.100
+[1588353305.774][SEVERE]: Timed out receiving message from renderer: 0.100
+[1588353308.287][SEVERE]: Timed out receiving message from renderer: 0.100
+[1588353308.388][SEVERE]: Timed out receiving message from renderer: 0.100
+[1588353308.497][SEVERE]: Timed out receiving message from renderer: 0.100
+[1588353308.599][SEVERE]: Timed out receiving message from renderer: 0.100
+[1588353308.704][SEVERE]: Timed out receiving message from renderer: 0.100
+[1588353308.936][SEVERE]: Timed out receiving message from renderer: 0.100
+]]></system-err>
+</testsuite>

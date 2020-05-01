@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.stqa.pft.addressbook.tests.CreateGalleryTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-05-01T17:14:44" hostname="v-starchous-pc" time="16.023">
+  <properties/>
+  <testcase name="test" classname="ru.stqa.pft.addressbook.tests.CreateGalleryTest" time="16.023"/>
+  <system-out><![CDATA[20:14:43.943 [Test worker] INFO  r.s.pft.addressbook.tests.TestBase - Start test test with parameters []
+20:15:00.367 [Test worker] INFO  r.s.pft.addressbook.tests.TestBase - Stop test test
+]]></system-out>
+  <system-err><![CDATA[[1588353286.311][SEVERE]: Timed out receiving message from renderer: 0.100
+[1588353287.357][SEVERE]: Timed out receiving message from renderer: 0.100
+[1588353287.458][SEVERE]: Timed out receiving message from renderer: 0.100
+[1588353287.559][SEVERE]: Timed out receiving message from renderer: 0.100
+[1588353287.661][SEVERE]: Timed out receiving message from renderer: 0.100
+[1588353287.764][SEVERE]: Timed out receiving message from renderer: 0.100
+[1588353287.865][SEVERE]: Timed out receiving message from renderer: 0.100
+[1588353288.078][SEVERE]: Timed out receiving message from renderer: 0.100
+[1588353288.179][SEVERE]: Timed out receiving message from renderer: 0.100
+[1588353288.510][SEVERE]: Timed out receiving message from renderer: 0.100
+[1588353288.611][SEVERE]: Timed out receiving message from renderer: 0.100
+[1588353294.015][SEVERE]: Timed out receiving message from renderer: 0.100
+[1588353294.263][SEVERE]: Timed out receiving message from renderer: 0.100
+[1588353294.849][SEVERE]: Timed out receiving message from renderer: 0.100
+[1588353295.309][SEVERE]: Timed out receiving message from renderer: 0.100
+[1588353295.410][SEVERE]: Timed out receiving message from renderer: 0.100
+[1588353297.064][SEVERE]: Timed out receiving message from renderer: 0.100
+[1588353297.290][SEVERE]: Timed out receiving message from renderer: 0.100
+[1588353297.758][SEVERE]: Timed out receiving message from renderer: 0.100
+[1588353297.860][SEVERE]: Timed out receiving message from renderer: 0.100
+[1588353297.962][SEVERE]: Timed out receiving message from renderer: 0.100
+[1588353298.264][SEVERE]: Timed out receiving message from renderer: 0.100
+]]></system-err>
+</testsuite>

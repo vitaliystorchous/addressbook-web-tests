@@ -4,6 +4,8 @@
     <test name="Delete menu editor items" >
         <classes>
             <class name="ru.stqa.pft.addressbook.tests.DeleteGalleryTest"></class>
+            <class name="ru.stqa.pft.addressbook.tests.DeleteCustomPageTest"></class>
+            <class name="ru.stqa.pft.addressbook.tests.DeleteSubmenuTest"></class>
         </classes>
     </test>
 </suite>

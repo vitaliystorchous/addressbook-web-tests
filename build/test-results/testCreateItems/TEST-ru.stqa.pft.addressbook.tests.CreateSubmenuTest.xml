@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.stqa.pft.addressbook.tests.CreateSubmenuTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-05-01T17:15:11" hostname="v-starchous-pc" time="3.492">
+  <properties/>
+  <testcase name="test" classname="ru.stqa.pft.addressbook.tests.CreateSubmenuTest" time="3.492"/>
+  <system-out><![CDATA[20:15:11.031 [Test worker] INFO  r.s.pft.addressbook.tests.TestBase - Start test test with parameters []
+20:15:14.527 [Test worker] INFO  r.s.pft.addressbook.tests.TestBase - Stop test test
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
