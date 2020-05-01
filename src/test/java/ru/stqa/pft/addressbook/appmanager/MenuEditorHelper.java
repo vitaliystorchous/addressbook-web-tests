@@ -3,6 +3,7 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.stqa.pft.addressbook.model.Items;
 import ru.stqa.pft.addressbook.model.MenuEditorItem;
 import ru.stqa.pft.addressbook.model.MenuEditorItem.Type;
@@ -13,6 +14,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class MenuEditorHelper extends HelperBase {
 
@@ -90,7 +92,10 @@ public class MenuEditorHelper extends HelperBase {
                 try {
                     click(By.cssSelector(selector));
                 } catch (StaleElementReferenceException | NoSuchElementException | ElementClickInterceptedException ex) {
-                    if(wd.findElements(By.cssSelector(".site-menu-editor-item-actions div+li")).size() == 0) { clickMoreOptionsByItemId(item.getDataId()); }
+                    if(wd.findElements(By.cssSelector(".site-menu-editor-item-actions div+li")).size() == 0) {
+                        clickMoreOptionsByItemId(item.getDataId());
+                        wait.until(visibilityOfElementLocated(By.cssSelector(selector)));
+                    }
                     click(By.cssSelector(selector));
                 }
 
