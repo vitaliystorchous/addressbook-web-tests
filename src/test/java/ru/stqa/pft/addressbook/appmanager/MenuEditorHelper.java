@@ -89,8 +89,8 @@ public class MenuEditorHelper extends HelperBase {
                 actions.perform();
                 try {
                     click(By.cssSelector(selector));
-                } catch (StaleElementReferenceException | NoSuchElementException ex) {
-                    clickMoreOptionsByItemId(item.getDataId());
+                } catch (StaleElementReferenceException | NoSuchElementException | ElementClickInterceptedException ex) {
+                    if(wd.findElements(By.cssSelector(".site-menu-editor-item-actions div+li")).size() == 0) { clickMoreOptionsByItemId(item.getDataId()); }
                     click(By.cssSelector(selector));
                 }
 
