@@ -94,7 +94,7 @@ public class MenuEditorHelper extends HelperBase {
                 } catch (StaleElementReferenceException | NoSuchElementException | ElementClickInterceptedException ex) {
                     if(wd.findElements(By.cssSelector(".site-menu-editor-item-actions div+li")).size() == 0) {
                         clickMoreOptionsByItemId(item.getDataId());
-                        wait.until(visibilityOfElementLocated(By.cssSelector(selector)));
+                        wait.until(elementToBeClickable(By.cssSelector(selector)));
                     }
                     click(By.cssSelector(selector));
                 }
