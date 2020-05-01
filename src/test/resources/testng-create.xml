@@ -4,11 +4,6 @@
     <test name="Create menu editor items" >
         <classes>
             <class name="ru.stqa.pft.addressbook.tests.CreateGalleryTest"></class>
-            <class name="ru.stqa.pft.addressbook.tests.CreateCollectionTest"></class>
-            <class name="ru.stqa.pft.addressbook.tests.CreateCustomPageTest"></class>
-            <class name="ru.stqa.pft.addressbook.tests.CreateExternalLinkTest"></class>
-            <class name="ru.stqa.pft.addressbook.tests.CreateProofingProjectTest"></class>
-            <class name="ru.stqa.pft.addressbook.tests.CreateSubmenuTest"></class>
         </classes>
     </test>
 </suite>
