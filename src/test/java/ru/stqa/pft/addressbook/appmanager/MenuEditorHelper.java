@@ -27,10 +27,6 @@ public class MenuEditorHelper extends HelperBase {
         super(wd);
     }
 
-    private void clickMoreOptions(String pageName) {
-        click(By.xpath("//span[contains(.,\"" + pageName +"\")]/../..//button"));
-    }
-
     private void clickMoreOptions(int index) {
         wd.findElements(By.cssSelector(".site-menu-item-actions-cta--meatball-svg")).get(index).click();
     }
@@ -39,16 +35,11 @@ public class MenuEditorHelper extends HelperBase {
         WebElement element = wd.findElement(By.xpath("//*[contains(@data-id, '" + dataId +"')]//button[contains(@class, 'site-menu-item-actions-cta')]"));
         ((JavascriptExecutor)wd).executeScript("arguments[0].scrollIntoView();", element);
         element.click();
+        if(wd.findElements(By.xpath("//ul/li/span")).size() == 0) { element.click(); }
     }
 
     private void clickEditById(int dataId) {
         wd.findElement(By.xpath("//*[contains(@data-id, '" + dataId +"')]//*[contains(@class, 'pages-editor-item__edit-button')]")).click();
-    }
-
-    public void deleteSelectedPage(String pageName) {
-        clickMoreOptions(pageName);
-        click(By.cssSelector(".site-menu-editor-item-actions__action-link--delete-permanently"));
-        click(By.cssSelector(".btn-red"));
     }
 
     public void deleteSelectedPage(int index) {
@@ -85,29 +76,22 @@ public class MenuEditorHelper extends HelperBase {
         itemCache = null;
     }
 
-    public void renameSelectedPage(String pageName, String newName) {
-        clickMoreOptions(pageName);
-        click(By.xpath("//ul/li/span"));
-        type(By.id("page-title"), newName);
-        click(By.cssSelector(".btn-primarycolor"));
-    }
-
     public void renameItem(MenuEditorItem item) {
 
         switch (item.getType()) {
             case BLOG: case STORE: case CUSTOM_PAGE: case COLLECTION: case GALLERY: case PROOFING_PROJECT: {
                 clickMoreOptionsByItemId(item.getDataId());
 
-                String selector = "//ul/li[1]/span";
-                WebElement element = wd.findElement(By.xpath(selector));
+                String selector = ".site-menu-editor-item-actions div+li";
+                WebElement element = wd.findElement(By.cssSelector(selector));
                 Actions actions = new Actions(wd);
                 actions.moveToElement(element);
                 actions.perform();
                 try {
-                    click(By.xpath(selector));
-                } catch (StaleElementReferenceException ex) {
+                    click(By.cssSelector(selector));
+                } catch (StaleElementReferenceException | NoSuchElementException ex) {
                     clickMoreOptionsByItemId(item.getDataId());
-                    click(By.xpath(selector));
+                    click(By.cssSelector(selector));
                 }
 
                 type(By.id("page-title"), item.getName());
@@ -124,20 +108,6 @@ public class MenuEditorHelper extends HelperBase {
 
         click(By.cssSelector(".btn-primarycolor"));
         itemCache = null;
-    }
-
-    public void openSelectedPageInPageEditor(String pageName) {
-        click(By.xpath("//span[contains(.,\"" + pageName + "\")]/../..//a[@class=\"pages-editor-item__edit-button text-12\"]"));
-    }
-
-    public void setSelectedPageAsHomepage(String pageName) {
-        clickMoreOptions(pageName);
-        click(By.xpath("//span[contains(.,'Set as Homepage')]"));
-    }
-
-    public void addSelectedPageToMenu(String pageName) {
-        clickMoreOptions(pageName);
-        click(By.xpath("//span[contains(.,'Add to Menu')]"));
     }
 
     public void createItem(MenuEditorItem item) {
